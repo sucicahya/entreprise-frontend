@@ -86,8 +86,8 @@ function Dashboard(){
   const columns = [
     { key: 'avatar', label: 'Avatar' },
     { key: 'ID_PRODUK', label: 'Product ID' },
-    { key: 'NAMA_APLIKASI', label: 'Application Name' },
-    { key: 'DESKRIPSI_APLIKASI', label: 'Description' },
+    { key: 'NAMA_PRODUK', label: 'Application Name' },
+    { key: 'DESKRIPSI_PRODUK', label: 'Description' },
     { key: 'STATUS', label: 'Status' },
     // { key: 'show_details', label: 'Details' },
     // { key: 'details', label: 'More Details' },
@@ -95,9 +95,9 @@ function Dashboard(){
 
   const data = produk.map(item => ({
     ID_PRODUK: item.ID_PRODUK,
-    NAMA_APLIKASI: item.NAMA_APLIKASI,
-    DESKRIPSI_APLIKASI: item.DESKRIPSI_APLIKASI,
-    STATUS: item.STATUS,
+    NAMA_PRODUK: item.NAMA_PRODUK,
+    DESKRIPSI_PRODUK: item.DESKRIPSI_PRODUK,
+    STATUS: item.FLAG_STATUS,
     show_details: item,
     details: item
   }));
@@ -411,7 +411,7 @@ function Dashboard(){
         <ul>
           {produk.length > 0 ? (
             produk.map(item => (
-              <li key={item.ID_PRODUK}>{item.NAMA_APLIKASI}: {item.DESKRIPSI_APLIKASI}</li>
+              <li key={item.ID_PRODUK}>{item.NAMA_PRODUK}: {item.DESKRIPSI_PRODUK}</li>
             ))
           ) : (
             <li>No data available</li>
