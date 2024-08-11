@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useEffect,useState} from 'react'
+import axios from 'axios';
 import classNames from 'classnames'
 import { CSmartTable, CBadge, CCollapse } from '@coreui/react-pro';
 
@@ -57,282 +58,327 @@ import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import Table from './Table'
 
-const Dashboard = () => {
-  const progressExample = [
-    { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
-    { title: 'Unique', value: '24.093 Users', percent: 20, color: 'info' },
-    { title: 'Pageviews', value: '78.706 Views', percent: 60, color: 'warning' },
-    { title: 'New Users', value: '22.123 Users', percent: 80, color: 'danger' },
-    { title: 'Bounce Rate', value: 'Average Rate', percent: 40.15, color: 'primary' },
-  ]
+function Dashboard(){
+  const [produk, setProduk] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const progressGroupExample1 = [
-    { title: 'Monday', value1: 34, value2: 78 },
-    { title: 'Tuesday', value1: 56, value2: 94 },
-    { title: 'Wednesday', value1: 12, value2: 67 },
-    { title: 'Thursday', value1: 43, value2: 91 },
-    { title: 'Friday', value1: 22, value2: 73 },
-    { title: 'Saturday', value1: 53, value2: 82 },
-    { title: 'Sunday', value1: 9, value2: 69 },
-  ]
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/produk')
+      .then(response => {
+        console.log('Data received:', response.data); // Cek data yang diterima
+        if (Array.isArray(response.data)) {
+          setProduk(response.data);
+        } else {
+          console.error('Data format is not an array:', response.data);
+        }
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
+  }, []);
 
-  const progressGroupExample2 = [
-    { title: 'Male', icon: cilUser, value: 53 },
-    { title: 'Female', icon: cilUserFemale, value: 43 },
-  ]
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  const progressGroupExample3 = [
-    { title: 'Organic Search', icon: cibGoogle, percent: 56, value: '191,235' },
-    { title: 'Facebook', icon: cibFacebook, percent: 15, value: '51,223' },
-    { title: 'Twitter', icon: cibTwitter, percent: 11, value: '37,564' },
-    { title: 'LinkedIn', icon: cibLinkedin, percent: 8, value: '27,319' },
-  ]
-
-  const tableExample = [
-    {
-      avatar: { src: avatar1, STATUS: 'success' },
-      user: {
-        NAMA_PRODUK: 'Yiorgos Avraamu',
-        new: true,
-        IP: 'Jan 1, 2023',
-      },
-      country: { NAMA_PRODUK: 'USA', flag: cifUs },
-      usage: {
-        value: 50,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'success',
-      },
-      payment: { NAMA_PRODUK: 'Mastercard', icon: cibCcMastercard },
-      activity: '10 sec ago',
-    },
-    {
-      avatar: { src: avatar2, STATUS: 'danger' },
-      user: {
-        NAMA_PRODUK: 'Avram Tarasios',
-        new: false,
-        IP: 'Jan 1, 2023',
-      },
-      country: { NAMA_PRODUK: 'Brazil', flag: cifBr },
-      usage: {
-        value: 22,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'info',
-      },
-      payment: { NAMA_PRODUK: 'Visa', icon: cibCcVisa },
-      activity: '5 minutes ago',
-    },
-    {
-      avatar: { src: avatar3, STATUS: 'warning' },
-      user: { NAMA_PRODUK: 'Quintin Ed', new: true, IP: 'Jan 1, 2023' },
-      country: { NAMA_PRODUK: 'India', flag: cifIn },
-      usage: {
-        value: 74,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'warning',
-      },
-      payment: { NAMA_PRODUK: 'Stripe', icon: cibCcStripe },
-      activity: '1 hour ago',
-    },
-    {
-      avatar: { src: avatar4, STATUS: 'secondary' },
-      user: { NAMA_PRODUK: 'Enéas Kwadwo', new: true, IP: 'Jan 1, 2023' },
-      country: { NAMA_PRODUK: 'France', flag: cifFr },
-      usage: {
-        value: 98,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'danger',
-      },
-      payment: { NAMA_PRODUK: 'PayPal', icon: cibCcPaypal },
-      activity: 'Last month',
-    },
-    {
-      avatar: { src: avatar5, STATUS: 'success' },
-      user: {
-        NAMA_PRODUK: 'Agapetus Tadeáš',
-        new: true,
-        IP: 'Jan 1, 2023',
-      },
-      country: { NAMA_PRODUK: 'Spain', flag: cifEs },
-      usage: {
-        value: 22,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'primary',
-      },
-      payment: { NAMA_PRODUK: 'Google Wallet', icon: cibCcApplePay },
-      activity: 'Last week',
-    },
-    {
-      avatar: { src: avatar6, STATUS: 'danger' },
-      user: {
-        NAMA_PRODUK: 'Friderik Dávid',
-        new: true,
-        IP: 'Jan 1, 2023',
-      },
-      country: { NAMA_PRODUK: 'Poland', flag: cifPl },
-      usage: {
-        value: 43,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'success',
-      },
-      payment: { NAMA_PRODUK: 'Amex', icon: cibCcAmex },
-      activity: 'Last week',
-    },
-  ]
-
-  const [details, setDetails] = useState([])
   const columns = [
+    { key: 'avatar', label: 'Avatar' },
+    { key: 'ID_PRODUK', label: 'Product ID' },
+    { key: 'NAMA_APLIKASI', label: 'Application Name' },
+    { key: 'DESKRIPSI_APLIKASI', label: 'Description' },
+    { key: 'STATUS', label: 'Status' },
+    // { key: 'show_details', label: 'Details' },
+    // { key: 'details', label: 'More Details' },
+  ];
+
+  const data = produk.map(item => ({
+    ID_PRODUK: item.ID_PRODUK,
+    NAMA_APLIKASI: item.NAMA_APLIKASI,
+    DESKRIPSI_APLIKASI: item.DESKRIPSI_APLIKASI,
+    STATUS: item.STATUS,
+    show_details: item,
+    details: item
+  }));
+
+
+
+  // const progressExample = [
+  //   { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
+  //   { title: 'Unique', value: '24.093 Users', percent: 20, color: 'info' },
+  //   { title: 'Pageviews', value: '78.706 Views', percent: 60, color: 'warning' },
+  //   { title: 'New Users', value: '22.123 Users', percent: 80, color: 'danger' },
+  //   { title: 'Bounce Rate', value: 'Average Rate', percent: 40.15, color: 'primary' },
+  // ]
+
+  // const progressGroupExample1 = [
+  //   { title: 'Monday', value1: 34, value2: 78 },
+  //   { title: 'Tuesday', value1: 56, value2: 94 },
+  //   { title: 'Wednesday', value1: 12, value2: 67 },
+  //   { title: 'Thursday', value1: 43, value2: 91 },
+  //   { title: 'Friday', value1: 22, value2: 73 },
+  //   { title: 'Saturday', value1: 53, value2: 82 },
+  //   { title: 'Sunday', value1: 9, value2: 69 },
+  // ]
+
+  // const progressGroupExample2 = [
+  //   { title: 'Male', icon: cilUser, value: 53 },
+  //   { title: 'Female', icon: cilUserFemale, value: 43 },
+  // ]
+
+  // const progressGroupExample3 = [
+  //   { title: 'Organic Search', icon: cibGoogle, percent: 56, value: '191,235' },
+  //   { title: 'Facebook', icon: cibFacebook, percent: 15, value: '51,223' },
+  //   { title: 'Twitter', icon: cibTwitter, percent: 11, value: '37,564' },
+  //   { title: 'LinkedIn', icon: cibLinkedin, percent: 8, value: '27,319' },
+  // ]
+
+  // const tableExample = [
+  //   {
+  //     avatar: { src: avatar1, STATUS: 'success' },
+  //     user: {
+  //       NAMA_PRODUK: 'Yiorgos Avraamu',
+  //       new: true,
+  //       IP: 'Jan 1, 2023',
+  //     },
+  //     country: { NAMA_PRODUK: 'USA', flag: cifUs },
+  //     usage: {
+  //       value: 50,
+  //       period: 'Jun 11, 2023 - Jul 10, 2023',
+  //       color: 'success',
+  //     },
+  //     payment: { NAMA_PRODUK: 'Mastercard', icon: cibCcMastercard },
+  //     activity: '10 sec ago',
+  //   },
+  //   {
+  //     avatar: { src: avatar2, STATUS: 'danger' },
+  //     user: {
+  //       NAMA_PRODUK: 'Avram Tarasios',
+  //       new: false,
+  //       IP: 'Jan 1, 2023',
+  //     },
+  //     country: { NAMA_PRODUK: 'Brazil', flag: cifBr },
+  //     usage: {
+  //       value: 22,
+  //       period: 'Jun 11, 2023 - Jul 10, 2023',
+  //       color: 'info',
+  //     },
+  //     payment: { NAMA_PRODUK: 'Visa', icon: cibCcVisa },
+  //     activity: '5 minutes ago',
+  //   },
+  //   {
+  //     avatar: { src: avatar3, STATUS: 'warning' },
+  //     user: { NAMA_PRODUK: 'Quintin Ed', new: true, IP: 'Jan 1, 2023' },
+  //     country: { NAMA_PRODUK: 'India', flag: cifIn },
+  //     usage: {
+  //       value: 74,
+  //       period: 'Jun 11, 2023 - Jul 10, 2023',
+  //       color: 'warning',
+  //     },
+  //     payment: { NAMA_PRODUK: 'Stripe', icon: cibCcStripe },
+  //     activity: '1 hour ago',
+  //   },
+  //   {
+  //     avatar: { src: avatar4, STATUS: 'secondary' },
+  //     user: { NAMA_PRODUK: 'Enéas Kwadwo', new: true, IP: 'Jan 1, 2023' },
+  //     country: { NAMA_PRODUK: 'France', flag: cifFr },
+  //     usage: {
+  //       value: 98,
+  //       period: 'Jun 11, 2023 - Jul 10, 2023',
+  //       color: 'danger',
+  //     },
+  //     payment: { NAMA_PRODUK: 'PayPal', icon: cibCcPaypal },
+  //     activity: 'Last month',
+  //   },
+  //   {
+  //     avatar: { src: avatar5, STATUS: 'success' },
+  //     user: {
+  //       NAMA_PRODUK: 'Agapetus Tadeáš',
+  //       new: true,
+  //       IP: 'Jan 1, 2023',
+  //     },
+  //     country: { NAMA_PRODUK: 'Spain', flag: cifEs },
+  //     usage: {
+  //       value: 22,
+  //       period: 'Jun 11, 2023 - Jul 10, 2023',
+  //       color: 'primary',
+  //     },
+  //     payment: { NAMA_PRODUK: 'Google Wallet', icon: cibCcApplePay },
+  //     activity: 'Last week',
+  //   },
+  //   {
+  //     avatar: { src: avatar6, STATUS: 'danger' },
+  //     user: {
+  //       NAMA_PRODUK: 'Friderik Dávid',
+  //       new: true,
+  //       IP: 'Jan 1, 2023',
+  //     },
+  //     country: { NAMA_PRODUK: 'Poland', flag: cifPl },
+  //     usage: {
+  //       value: 43,
+  //       period: 'Jun 11, 2023 - Jul 10, 2023',
+  //       color: 'success',
+  //     },
+  //     payment: { NAMA_PRODUK: 'Amex', icon: cibCcAmex },
+  //     activity: 'Last week',
+  //   },
+  // ]
+
+  // const [details, setDetails] = useState([])
+  // const columns = [
     // {
     //   key: 'avatar',
     //   label: '',
     //   filter: false,
     //   sorter: false,
     // },
-    {
-      key: 'NAMA_PRODUK',
-      _style: { width: '20%' },
-    },
-    'IP',
-    {
-      key: 'PIC',
-      _style: { width: '20%' }
-    },
-    {
-      key: 'STATUS',
-      _style: { width: '20%' }
-    },
-    {
-      key: 'show_details',
-      label: '',
-      _style: { width: '1%' },
-      filter: false,
-      sorter: false,
-    },
-  ]
-  const usersData = [
-    {
-      id: 1,
-      NAMA_PRODUK: 'Samppa Nori',
-      avatar: '1.jpg',
-      IP: '2022/01/01',
-      PIC: 'Member',
-      STATUS: 'Active',
-    },
-    {
-      id: 2,
-      NAMA_PRODUK: 'EXPLORA',
-      avatar: '2.jpg',
-      IP: '10.27.0.248',
-      PIC: '997492363',
-      STATUS: 'Active',
-    },
-    {
-      id: 3,
-      NAMA_PRODUK: 'Chetan Mohamed',
-      avatar: '3.jpg',
-      IP: '2022/02/07',
-      PIC: 'Admin',
-      STATUS: 'Inactive',
-      _selected: true,
-    },
-    {
-      id: 4,
-      NAMA_PRODUK: 'Derick Maximinus',
-      avatar: '4.jpg',
-      IP: '2022/03/19',
-      PIC: 'Member',
-      STATUS: 'Pending',
-    },
-    {
-      id: 5,
-      NAMA_PRODUK: 'Friderik Dávid',
-      avatar: '5.jpg',
-      IP: '2022/01/21',
-      PIC: 'Staff',
-      STATUS: 'Active'
-    },
-    {
-      id: 6,
-      NAMA_PRODUK: 'Yiorgos Avraamu',
-      avatar: '6.jpg',
-      IP: '2022/01/01',
-      PIC: 'Member',
-      STATUS: 'Active'
-    },
-    {
-      id: 7,
-      NAMA_PRODUK: 'Avram Tarasios',
-      avatar: '7.jpg',
-      IP: '2022/02/07',
-      PIC: 'Staff',
-      STATUS: 'Banned',
-      _selected: true,
-    },
-    {
-      id: 8,
-      NAMA_PRODUK: 'Quintin Ed',
-      avatar: '8.jpg',
-      IP: '2022/02/07',
-      PIC: 'Admin',
-      STATUS: 'Inactive'
-    },
-    {
-      id: 9,
-      NAMA_PRODUK: 'Enéas Kwadwo',
-      avatar: '9.jpg',
-      IP: '2022/03/19',
-      PIC: 'Member',
-      STATUS: 'Pending'
-    },
-    {
-      id: 10,
-      NAMA_PRODUK: 'Agapetus Tadeáš',
-      avatar: '10.jpg',
-      IP: '2022/01/21',
-      PIC: 'Staff',
-      STATUS: 'Active'
-    },
-    {
-      id: 11,
-      NAMA_PRODUK: 'Carwyn Fachtna',
-      avatar: '11.jpg',
-      IP: '2022/01/01',
-      PIC: 'Member',
-      STATUS: 'Active'
-    },
-    {
-      id: 12,
-      NAMA_PRODUK: 'Nehemiah Tatius',
-      avatar: '12.jpg',
-      IP: '2022/02/07',
-      PIC: 'Staff',
-      STATUS: 'Banned',
-      _selected: true,
-    },
-    {
-      id: 13,
-      NAMA_PRODUK: 'Ebbe Gemariah',
-      avatar: '13.jpg',
-      IP: '2022/02/07',
-      PIC: 'Admin',
-      STATUS: 'Inactive'
-    },
-    {
-      id: 14,
-      NAMA_PRODUK: 'Eustorgios Amulius',
-      avatar: '14.jpg',
-      IP: '2022/03/19',
-      PIC: 'Member',
-      STATUS: 'Pending',
-    },
-    {
-      id: 15,
-      NAMA_PRODUK: 'IHSAN',
-      avatar: '15.jpg',
-      IP: '10.27.0.249',
-      PIC: '901494306',
-      STATUS: 'Active'
-    },
-  ]
+  //   {
+  //     key: 'NAMA_PRODUK',
+  //     _style: { width: '20%' },
+  //   },
+  //   'IP',
+  //   {
+  //     key: 'PIC',
+  //     _style: { width: '20%' }
+  //   },
+  //   {
+  //     key: 'STATUS',
+  //     _style: { width: '20%' }
+  //   },
+  //   {
+  //     key: 'show_details',
+  //     label: '',
+  //     _style: { width: '1%' },
+  //     filter: false,
+  //     sorter: false,
+  //   },
+  // ]
+  // const usersData = [
+  //   {
+  //     id: 1,
+  //     NAMA_PRODUK: 'Samppa Nori',
+  //     avatar: '1.jpg',
+  //     IP: '2022/01/01',
+  //     PIC: 'Member',
+  //     STATUS: 'Active',
+  //   },
+  //   {
+  //     id: 2,
+  //     NAMA_PRODUK: 'EXPLORA',
+  //     avatar: '2.jpg',
+  //     IP: '10.27.0.248',
+  //     PIC: '997492363',
+  //     STATUS: 'Active',
+  //   },
+  //   {
+  //     id: 3,
+  //     NAMA_PRODUK: 'Chetan Mohamed',
+  //     avatar: '3.jpg',
+  //     IP: '2022/02/07',
+  //     PIC: 'Admin',
+  //     STATUS: 'Inactive',
+  //     _selected: true,
+  //   },
+  //   {
+  //     id: 4,
+  //     NAMA_PRODUK: 'Derick Maximinus',
+  //     avatar: '4.jpg',
+  //     IP: '2022/03/19',
+  //     PIC: 'Member',
+  //     STATUS: 'Pending',
+  //   },
+  //   {
+  //     id: 5,
+  //     NAMA_PRODUK: 'Friderik Dávid',
+  //     avatar: '5.jpg',
+  //     IP: '2022/01/21',
+  //     PIC: 'Staff',
+  //     STATUS: 'Active'
+  //   },
+  //   {
+  //     id: 6,
+  //     NAMA_PRODUK: 'Yiorgos Avraamu',
+  //     avatar: '6.jpg',
+  //     IP: '2022/01/01',
+  //     PIC: 'Member',
+  //     STATUS: 'Active'
+  //   },
+  //   {
+  //     id: 7,
+  //     NAMA_PRODUK: 'Avram Tarasios',
+  //     avatar: '7.jpg',
+  //     IP: '2022/02/07',
+  //     PIC: 'Staff',
+  //     STATUS: 'Banned',
+  //     _selected: true,
+  //   },
+  //   {
+  //     id: 8,
+  //     NAMA_PRODUK: 'Quintin Ed',
+  //     avatar: '8.jpg',
+  //     IP: '2022/02/07',
+  //     PIC: 'Admin',
+  //     STATUS: 'Inactive'
+  //   },
+  //   {
+  //     id: 9,
+  //     NAMA_PRODUK: 'Enéas Kwadwo',
+  //     avatar: '9.jpg',
+  //     IP: '2022/03/19',
+  //     PIC: 'Member',
+  //     STATUS: 'Pending'
+  //   },
+  //   {
+  //     id: 10,
+  //     NAMA_PRODUK: 'Agapetus Tadeáš',
+  //     avatar: '10.jpg',
+  //     IP: '2022/01/21',
+  //     PIC: 'Staff',
+  //     STATUS: 'Active'
+  //   },
+  //   {
+  //     id: 11,
+  //     NAMA_PRODUK: 'Carwyn Fachtna',
+  //     avatar: '11.jpg',
+  //     IP: '2022/01/01',
+  //     PIC: 'Member',
+  //     STATUS: 'Active'
+  //   },
+  //   {
+  //     id: 12,
+  //     NAMA_PRODUK: 'Nehemiah Tatius',
+  //     avatar: '12.jpg',
+  //     IP: '2022/02/07',
+  //     PIC: 'Staff',
+  //     STATUS: 'Banned',
+  //     _selected: true,
+  //   },
+  //   {
+  //     id: 13,
+  //     NAMA_PRODUK: 'Ebbe Gemariah',
+  //     avatar: '13.jpg',
+  //     IP: '2022/02/07',
+  //     PIC: 'Admin',
+  //     STATUS: 'Inactive'
+  //   },
+  //   {
+  //     id: 14,
+  //     NAMA_PRODUK: 'Eustorgios Amulius',
+  //     avatar: '14.jpg',
+  //     IP: '2022/03/19',
+  //     PIC: 'Member',
+  //     STATUS: 'Pending',
+  //   },
+  //   {
+  //     id: 15,
+  //     NAMA_PRODUK: 'IHSAN',
+  //     avatar: '15.jpg',
+  //     IP: '10.27.0.249',
+  //     PIC: '901494306',
+  //     STATUS: 'Active'
+  //   },
+  // ]
   const getBadge = (STATUS) => {
     switch (STATUS) {
       case 'Active':
@@ -360,6 +406,18 @@ const Dashboard = () => {
 
   return (
     <>
+    <div>
+        <h1>Produk</h1>
+        <ul>
+          {produk.length > 0 ? (
+            produk.map(item => (
+              <li key={item.ID_PRODUK}>{item.NAMA_APLIKASI}: {item.DESKRIPSI_APLIKASI}</li>
+            ))
+          ) : (
+            <li>No data available</li>
+          )}
+        </ul>
+      </div>
       <WidgetsDropdown className="mb-4" />
       <WidgetsBrand className="mb-4" withCharts />
       <CCard className="mb-4">
@@ -399,7 +457,7 @@ const Dashboard = () => {
             xl={{ cols: 5 }}
             className="mb-2 text-center"
           >
-            {progressExample.map((item, index, items) => (
+            {/* {progressExample.map((item, index, items) => (
               <CCol
                 className={classNames({
                   'd-none d-xl-block': index + 1 === items.length,
@@ -412,7 +470,7 @@ const Dashboard = () => {
                 </div>
                 <CProgress thin className="mt-2" color={item.color} value={item.percent} />
               </CCol>
-            ))}
+            ))} */}
           </CRow>
         </CCardFooter>
       </CCard>
@@ -440,7 +498,7 @@ const Dashboard = () => {
                     </CCol>
                   </CRow>
                   <hr className="mt-0" />
-                  {progressGroupExample1.map((item, index) => (
+                  {/* {progressGroupExample1.map((item, index) => (
                     <div className="progress-group mb-4" key={index}>
                       <div className="progress-group-prepend">
                         <span className="text-body-secondary small">{item.title}</span>
@@ -450,7 +508,7 @@ const Dashboard = () => {
                         <CProgress thin color="danger" value={item.value2} />
                       </div>
                     </div>
-                  ))}
+                  ))} */}
                 </CCol>
                 <CCol xs={12} md={6} xl={6}>
                   <CRow>
@@ -470,7 +528,7 @@ const Dashboard = () => {
 
                   <hr className="mt-0" />
 
-                  {progressGroupExample2.map((item, index) => (
+                  {/* {progressGroupExample2.map((item, index) => (
                     <div className="progress-group mb-4" key={index}>
                       <div className="progress-group-header">
                         <CIcon className="me-2" icon={item.icon} size="lg" />
@@ -481,11 +539,11 @@ const Dashboard = () => {
                         <CProgress thin color="warning" value={item.value} />
                       </div>
                     </div>
-                  ))}
+                  ))} */}
 
                   <div className="mb-5"></div>
 
-                  {progressGroupExample3.map((item, index) => (
+                  {/* {progressGroupExample3.map((item, index) => (
                     <div className="progress-group" key={index}>
                       <div className="progress-group-header">
                         <CIcon className="me-2" icon={item.icon} size="lg" />
@@ -499,7 +557,7 @@ const Dashboard = () => {
                         <CProgress thin color="success" value={item.percent} />
                       </div>
                     </div>
-                  ))}
+                  ))} */}
                 </CCol>
               </CRow>
 
@@ -523,7 +581,7 @@ const Dashboard = () => {
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
-                  {tableExample.map((item, index) => (
+                  {/* {tableExample.map((item, index) => (
                     <CTableRow v-for="item in tableItems" key={index}>
                       <CTableDataCell className="text-center">
                         <CAvatar size="md" src={item.avatar.src} STATUS={item.avatar.STATUS} />
@@ -555,7 +613,7 @@ const Dashboard = () => {
                         <div className="fw-semibold text-nowrap">{item.activity}</div>
                       </CTableDataCell>
                     </CTableRow>
-                  ))}
+                  ))} */}
                 </CTableBody>
               </CTable>
             </CCardBody>
@@ -578,7 +636,7 @@ const Dashboard = () => {
         columnFilter
         columnSorter
         footer
-        items={usersData}
+        items={data}
         itemsPerPageSelect
         itemsPerPage={5}
         pagination
@@ -616,22 +674,22 @@ const Dashboard = () => {
               </td>
             )
           },
-          details: (item) => {
-            return (
-              <CCollapse visible={details.includes(item.id)}>
-                <CCardBody className="p-3">
-                  <h4>{item.username}</h4>
-                  <p className="text-muted">User since: {item.IP}</p>
-                  <CButton size="sm" color="info">
-                    User Settings
-                  </CButton>
-                  <CButton size="sm" color="danger" className="ml-1">
-                    Delete
-                  </CButton>
-                </CCardBody>
-              </CCollapse>
-            )
-          },
+          // details: (item) => {
+          //   return (
+          //     <CCollapse visible={details.includes(item.id)}>
+          //       <CCardBody className="p-3">
+          //         <h4>{item.username}</h4>
+          //         <p className="text-muted">User since: {item.IP}</p>
+          //         <CButton size="sm" color="info">
+          //           User Settings
+          //         </CButton>
+          //         <CButton size="sm" color="danger" className="ml-1">
+          //           Delete
+          //         </CButton>
+          //       </CCardBody>
+          //     </CCollapse>
+          //   )
+          // },
         }}
         // selectable
         sorterValue={{ column: 'STATUS', state: 'asc' }}
