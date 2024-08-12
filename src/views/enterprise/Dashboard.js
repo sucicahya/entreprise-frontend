@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import classNames from 'classnames'
 import { CSmartTable, CBadge, CCollapse } from '@coreui/react-pro';
@@ -22,6 +22,21 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CModal,
+  CModalBody,
+  CModalContent,
+  CModalDialog,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle,
+  CForm,
+  CFormInput,
+  CFormLabel,
+  CInputGroup,
+  CInputGroupText,
+  CFormSelect,
+  CFormCheck,
+  CFormFeedback
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import {
@@ -58,14 +73,29 @@ import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import Table from './Table'
 
-function Dashboard(){
+function Dashboard() {
   const [produk, setProduk] = useState([]);
+  const [id_produk_detail, setIdProdukDetail] = useState([]);
+  const [detail, setDetail] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [details, setDetails] = useState([])
+  const [dataa, setData] = useState([])
+  const [visible, setVisible] = useState(false)
+  const [validated, setValidated] = useState(false)
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget
+    if (form.checkValidity() === false) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+    setValidated(true)
+  }
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/produk')
+    axios.get('http://localhost:5000/main-table')
       .then(response => {
-        console.log('Data received:', response.data); // Cek data yang diterima
+        // console.log('Data received:', response.data); // Cek data yang diterima
         if (Array.isArray(response.data)) {
           setProduk(response.data);
         } else {
@@ -79,25 +109,59 @@ function Dashboard(){
       });
   }, []);
 
+  // useEffect(() => {
+  //   axios.get('http://localhost:5000/full-detail')
+  //     .then(response => {
+  //       // console.log('Data received:', response.data); // Cek data yang diterima
+  //       if (Array.isArray(response.data)) {
+  //         setDetail(response.data);
+  //       } else {
+  //         console.error('Data format is not an array:', response.data);
+  //       }
+  //       setLoading(false);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching data:', error);
+  //       setLoading(false);
+  //     });
+  // }, []);
+
+  const handleFetchDetails = async (id) => {
+    console.log(id, "idd")
+    try {
+      setVisible(!visible)
+      const response = await axios.post('http://localhost:5000/full-detail', { id });
+      setData(response.data);
+      console.log("dataaaa",dataa)
+      // setError(null);
+    } catch (err) {
+      // setError('Error fetching details');
+      setData(null);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   const columns = [
-    { key: 'avatar', label: 'Avatar' },
-    { key: 'ID_PRODUK', label: 'Product ID' },
-    { key: 'NAMA_PRODUK', label: 'Application Name' },
-    { key: 'DESKRIPSI_PRODUK', label: 'Description' },
+    { key: 'ID_PRODUK', label: 'ID Produk' },
+    { key: 'NAMA_PRODUK', label: 'Nama Produk' },
+    { key: 'URL', label: 'URL' },
+    { key: 'IP', label: 'IP Server' },
+    { key: 'PIC', label: 'PIC' },
     { key: 'STATUS', label: 'Status' },
-    // { key: 'show_details', label: 'Details' },
+    { key: 'show_details', label: 'Details' },
     // { key: 'details', label: 'More Details' },
   ];
 
   const data = produk.map(item => ({
     ID_PRODUK: item.ID_PRODUK,
     NAMA_PRODUK: item.NAMA_PRODUK,
-    DESKRIPSI_PRODUK: item.DESKRIPSI_PRODUK,
-    STATUS: item.FLAG_STATUS,
+    URL: item.URL,
+    IP: item.IP_SERVER,
+    PIC: item.NAMA,
+    STATUS: item.NAMA_STATUS,
     show_details: item,
     details: item
   }));
@@ -225,14 +289,14 @@ function Dashboard(){
   //   },
   // ]
 
-  // const [details, setDetails] = useState([])
+
   // const columns = [
-    // {
-    //   key: 'avatar',
-    //   label: '',
-    //   filter: false,
-    //   sorter: false,
-    // },
+  // {
+  //   key: 'avatar',
+  //   label: '',
+  //   filter: false,
+  //   sorter: false,
+  // },
   //   {
   //     key: 'NAMA_PRODUK',
   //     _style: { width: '20%' },
@@ -406,7 +470,423 @@ function Dashboard(){
 
   return (
     <>
-    <div>
+      <CModal
+        scrollable
+        visible={visible}
+        onClose={() => setVisible(false)}
+        aria-labelledby="ScrollingLongContentExampleLabel2"
+      >
+        <CModalHeader>
+          <CModalTitle id="ScrollingLongContentExampleLabel2">Details Produk</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <CForm
+            className="row g-3 needs-validation"
+            noValidate
+            validated={validated}
+            onSubmit={handleSubmit}
+          >
+            {detail.map(item => (
+              <React.Fragment>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.NAMA_PRODUK}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Nama Produk"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.DESKRIPSI_PRODUK}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Deskripsi Produk"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.URL}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="URL"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.IP_SERVER}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="IP SERVER"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.NAMA_PENEMPATAN}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Penempatan"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.NAMA_AKSES}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Akses"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.CPU}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="CPU"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.NAMA_WEB_SERVER}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Web Server"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.WAKTU_OPERASIONAL}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Waktu Operasional"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.NAMA_DEVELOPER}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Developer"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.BUSINESS_OWNER}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Business Owner"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.NAMA}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="PIC"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.PORT}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Port"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.FRAMEWORK}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Framework"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.VER_FRAMEWORK}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Version Framework"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.TANGGAL_LIVE}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Tanggal Live"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.TANGGAL_AKHIR_UPDATE}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Tanggal Update"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.TANGGAL_TUTUP}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Tanggal Tutup"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.TANGGAL_DEPLOY}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Tanggal Deploy"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.BA_DEPLOY}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="BA Deploy"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.REQ_DEPLOY}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Req Deploy"
+                    required
+                  />
+                </CCol>                
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.USERNAME}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Username"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.PASS}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Password"
+                    required
+                  />
+                </CCol>
+                <CCol md={12}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.EXP_DATE_PASSWORD}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Exp Date Password"
+                    required
+                  />
+                </CCol>
+                {/* <CCol md={4}>
+              <CFormInput
+                type="text"
+                defaultValue="Otto"
+                feedbackValid="Looks good!"
+                id="validationCustom02"
+                label="First name"
+                required
+              />
+            </CCol>
+            <CCol md={4}>
+              <CFormLabel htmlFor="validationCustomUsername">Username</CFormLabel>
+              <CInputGroup className="has-validation">
+                <CInputGroupText>@</CInputGroupText>
+                <CFormInput
+                  type="text"
+                  aria-describedby="inputGroupPrependFeedback"
+                  feedbackValid="Please choose a username."
+                  id="validationCustomUsername"
+                  required
+                />
+              </CInputGroup>
+            </CCol>
+            <CCol md={6}>
+              <CFormInput
+                type="text"
+                aria-describedby="validationCustom03Feedback"
+                feedbackInvalid="Please provide a valid city."
+                id="validationCustom03"
+                label="City"
+                required
+              />
+            </CCol>
+            <CCol md={3}>
+              <CFormSelect
+                aria-describedby="validationCustom04Feedback"
+                feedbackInvalid="Please select a valid state."
+                id="validationCustom04"
+                label="State"
+                required
+              >
+                <option disabled>Choose...</option>
+                <option>...</option>
+              </CFormSelect>
+            </CCol>
+            <CCol md={3}>
+              <CFormInput
+                type="text"
+                aria-describedby="validationCustom05Feedback"
+                feedbackInvalid="Please provide a valid zip."
+                id="validationCustom05"
+                label="Zip"
+                required
+              />
+            </CCol> */}
+                <CCol xs={12}>
+                  <CFormCheck
+                    type="checkbox"
+                    id="invalidCheck"
+                    label="Agree to terms and conditions"
+                    required
+                  />
+                  <CFormFeedback invalid>You must agree before submitting.</CFormFeedback>
+                </CCol>
+                <CCol xs={12}>
+                  <CButton color="primary" type="submit">
+                    Submit form
+                  </CButton>
+                </CCol>
+              </React.Fragment>
+            ))}
+          </CForm>
+          {/* <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+          </p>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
+            vel augue laoreet rutrum faucibus dolor auctor.
+          </p>
+          <p>
+            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
+            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
+            auctor fringilla.
+          </p>
+          <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+          </p>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
+            vel augue laoreet rutrum faucibus dolor auctor.
+          </p>
+          <p>
+            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
+            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
+            auctor fringilla.
+          </p>
+          <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+          </p>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
+            vel augue laoreet rutrum faucibus dolor auctor.
+          </p>
+          <p>
+            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
+            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
+            auctor fringilla.
+          </p>
+          <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+          </p>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
+            vel augue laoreet rutrum faucibus dolor auctor.
+          </p>
+          <p>
+            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
+            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
+            auctor fringilla.
+          </p>
+          <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+          </p>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
+            vel augue laoreet rutrum faucibus dolor auctor.
+          </p>
+          <p>
+            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
+            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
+            auctor fringilla.
+          </p>
+          <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+          </p>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
+            vel augue laoreet rutrum faucibus dolor auctor.
+          </p>
+          <p>
+            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
+            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
+            auctor fringilla.
+          </p> */}
+        </CModalBody>
+        <CModalFooter>
+          <CButton color="secondary" onClick={() => setVisible(false)}>
+            Close
+          </CButton>
+          <CButton color="primary">Save changes</CButton>
+        </CModalFooter>
+      </CModal>
+      {/* <div>
         <h1>Produk</h1>
         <ul>
           {produk.length > 0 ? (
@@ -417,7 +897,7 @@ function Dashboard(){
             <li>No data available</li>
           )}
         </ul>
-      </div>
+      </div> */}
       <WidgetsDropdown className="mb-4" />
       <WidgetsBrand className="mb-4" withCharts />
       <CCard className="mb-4">
@@ -632,11 +1112,29 @@ function Dashboard(){
         activePage={2}
         cleaner
         clickableRows
-        columns={columns}
+        columns={[
+          { key: 'ID_PRODUK', label: 'ID Produk' },
+          { key: 'NAMA_PRODUK', label: 'Nama Produk' },
+          { key: 'URL', label: 'URL' },
+          { key: 'IP', label: 'IP Server' },
+          { key: 'PIC', label: 'PIC' },
+          { key: 'STATUS', label: 'Status' },
+          { key: 'show_details', label: 'Details' },
+          // { key: 'details', label: 'More Details' },
+        ]}
         columnFilter
         columnSorter
         footer
-        items={data}
+        items={produk.map(item => ({
+          ID_PRODUK: item.ID_PRODUK,
+          NAMA_PRODUK: item.NAMA_PRODUK,
+          URL: item.URL,
+          IP: item.IP_SERVER,
+          PIC: item.NAMA,
+          STATUS: item.NAMA_STATUS,
+          show_details: item,
+          details: item
+        }))}
         itemsPerPageSelect
         itemsPerPage={5}
         pagination
@@ -660,36 +1158,38 @@ function Dashboard(){
           show_details: (item) => {
             return (
               <td className="py-2">
+
+                {/* <CButton color="primary" onClick={() => setVisible(!visible)}>Details</CButton> */}
                 <CButton
                   color="primary"
                   variant="outline"
                   shape="square"
                   size="sm"
                   onClick={() => {
-                    toggleDetails(item.id)
+                    handleFetchDetails(item.ID_PRODUK)
                   }}
                 >
-                  {details.includes(item.id) ? 'Hide' : 'Show'}
+                  {details.includes(item.ID_PRODUK) ? 'Hide' : 'Show'}
                 </CButton>
               </td>
             )
           },
-          // details: (item) => {
-          //   return (
-          //     <CCollapse visible={details.includes(item.id)}>
-          //       <CCardBody className="p-3">
-          //         <h4>{item.username}</h4>
-          //         <p className="text-muted">User since: {item.IP}</p>
-          //         <CButton size="sm" color="info">
-          //           User Settings
-          //         </CButton>
-          //         <CButton size="sm" color="danger" className="ml-1">
-          //           Delete
-          //         </CButton>
-          //       </CCardBody>
-          //     </CCollapse>
-          //   )
-          // },
+          details: (item) => {
+            return (
+              <CCollapse visible={details.includes(item.ID_PRODUK)}>
+                <CCardBody className="p-3">
+                  <h4>{item.username}</h4>
+                  <p className="text-muted">User since: {item.IP}</p>
+                  <CButton size="sm" color="info">
+                    User Settings
+                  </CButton>
+                  <CButton size="sm" color="danger" className="ml-1">
+                    Delete
+                  </CButton>
+                </CCardBody>
+              </CCollapse>
+            )
+          },
         }}
         // selectable
         sorterValue={{ column: 'STATUS', state: 'asc' }}

@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import axios from 'axios';
 import PropTypes from 'prop-types'
 
 import {
@@ -18,24 +19,137 @@ import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
 const WidgetsDropdown = (props) => {
   const widgetChartRef1 = useRef(null)
   const widgetChartRef2 = useRef(null)
+  const [produkMasuk, setProdukMasuk] = useState([]);
+  const [penempatanCloud, setPenempatanCloud] = useState([]);
+  const [penempatanOnprem, setPenempatanOnprem] = useState([]);
+  const [statusAktif, setStatusAktif] = useState([]);
+  const [statusNonAktif, setStatusNonAktif] = useState([]);
+  const [total, setTotal] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.documentElement.addEventListener('ColorSchemeChange', () => {
-      if (widgetChartRef1.current) {
-        setTimeout(() => {
-          widgetChartRef1.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-primary')
-          widgetChartRef1.current.update()
-        })
-      }
+    axios.get('http://localhost:5000/produk-masuk')
+      .then(response => {
+        // console.log('Data received:', response.data); // Cek data yang diterima
+        if (Array.isArray(response.data)) {
+          setProdukMasuk(response.data);
+        } else {
+          console.error('Data format is not an array:', response.data);
+        }
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
+  }, []);
 
-      if (widgetChartRef2.current) {
-        setTimeout(() => {
-          widgetChartRef2.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-info')
-          widgetChartRef2.current.update()
-        })
-      }
-    })
-  }, [widgetChartRef1, widgetChartRef2])
+  useEffect(() => {
+    axios.get('http://localhost:5000/penempatan-cloud')
+      .then(response => {
+        // console.log('Data received:', response.data); // Cek data yang diterima
+        if (Array.isArray(response.data)) {
+          setPenempatanCloud(response.data);
+        } else {
+          console.error('Data format is not an array:', response.data);
+        }
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/penempatan-onprem')
+      .then(response => {
+        // console.log('Data received:', response.data); // Cek data yang diterima
+        if (Array.isArray(response.data)) {
+          setPenempatanOnprem(response.data);
+        } else {
+          console.error('Data format is not an array:', response.data);
+        }
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/status-aktif')
+      .then(response => {
+        // console.log('Data received:', response.data); // Cek data yang diterima
+        if (Array.isArray(response.data)) {
+          setStatusAktif(response.data);
+        } else {
+          console.error('Data format is not an array:', response.data);
+        }
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/status-nonaktif')
+      .then(response => {
+        // console.log('Data received:', response.data); // Cek data yang diterima
+        if (Array.isArray(response.data)) {
+          setStatusNonAktif(response.data);
+        } else {
+          console.error('Data format is not an array:', response.data);
+        }
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/total')
+      .then(response => {
+        // console.log('Data received:', response.data); // Cek data yang diterima
+        if (Array.isArray(response.data)) {
+          setTotal(response.data);
+        } else {
+          console.error('Data format is not an array:', response.data);
+        }
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  // useEffect(() => {
+  //   document.documentElement.addEventListener('ColorSchemeChange', () => {
+  //     if (widgetChartRef1.current) {
+  //       setTimeout(() => {
+  //         widgetChartRef1.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-primary')
+  //         widgetChartRef1.current.update()
+  //       })
+  //     }
+
+  //     if (widgetChartRef2.current) {
+  //       setTimeout(() => {
+  //         widgetChartRef2.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-info')
+  //         widgetChartRef2.current.update()
+  //       })
+  //     }
+  //   })
+  // }, [widgetChartRef1, widgetChartRef2])
 
   return (
     <CRow className={props.className} xs={{ gutter: 4 }}>
@@ -44,10 +158,15 @@ const WidgetsDropdown = (props) => {
           color="primary"
           value={
             <>
-              26K{' '}
+              {produkMasuk.map(item => (
+                <React.Fragment>
+                  {item.total}
+                </React.Fragment>
+              ))}
+              {/* 26K{' '}
               <span className="fs-6 fw-normal">
                 (-12.4% <CIcon icon={cilArrowBottom} />)
-              </span>
+              </span> */}
             </>
           }
           title="Jumlah produk masuk"
@@ -158,10 +277,20 @@ const WidgetsDropdown = (props) => {
             <div>
               <CRow>
                 <CCol style={{ paddingLeft: '60px' }}>
-                  <div>Cloud</div>
+                  {penempatanCloud.map(item => (
+                    <React.Fragment>
+                      <div>Cloud</div>
+                      <div>{item.total}</div>
+                    </React.Fragment>
+                  ))}
                 </CCol>
                 <CCol>
-                  <div>On-Premise</div>
+                  {penempatanOnprem.map(item => (
+                    <React.Fragment>
+                      <div>On-Premise</div>
+                      <div>{item.total}</div>
+                    </React.Fragment>
+                  ))}
                 </CCol>
               </CRow>
               <CChartLine
@@ -234,10 +363,10 @@ const WidgetsDropdown = (props) => {
           color="warning"
           value={
             <>
-              2.49%{' '}
+              {/* 2.49%{' '}
               <span className="fs-6 fw-normal">
                 (84.7% <CIcon icon={cilArrowTop} />)
-              </span>
+              </span> */}
             </>
           }
           title="Status Produk"
@@ -258,10 +387,28 @@ const WidgetsDropdown = (props) => {
             <div>
               <CRow>
                 <CCol style={{ paddingLeft: '60px' }}>
-                  <div>Aktif</div>
+                  {statusAktif.map(item => (
+                    <React.Fragment>
+                      {total.map(item2 => (
+                        <React.Fragment>
+                          <div>Aktif</div>
+                          <div>{item.total}/{item2.total}</div>
+                        </React.Fragment>
+                      ))}
+                    </React.Fragment>
+                  ))}
                 </CCol>
                 <CCol>
-                  <div>Non-Aktif</div>
+                  {statusNonAktif.map(item => (
+                    <React.Fragment>
+                      {total.map(item2 => (
+                        <React.Fragment>
+                          <div>Non-Aktif</div>
+                          <div>{item.total}/{item2.total}</div>
+                        </React.Fragment>
+                      ))}
+                    </React.Fragment>
+                  ))}
                 </CCol>
               </CRow>
               <CChartLine
