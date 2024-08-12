@@ -131,12 +131,12 @@ function Dashboard() {
     try {
       setVisible(!visible)
       const response = await axios.post('http://localhost:5000/full-detail', { id });
-      setData(response.data);
-      console.log("dataaaa",dataa)
+      setDetail(response.data);
+      console.log("dataaaa",response.data)
       // setError(null);
     } catch (err) {
       // setError('Error fetching details');
-      setData(null);
+      setDetail(null);
     }
   };
 
@@ -783,7 +783,7 @@ function Dashboard() {
                 required
               />
             </CCol> */}
-                <CCol xs={12}>
+                {/* <CCol xs={12}>
                   <CFormCheck
                     type="checkbox"
                     id="invalidCheck"
@@ -796,7 +796,7 @@ function Dashboard() {
                   <CButton color="primary" type="submit">
                     Submit form
                   </CButton>
-                </CCol>
+                </CCol> */}
               </React.Fragment>
             ))}
           </CForm>
