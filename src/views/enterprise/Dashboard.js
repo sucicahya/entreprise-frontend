@@ -80,6 +80,7 @@ function Dashboard() {
   const [account, setAccount] = useState([]);
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState([])
+  const [visibleLg, setVisibleLg] = useState(false)
   const [dataa, setData] = useState([])
   const [visible, setVisible] = useState(false)
   const [validated, setValidated] = useState(false)
@@ -132,7 +133,7 @@ function Dashboard() {
   const handleFetchDetails = async (id) => {
     console.log(id, "idd")
     try {
-      setVisible(!visible)
+      setVisibleLg(!visibleLg)
       const response = await axios.post('http://localhost:5000/full-detail', { id });
       setDetail(response.data);
       console.log("dataaaa", response.data)
@@ -146,7 +147,7 @@ function Dashboard() {
   const handleFetchAccount = async (id) => {
     console.log(id, "idd")
     try {
-      setVisible(!visible)
+      setVisibleLg(!visibleLg)
       const response = await axios.post('http://localhost:5000/full-account', { id });
       setAccount(response.data);
       console.log("dataaaa", response.data)
@@ -155,6 +156,34 @@ function Dashboard() {
       // setError('Error fetching details');
       setAccount(null);
     }
+  };
+
+  const handleUpdateDetail = async (id, accounts) => {
+    console.log(id, "idddetail")
+    // try {
+    //   setVisible(!visible)
+    //   const response = await axios.post('http://localhost:5000/full-detail', { id });
+    //   setDetail(response.data);
+    //   console.log("dataaaa", response.data)
+    //   // setError(null);
+    // } catch (err) {
+    //   // setError('Error fetching details');
+    //   setDetail(null);
+    // }
+  };
+
+  const handleUpdateAccount = async (id) => {
+    console.log(id, "iddaccount")
+    // try {
+    //   setVisible(!visible)
+    //   const response = await axios.post('http://localhost:5000/full-detail', { id });
+    //   setDetail(response.data);
+    //   console.log("dataaaa", response.data)
+    //   // setError(null);
+    // } catch (err) {
+    //   // setError('Error fetching details');
+    //   setDetail(null);
+    // }
   };
 
   if (loading) {
@@ -489,9 +518,10 @@ function Dashboard() {
     <>
       <CModal
         scrollable
-        visible={visible}
-        onClose={() => setVisible(false)}
-        aria-labelledby="ScrollingLongContentExampleLabel2"
+        size="lg"
+        visible={visibleLg}
+        onClose={() => setVisibleLg(false)}
+        aria-labelledby="OptionalSizesExample2"
       >
         <CModalHeader>
           <CModalTitle id="ScrollingLongContentExampleLabel2">Details Produk</CModalTitle>
@@ -757,7 +787,11 @@ function Dashboard() {
                 </CCol>
               </React.Fragment>
             ))}
-            <CCol md={3}>
+
+            <CCol md={1}>
+              <span>Nomor</span>
+            </CCol>
+            <CCol md={2}>
               <span>Jenis Akun</span>
             </CCol>
             <CCol md={3}>
@@ -766,12 +800,24 @@ function Dashboard() {
             <CCol md={3}>
               <span>Password</span>
             </CCol>
-            <CCol md={3}>
+            <CCol md={2}>
               <span>Exp Date Pass</span>
+            </CCol>
+            <CCol md={1}>
             </CCol>
             {account.map(item => (
               <React.Fragment>
-                <CCol md={3}>
+                <CCol md={1}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.JENIS_AKUN}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    // label="Jenis Akun"
+                    readOnly
+                  />
+                </CCol>
+                <CCol md={2}>
                   <CFormInput
                     type="text"
                     defaultValue={item.JENIS_AKUN}
@@ -801,7 +847,7 @@ function Dashboard() {
                     required
                   />
                 </CCol>
-                <CCol md={3}>
+                <CCol md={2}>
                   <CFormInput
                     type="text"
                     defaultValue={item.EXP_DATE_PASSWORD}
@@ -810,6 +856,20 @@ function Dashboard() {
                     // label="Exp Date Pass"
                     required
                   />
+                </CCol>
+                <CCol md={1}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.EXP_DATE_PASSWORD}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    // label="Exp Date Pass"
+                    required
+                  />
+
+                  {/* <CButton>
+                    <CIcon icon={cilSend} />
+                  </CButton> */}
                 </CCol>
                 {/* <CCol md={4}>
               <CFormInput
@@ -966,7 +1026,22 @@ function Dashboard() {
           <CButton color="secondary" onClick={() => setVisible(false)}>
             Close
           </CButton>
-          <CButton color="primary">Save changes</CButton>
+          {detail.map(item => {
+            const accountIds = account.map(item2 => item2.ID_ACCOUNT); // Mengumpulkan semua ID_ACCOUNT dalam array
+            return (
+              <React.Fragment key={item.ID_PRODUK}>
+                <CButton
+                  color="primary"
+                  onClick={() => {
+                    handleUpdateDetail(item.ID_PRODUK, accountIds);
+                    account.forEach(item2 => handleUpdateAccount(item2.ID_ACCOUNT));
+                  }}
+                >
+                  Save changes
+                </CButton>
+              </React.Fragment>
+            );
+          })}
         </CModalFooter>
       </CModal>
       {/* <div>
@@ -981,7 +1056,7 @@ function Dashboard() {
           )}
         </ul>
       </div> */}
-      <WidgetsDropdown className="mb-4" />
+      < WidgetsDropdown className="mb-4" />
       <WidgetsBrand className="mb-4" withCharts />
       <CCard className="mb-4">
         <CCardBody>
