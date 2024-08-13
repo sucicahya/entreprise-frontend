@@ -77,11 +77,14 @@ function Dashboard() {
   const [produk, setProduk] = useState([]);
   const [id_produk_detail, setIdProdukDetail] = useState([]);
   const [detail, setDetail] = useState([]);
+  const [account, setAccount] = useState([]);
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState([])
   const [dataa, setData] = useState([])
   const [visible, setVisible] = useState(false)
   const [validated, setValidated] = useState(false)
+
+  console.log("DETAIL", detail)
 
   const handleSubmit = (event) => {
     const form = event.currentTarget
@@ -132,11 +135,25 @@ function Dashboard() {
       setVisible(!visible)
       const response = await axios.post('http://localhost:5000/full-detail', { id });
       setDetail(response.data);
-      console.log("dataaaa",response.data)
+      console.log("dataaaa", response.data)
       // setError(null);
     } catch (err) {
       // setError('Error fetching details');
       setDetail(null);
+    }
+  };
+
+  const handleFetchAccount = async (id) => {
+    console.log(id, "idd")
+    try {
+      setVisible(!visible)
+      const response = await axios.post('http://localhost:5000/full-account', { id });
+      setAccount(response.data);
+      console.log("dataaaa", response.data)
+      // setError(null);
+    } catch (err) {
+      // setError('Error fetching details');
+      setAccount(null);
     }
   };
 
@@ -508,7 +525,7 @@ function Dashboard() {
                     required
                   />
                 </CCol>
-                <CCol md={12}>
+                <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.URL}
@@ -518,7 +535,7 @@ function Dashboard() {
                     required
                   />
                 </CCol>
-                <CCol md={12}>
+                <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.IP_SERVER}
@@ -528,7 +545,7 @@ function Dashboard() {
                     required
                   />
                 </CCol>
-                <CCol md={12}>
+                <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.NAMA_PENEMPATAN}
@@ -538,7 +555,7 @@ function Dashboard() {
                     required
                   />
                 </CCol>
-                <CCol md={12}>
+                <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.NAMA_AKSES}
@@ -548,7 +565,7 @@ function Dashboard() {
                     required
                   />
                 </CCol>
-                <CCol md={12}>
+                <CCol md={4}>
                   <CFormInput
                     type="text"
                     defaultValue={item.CPU}
@@ -558,13 +575,63 @@ function Dashboard() {
                     required
                   />
                 </CCol>
-                <CCol md={12}>
+                <CCol md={4}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.RAM}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="RAM"
+                    required
+                  />
+                </CCol>
+                <CCol md={4}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.STORAGE}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Storage"
+                    required
+                  />
+                </CCol>
+                <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.NAMA_WEB_SERVER}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Web Server"
+                    required
+                  />
+                </CCol>
+                <CCol md={6}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.JENIS_DATABASE}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Jenis Database"
+                    required
+                  />
+                </CCol>
+                <CCol md={6}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.FRAMEWORK}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Framework"
+                    required
+                  />
+                </CCol>
+                <CCol md={6}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.VER_FRAMEWORK}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Version Framework"
                     required
                   />
                 </CCol>
@@ -598,13 +665,23 @@ function Dashboard() {
                     required
                   />
                 </CCol>
-                <CCol md={12}>
+                <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.NAMA}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="PIC"
+                    required
+                  />
+                </CCol>
+                <CCol md={6}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.TELEPON}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Kontak PIC"
                     required
                   />
                 </CCol>
@@ -618,27 +695,7 @@ function Dashboard() {
                     required
                   />
                 </CCol>
-                <CCol md={12}>
-                  <CFormInput
-                    type="text"
-                    defaultValue={item.FRAMEWORK}
-                    feedbackValid="Looks good!"
-                    id="validationCustom01"
-                    label="Framework"
-                    required
-                  />
-                </CCol>
-                <CCol md={12}>
-                  <CFormInput
-                    type="text"
-                    defaultValue={item.VER_FRAMEWORK}
-                    feedbackValid="Looks good!"
-                    id="validationCustom01"
-                    label="Version Framework"
-                    required
-                  />
-                </CCol>
-                <CCol md={12}>
+                <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.TANGGAL_LIVE}
@@ -648,27 +705,7 @@ function Dashboard() {
                     required
                   />
                 </CCol>
-                <CCol md={12}>
-                  <CFormInput
-                    type="text"
-                    defaultValue={item.TANGGAL_AKHIR_UPDATE}
-                    feedbackValid="Looks good!"
-                    id="validationCustom01"
-                    label="Tanggal Update"
-                    required
-                  />
-                </CCol>
-                <CCol md={12}>
-                  <CFormInput
-                    type="text"
-                    defaultValue={item.TANGGAL_TUTUP}
-                    feedbackValid="Looks good!"
-                    id="validationCustom01"
-                    label="Tanggal Tutup"
-                    required
-                  />
-                </CCol>
-                <CCol md={12}>
+                <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.TANGGAL_DEPLOY}
@@ -678,7 +715,27 @@ function Dashboard() {
                     required
                   />
                 </CCol>
-                <CCol md={12}>
+                <CCol md={6}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.TANGGAL_AKHIR_UPDATE}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Tanggal Update"
+                    required
+                  />
+                </CCol>
+                <CCol md={6}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.TANGGAL_TUTUP}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Tanggal Tutup"
+                    required
+                  />
+                </CCol>
+                <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.BA_DEPLOY}
@@ -688,7 +745,7 @@ function Dashboard() {
                     required
                   />
                 </CCol>
-                <CCol md={12}>
+                <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.REQ_DEPLOY}
@@ -697,34 +754,60 @@ function Dashboard() {
                     label="Req Deploy"
                     required
                   />
-                </CCol>                
-                <CCol md={12}>
+                </CCol>
+              </React.Fragment>
+            ))}
+            <CCol md={3}>
+              <span>Jenis Akun</span>
+            </CCol>
+            <CCol md={3}>
+              <span>Username</span>
+            </CCol>
+            <CCol md={3}>
+              <span>Password</span>
+            </CCol>
+            <CCol md={3}>
+              <span>Exp Date Pass</span>
+            </CCol>
+            {account.map(item => (
+              <React.Fragment>
+                <CCol md={3}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.JENIS_AKUN}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    // label="Jenis Akun"
+                    required
+                  />
+                </CCol>
+                <CCol md={3}>
                   <CFormInput
                     type="text"
                     defaultValue={item.USERNAME}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
-                    label="Username"
+                    // label="Username"
                     required
                   />
                 </CCol>
-                <CCol md={12}>
+                <CCol md={3}>
                   <CFormInput
                     type="text"
                     defaultValue={item.PASS}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
-                    label="Password"
+                    // label="Password"
                     required
                   />
                 </CCol>
-                <CCol md={12}>
+                <CCol md={3}>
                   <CFormInput
                     type="text"
                     defaultValue={item.EXP_DATE_PASSWORD}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
-                    label="Exp Date Password"
+                    // label="Exp Date Pass"
                     required
                   />
                 </CCol>
@@ -1167,6 +1250,7 @@ function Dashboard() {
                   size="sm"
                   onClick={() => {
                     handleFetchDetails(item.ID_PRODUK)
+                    handleFetchAccount(item.ID_PRODUK)
                   }}
                 >
                   {details.includes(item.ID_PRODUK) ? 'Hide' : 'Show'}
