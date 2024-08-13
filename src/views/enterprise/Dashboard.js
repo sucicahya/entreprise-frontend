@@ -60,6 +60,7 @@ import {
   cilPeople,
   cilUser,
   cilUserFemale,
+  cilSend
 } from '@coreui/icons'
 
 import avatar1 from 'src/assets/images/avatars/1.jpg'
@@ -84,8 +85,82 @@ function Dashboard() {
   const [dataa, setData] = useState([])
   const [visible, setVisible] = useState(false)
   const [validated, setValidated] = useState(false)
+  const [nama_produk, setNamaProduk] = React.useState('')
+  const [deskripsi_produk, setDeskripsiProduk] = React.useState('')
+  const [url, setURL] = React.useState('')
+  const [ip, setIP] = React.useState('')
+  const [penempatan, setPenempatan] = React.useState('')
+  const [akses, setAkses] = React.useState('')
+  const [cpu, setCPU] = React.useState('')
+  const [ram, setRAM] = React.useState('')
+  const [storage, setStorage] = React.useState('')
+  const [web_server, setWebServer] = React.useState('')
+  const [jenis_database, setJenisDatabase] = React.useState('')
+  const [framework, setFramework] = React.useState('')
+  const [versi_framework, setVersiFramework] = React.useState('')
+  const [waktu_operasional, setWaktuOperasional] = React.useState('')
+  const [developer, setDeveloper] = React.useState('')
+  const [business_owner, setBusinessOwner] = React.useState('')
+  const [pic, setPIC] = React.useState('')
+  const [port, setPort] = React.useState('')
+  const [tanggal_live, setTanggalLive] = React.useState('')
+  const [tanggal_deploy, setTanggalDeploy] = React.useState('')
+  const [tanggal_update, setTanggalUpdate] = React.useState('')
+  const [tanggal_tutup, setTanggalTutup] = React.useState('')
+  const [ba_deploy, setBADeploy] = React.useState('')
+  const [req_deploy, setReqDeploy] = React.useState('')
+  const [searchResults, setSearchResults] = useState([])
+  const [jenisAccount, setJenisAccount] = useState([])
+  const [usernameAccount, setUsernameAccount] = useState([])
+  const [passAccount, setPassAccount] = useState([])
+  const [expAccount, setExpAccount] = useState([])
+
+
+  const [account2, setAccount2] = React.useState(
+    searchResults.account || []
+  )
+
+
+  const handleJenisAccount = (index, value) => {
+    console.log("rrxind", index)
+    console.log("rrxval", value)
+    const updatedAccount = [...account2];
+    updatedAccount[index].JENIS_AKUN = value;
+    setAccount2(updatedAccount);
+    setJenisAccount(updatedAccount.map(acc => (acc.JENIS_AKUN)));
+  };
+  
+  const handleUsernameAccount = (index, value) => {
+    console.log("rrxind", index)
+    console.log("rrxval", value)
+    const updatedAccount = [...account2];
+    updatedAccount[index].USERNAME = value;
+    setAccount2(updatedAccount);
+    setUsernameAccount(updatedAccount.map(acc => (acc.USERNAME)));
+  };
+  
+  const handlePassAccount = (index, value) => {
+    console.log("rrxind", index)
+    console.log("rrxval", value)
+    const updatedAccount = [...account2];
+    updatedAccount[index].PASS = value;
+    setAccount2(updatedAccount);
+    setPassAccount(updatedAccount.map(acc => (acc.PASS)));
+  };
+
+  const handleExpAccount = (index, value) => {
+    console.log("rrxind", index)
+    console.log("rrxval", value)
+    const updatedAccount = [...account2];
+    updatedAccount[index].EXP_DATE_PASSWORD = value;
+    setAccount2(updatedAccount);
+    setExpAccount(updatedAccount.map(acc => (acc.EXP_DATE_PASSWORD)));
+  };
 
   console.log("DETAIL", detail)
+  console.log("ACCOUNT", account)
+
+  console.log("YUK BISMILLAH", account2)
 
   const handleSubmit = (event) => {
     const form = event.currentTarget
@@ -150,6 +225,7 @@ function Dashboard() {
       setVisibleLg(!visibleLg)
       const response = await axios.post('http://localhost:5000/full-account', { id });
       setAccount(response.data);
+      setAccount2(response.data)
       console.log("dataaaa", response.data)
       // setError(null);
     } catch (err) {
@@ -158,7 +234,7 @@ function Dashboard() {
     }
   };
 
-  const handleUpdateDetail = async (id, accounts) => {
+  const handleUpdateDetail = async (id) => {
     console.log(id, "idddetail")
     // try {
     //   setVisible(!visible)
@@ -539,6 +615,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.NAMA_PRODUK}
+                    onChange={e => setNamaProduk(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Nama Produk"
@@ -549,6 +626,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.DESKRIPSI_PRODUK}
+                    onChange={e => setDeskripsiProduk(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Deskripsi Produk"
@@ -559,6 +637,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.URL}
+                    onChange={e => setURL(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="URL"
@@ -569,6 +648,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.IP_SERVER}
+                    onChange={e => setIP(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="IP SERVER"
@@ -579,6 +659,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.NAMA_PENEMPATAN}
+                    onChange={e => setPenempatan(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Penempatan"
@@ -589,6 +670,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.NAMA_AKSES}
+                    onChange={e => setAkses(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Akses"
@@ -599,6 +681,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.CPU}
+                    onChange={e => setCPU(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="CPU"
@@ -609,6 +692,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.RAM}
+                    onChange={e => setRAM(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="RAM"
@@ -619,6 +703,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.STORAGE}
+                    onChange={e => setStorage(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Storage"
@@ -629,6 +714,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.NAMA_WEB_SERVER}
+                    onChange={e => setWebServer(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Web Server"
@@ -639,6 +725,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.JENIS_DATABASE}
+                    onChange={e => setJenisDatabase(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Jenis Database"
@@ -649,6 +736,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.FRAMEWORK}
+                    onChange={e => setFramework(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Framework"
@@ -659,6 +747,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.VER_FRAMEWORK}
+                    onChange={e => setVersiFramework(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Version Framework"
@@ -669,6 +758,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.WAKTU_OPERASIONAL}
+                    onChange={e => setWaktuOperasional(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Waktu Operasional"
@@ -679,6 +769,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.NAMA_DEVELOPER}
+                    onChange={e => setDeveloper(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Developer"
@@ -689,6 +780,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.BUSINESS_OWNER}
+                    onChange={e => setBusinessOwner(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Business Owner"
@@ -699,6 +791,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.NAMA}
+                    onChange={e => setPIC(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="PIC"
@@ -719,6 +812,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.PORT}
+                    onChange={e => setPort(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Port"
@@ -729,6 +823,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.TANGGAL_LIVE}
+                    onChange={e => setTanggalLive(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Tanggal Live"
@@ -739,6 +834,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.TANGGAL_DEPLOY}
+                    onChange={e => setTanggalDeploy(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Tanggal Deploy"
@@ -749,6 +845,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.TANGGAL_AKHIR_UPDATE}
+                    onChange={e => setTanggalUpdate(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Tanggal Update"
@@ -759,6 +856,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.TANGGAL_TUTUP}
+                    onChange={e => setTanggalTutup(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Tanggal Tutup"
@@ -769,6 +867,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.BA_DEPLOY}
+                    onChange={e => setBADeploy(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="BA Deploy"
@@ -779,6 +878,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.REQ_DEPLOY}
+                    onChange={e => setReqDeploy(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Req Deploy"
@@ -788,10 +888,10 @@ function Dashboard() {
               </React.Fragment>
             ))}
 
-            <CCol md={1}>
+            {/* <CCol md={1}>
               <span>Nomor</span>
-            </CCol>
-            <CCol md={2}>
+            </CCol> */}
+            <CCol md={3}>
               <span>Jenis Akun</span>
             </CCol>
             <CCol md={3}>
@@ -800,14 +900,14 @@ function Dashboard() {
             <CCol md={3}>
               <span>Password</span>
             </CCol>
-            <CCol md={2}>
+            <CCol md={3}>
               <span>Exp Date Pass</span>
             </CCol>
-            <CCol md={1}>
-            </CCol>
-            {account.map(item => (
+            {/* <CCol md={1}>
+            </CCol> */}
+            {account2.map((item, index) => (
               <React.Fragment>
-                <CCol md={1}>
+                {/* <CCol md={1}>
                   <CFormInput
                     type="text"
                     defaultValue={item.JENIS_AKUN}
@@ -816,11 +916,12 @@ function Dashboard() {
                     // label="Jenis Akun"
                     readOnly
                   />
-                </CCol>
-                <CCol md={2}>
+                </CCol> */}
+                <CCol md={3}>
                   <CFormInput
                     type="text"
                     defaultValue={item.JENIS_AKUN}
+                    onChange={(e) => handleJenisAccount(index, e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     // label="Jenis Akun"
@@ -831,6 +932,7 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.USERNAME}
+                    onChange={(e) => handleUsernameAccount(index, e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     // label="Username"
@@ -841,36 +943,31 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.PASS}
+                    onChange={(e) => handlePassAccount(index, e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     // label="Password"
                     required
                   />
                 </CCol>
-                <CCol md={2}>
+                <CCol md={3}>
                   <CFormInput
                     type="text"
                     defaultValue={item.EXP_DATE_PASSWORD}
+                    onChange={(e) => handleExpAccount(index, e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     // label="Exp Date Pass"
                     required
                   />
                 </CCol>
-                <CCol md={1}>
-                  <CFormInput
-                    type="text"
-                    defaultValue={item.EXP_DATE_PASSWORD}
-                    feedbackValid="Looks good!"
-                    id="validationCustom01"
-                    // label="Exp Date Pass"
-                    required
-                  />
-
-                  {/* <CButton>
-                    <CIcon icon={cilSend} />
-                  </CButton> */}
-                </CCol>
+                {/* <CCol md={1}>
+                  <CButton color="primary" className="float-end">
+                    <CIcon icon={cilSend} onClick={() => {
+                      handleUpdateAccount(item.ID_ACCOUNT);
+                    }} />
+                  </CButton>
+                </CCol> */}
                 {/* <CCol md={4}>
               <CFormInput
                 type="text"
@@ -1027,14 +1124,12 @@ function Dashboard() {
             Close
           </CButton>
           {detail.map(item => {
-            const accountIds = account.map(item2 => item2.ID_ACCOUNT); // Mengumpulkan semua ID_ACCOUNT dalam array
             return (
               <React.Fragment key={item.ID_PRODUK}>
                 <CButton
                   color="primary"
                   onClick={() => {
-                    handleUpdateDetail(item.ID_PRODUK, accountIds);
-                    account.forEach(item2 => handleUpdateAccount(item2.ID_ACCOUNT));
+                    handleUpdateDetail(item.ID_PRODUK);
                   }}
                 >
                   Save changes
