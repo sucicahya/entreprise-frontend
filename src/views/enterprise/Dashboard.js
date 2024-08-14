@@ -76,7 +76,7 @@ import Table from './Table'
 
 function Dashboard() {
   const [produk, setProduk] = useState([]);
-  const [id_produk_detail, setIdProdukDetail] = useState([]);
+  // const [id_produk_detail, setIdProdukDetail] = useState([]);
   const [detail, setDetail] = useState([]);
   const [account, setAccount] = useState([]);
   const [updateFull, setUpdateFull] = useState([]);
@@ -86,8 +86,8 @@ function Dashboard() {
   const [dataa, setData] = useState([])
   const [visible, setVisible] = useState(false)
   const [validated, setValidated] = useState(false)
-  const [nama_produk, setNamaProduk] = React.useState('')
-  const [deskripsi_produk, setDeskripsiProduk] = React.useState('')
+  // const [nama_produk, setNamaProduk] = React.useState('')
+  // const [deskripsi_produk, setDeskripsiProduk] = React.useState('')
   const [url, setURL] = React.useState('')
   const [ip, setIP] = React.useState('')
   const [penempatan, setPenempatan] = React.useState('')
@@ -95,7 +95,7 @@ function Dashboard() {
   const [cpu, setCPU] = React.useState('')
   const [ram, setRAM] = React.useState('')
   const [storage, setStorage] = React.useState('')
-  const [web_server, setWebServer] = React.useState('')
+  // const [web_server, setWebServer] = React.useState('')
   const [jenis_database, setJenisDatabase] = React.useState('')
   const [framework, setFramework] = React.useState('')
   const [versi_framework, setVersiFramework] = React.useState('')
@@ -118,7 +118,61 @@ function Dashboard() {
   const [passAccount, setPassAccount] = useState([])
   const [expAccount, setExpAccount] = useState([])
   const [idAccount, setIdAccount] = useState([])
-  const [idProduk, setIdProduk] = useState([])
+  // const [idProduk, setIdProduk] = useState([])
+
+
+
+
+
+  const [idProduk, setIdProduk] = useState([]);
+  const [namaProduk, setNamaProduk] = useState([]);
+  const [deskripsiProduk, setDeskripsiProduk] = useState([]);
+  const [flagProduk, setFlagProduk] = useState([]);
+
+  const [idAkses, setIdAkses] = useState([]);
+  const [namaAkses, setNamaAkses] = useState([]);
+
+  const [idDeveloper, setIdDeveloper] = useState([]);
+  const [namaDeveloper, setNamaDeveloper] = useState([]);
+
+  const [namaKaryawan, setNamaKaryawan] = useState([]);
+  const [teleponKaryawan, setTeleponKaryawan] = useState([]);
+  const [nipposKaryawan, setNipposKaryawan] = useState([]);
+  const [usernameKaryawan, setUsernameKaryawan] = useState([]);
+  const [passKaryawan, setPassKaryawan] = useState([]);
+
+  const [idStatus, setIdStatus] = useState([]);
+  const [namaStatus, setNamaStatus] = useState([]);
+
+  const [idProdukDetail, setIdProdukDetail] = useState([]);
+  const [produkIdDetail, setProdukIdDetail] = useState([]);
+  const [penempatanDetail, setPenempatanDetail] = useState([]);
+  const [picNipposDetail, setPICNipposDetail] = useState([]);
+  const [aksesDetail, setAksesDetail] = useState([]);
+  const [developerDetail, setDeveloperDetail] = useState([]);
+  const [serverDetail, setServerDetail] = useState([]);
+  const [businessOwnerDetail, setBusinessOwnerDetail] = useState([]);
+  const [waktuOperasionalDetail, setWaktuOperasionalDetail] = useState([]);
+  const [urlDetail, setURLDetail] = useState([]);
+  const [portDetail, setPortDetail] = useState([]);
+  const [frameworkDetail, setFrameworkDetail] = useState([]);
+  const [verFrameworkDetail, setVerFrameworkDetail] = useState([]);
+  const [jenisDatabaseDetail, setJenisDatabaseDetail] = useState([]);
+  const [tanggalLiveDetail, setTanggalLiveDetail] = useState([]);
+  const [tanggalAkhirUpdateDetail, setTanggalAkhirUpdateDetail] = useState([]);
+  const [tanggalTutupDetail, setTanggalTutupDetail] = useState([]);
+  const [tanggalDeployDetail, setTanggalDeployDetail] = useState([]);
+
+  const [ipSpec, setIPSpec] = useState([]);
+  const [cpuSpec, setCPUSpec] = useState([]);
+  const [ramSpec, setRAMSpec] = useState([]);
+  const [storageSpec, setStorageSpec] = useState([]);
+  const [idSpec, setIdSpec] = useState([]);
+  const [webIdSpec, setWebIdSpec] = useState([]);
+
+  const [idServer, setIdServer] = useState([]);
+  const [webServer, setWebServer] = useState([]);
+
 
 
   const [pilihPenempatan, setPilihPenempatan] = useState([])
@@ -250,7 +304,7 @@ function Dashboard() {
   }, []);
 
   console.log("idacc", idAccount)
-  console.log("namaproduk", nama_produk)
+  // console.log("namaproduk", nama_produk)
 
 
   const [account2, setAccount2] = React.useState(
@@ -351,28 +405,51 @@ function Dashboard() {
       setIdProduk(response.data.map(item => item.ID_PRODUK))
       setNamaProduk(response.data.map(item => item.NAMA_PRODUK));
       setDeskripsiProduk(response.data.map(item => item.DESKRIPSI_PRODUK));
-      setURL(response.data.map(item => item.URL));
-      setIP(response.data.map(item => item.IP_SERVER));
-      setPenempatan(response.data.map(item => item.NAMA_PENEMPATAN));
-      setAkses(response.data.map(item => item.NAMA_AKSES));
-      setCPU(response.data.map(item => item.CPU));
-      setRAM(response.data.map(item => item.RAM));
-      setStorage(response.data.map(item => item.STORAGE));
+      setFlagProduk(response.data.map(item => item.FLAG_STATUS));
+
+      setIdAkses(response.data.map(item => item.ID_AKSES));
+      setNamaAkses(response.data.map(item => item.NAMA_AKSES));
+
+      setIdDeveloper(response.data.map(item => item.ID_DEVELOPER));
+      setNamaDeveloper(response.data.map(item => item.NAMA_DEVELOPER));
+
+      setNamaKaryawan(response.data.map(item => item.NAMA));
+      setTeleponKaryawan(response.data.map(item => item.TELEPON));
+      setNipposKaryawan(response.data.map(item => item.NIPPOS));
+      setUsernameKaryawan(response.data.map(item => item.USERNAME));
+      setPassKaryawan(response.data.map(item => item.PASS));
+
+      setIdStatus(response.data.map(item => item.ID_STATUS));
+      setNamaStatus(response.data.map(item => item.NAMA_STATUS));
+
+      setIdProdukDetail(response.data.map(item => item.ID_PRODUK_DETAIL));
+      setProdukIdDetail(response.data.map(item => item.PRODUK_ID));
+      setPenempatanDetail(response.data.map(item => item.PENEMPATAN));
+      setPICNipposDetail(response.data.map(item => item.PIC_NIPPOS));
+      setAksesDetail(response.data.map(item => item.AKSES));
+      setDeveloperDetail(response.data.map(item => item.DEVELOPER));
+      setServerDetail(response.data.map(item => item.SERVER));
+      setBusinessOwnerDetail(response.data.map(item => item.BUSINESS_OWNER));
+      setWaktuOperasionalDetail(response.data.map(item => item.WAKTU_OPERASIONAL));
+      setURLDetail(response.data.map(item => item.URL));
+      setPortDetail(response.data.map(item => item.PORT));
+      setFrameworkDetail(response.data.map(item => item.FRAMEWORK));
+      setVerFrameworkDetail(response.data.map(item => item.VER_FRAMEWORK));
+      setJenisDatabaseDetail(response.data.map(item => item.JENIS_DATABASE));
+      setTanggalLiveDetail(response.data.map(item => item.TANGGAL_LIVE));
+      setTanggalAkhirUpdateDetail(response.data.map(item => item.TANGGAL_AKHIR_UPDATE));
+      setTanggalTutupDetail(response.data.map(item => item.TANGGAL_TUTUP));
+      setTanggalDeployDetail(response.data.map(item => item.TANGGAL_DEPLOY));
+
+      setIPSpec(response.data.map(item => item.IP_SERVER));
+      setCPUSpec(response.data.map(item => item.CPU));
+      setRAMSpec(response.data.map(item => item.RAM));
+      setStorageSpec(response.data.map(item => item.STORAGE));
+      setIdSpec(response.data.map(item => item.ID_SPEC_SERVER));
+      setWebIdSpec(response.data.map(item => item.WEB_SERVER_ID));
+
+      setIdServer(response.data.map(item => item.ID_WEB_SERVER));
       setWebServer(response.data.map(item => item.NAMA_WEB_SERVER));
-      setJenisDatabase(response.data.map(item => item.JENIS_DATABASE));
-      setFramework(response.data.map(item => item.FRAMEWORK));
-      setVersiFramework(response.data.map(item => item.VER_FRAMEWORK));
-      setWaktuOperasional(response.data.map(item => item.WAKTU_OPERASIONAL));
-      setDeveloper(response.data.map(item => item.NAMA_DEVELOPER));
-      setBusinessOwner(response.data.map(item => item.BUSINESS_OWNER));
-      setPIC(response.data.map(item => item.NAMA));
-      setTeleponPIC(response.data.map(item => item.TELEPON));
-      setPort(response.data.map(item => item.PORT));
-      setStatus(response.data.map(item => item.NAMA_STATUS));
-      setTanggalLive(response.data.map(item => item.TANGGAL_LIVE));
-      setTanggalDeploy(response.data.map(item => item.TANGGAL_DEPLOY));
-      setTanggalUpdate(response.data.map(item => item.TANGGAL_AKHIR_UPDATE));
-      setTanggalTutup(response.data.map(item => item.tanggal_tutup));
       console.log("dataaaa", response.data)
       // setError(null);
     } catch (err) {
@@ -409,30 +486,54 @@ function Dashboard() {
       setVisibleLg(!visibleLg)
       const requestBody = {
         ID_PRODUK,
-        NAMA_PRODUK: nama_produk,
-        DESKRIPSI_PRODUK: deskripsi_produk,
-        URL: url,
-        IP_SERVER: ip,
-        NAMA_PENEMPATAN: penempatan,
-        NAMA_AKSES: akses,
-        CPU: cpu,
-        RAM: ram,
-        STORAGE: storage,
-        NAMA_WEB_SERVER: web_server,
-        JENIS_DATABASE: jenis_database,
-        FRAMEWORK: framework,
-        VER_FRAMEWORK: versi_framework,
-        WAKTU_OPERASIONAL: waktu_operasional,
-        NAMA_DEVELOPER: developer,
-        BUSINESS_OWNER: business_owner,
-        PIC: pic,
-        TELEPON: telepon_pic,
-        PORT: port,
-        NAMA_STATUS: status,
-        TANGGAL_LIVE: tanggal_live,
-        TANGGAL_DEPLOY: tanggal_deploy,
-        TANGGAL_AKHIR_UPDATE: tanggal_update,
-        TANGGAL_TUTUP: tanggal_tutup,
+        NAMA_PRODUK: namaProduk,
+        DESKRIPSI_PRODUK: deskripsiProduk,
+        FLAG_STATUS: flagProduk,
+
+        ID_AKSES: idAkses,
+        NAMA_AKSES: namaAkses,
+
+        ID_DEVELOPER: idDeveloper,
+        NAMA_DEVELOPER: namaDeveloper,
+
+        NAMA: namaKaryawan,
+        TELEPON: teleponKaryawan,
+        NIPPOS: nipposKaryawan,
+        // USERNAME: usernameKaryawan,
+        // PASS: passKaryawan,
+
+        ID_STATUS: idStatus,
+        NAMA_STATUS: namaStatus,
+
+        ID_PRODUK_DETAIL:idProdukDetail,
+        PRODUK_ID: produkIdDetail,
+        PENEMPATAN: penempatanDetail,
+        PIC_NIPPOS: picNipposDetail,
+        AKSES: aksesDetail,
+        DEVELOPER: developerDetail,
+        SERVER: serverDetail,
+        BUSINESS_OWNER: businessOwnerDetail,
+        WAKTU_OPERASIONAL: waktuOperasionalDetail,
+        URL: urlDetail,
+        PORT: portDetail,
+        FRAMEWORK: frameworkDetail,
+        VER_FRAMEWORK: verFrameworkDetail,
+        JENIS_DATABASE: jenisDatabaseDetail,
+        TANGGAL_LIVE: tanggalLiveDetail,
+        TANGGAL_AKHIR_UPDATE: tanggalAkhirUpdateDetail,
+        TANGGAL_TUTUP: tanggalTutupDetail,
+        TANGGAL_DEPLOY: tanggalDeployDetail,
+
+        IP_SERVER: ipSpec,
+        CPU: cpuSpec,
+        RAM: ramSpec,
+        STORAGE: storageSpec,
+        ID_SPEC_SERVER: idSpec,
+        WEB_SERVER_ID: webIdSpec,
+
+        ID_WEB_SERVER: idServer,
+        NAMA_WEB_SERVER: webServer,
+        
         // BA_DEPLOY: ba_deploy,
         // REQ_DEPLOY: req_deploy,
         ID_ACCOUNT: idAccount,
@@ -446,7 +547,8 @@ function Dashboard() {
       const response = await axios.post('http://localhost:5000/update-all', requestBody, {
         headers: {
           'Content-Type': 'application/json'
-        }});
+        }
+      });
       setUpdateFull(response.data);
       // setAccount2(response.data);
       console.log("update full:", response.data);
@@ -464,76 +566,76 @@ function Dashboard() {
     }
   };
 
-  const handleUpdateDetail2 = async (id) => {
-    // Fetch the token from sessionStorage
-    const item = sessionStorage.getItem('token');
+  // const handleUpdateDetail2 = async (id) => {
+  //   // Fetch the token from sessionStorage
+  //   const item = sessionStorage.getItem('token');
 
-    // Create the body data object
-    const bodyData = {
-      NAMA_PRODUK: nama_produk,
-      DESKRIPSI_PRODUK: deskripsi_produk,
-      URL: url,
-      IP_SERVER: ip,
-      NAMA_PENEMPATAN: penempatan,
-      NAMA_AKSES: akses,
-      CPU: cpu,
-      RAM: ram,
-      STORAGE: storage,
-      NAMA_WEB_SERVER: web_server,
-      JENIS_DATABASE: jenis_database,
-      FRAMEWORK: framework,
-      VER_FRAMEWORK: versi_framework,
-      WAKTU_OPERASIONAL: waktu_operasional,
-      NAMA_DEVELOPER: developer,
-      BUSINESS_OWNER: business_owner,
-      PIC: pic,
-      TELEPON: telepon_pic,
-      PORT: port,
-      TANGGAL_LIVE: tanggal_live,
-      TANGGAL_DEPLOY: tanggal_deploy,
-      TANGGAL_AKHIR_UPDATE: tanggal_update,
-      TANGGAL_TUTUP: tanggal_tutup,
-      // BA_DEPLOY: ba_deploy,
-      // REQ_DEPLOY: req_deploy,
-      ID_ACCOUNT: idAccount,
-      JENIS_AKUN: jenisAccount,
-      USERNAME: usernameAccount,
-      PASS: passAccount,
-      EXP_DATE_PASSWORD: expAccount
-    };
+  //   // Create the body data object
+  //   const bodyData = {
+  //     NAMA_PRODUK: nama_produk,
+  //     DESKRIPSI_PRODUK: deskripsi_produk,
+  //     URL: url,
+  //     IP_SERVER: ip,
+  //     NAMA_PENEMPATAN: penempatan,
+  //     NAMA_AKSES: akses,
+  //     CPU: cpu,
+  //     RAM: ram,
+  //     STORAGE: storage,
+  //     NAMA_WEB_SERVER: web_server,
+  //     JENIS_DATABASE: jenis_database,
+  //     FRAMEWORK: framework,
+  //     VER_FRAMEWORK: versi_framework,
+  //     WAKTU_OPERASIONAL: waktu_operasional,
+  //     NAMA_DEVELOPER: developer,
+  //     BUSINESS_OWNER: business_owner,
+  //     PIC: pic,
+  //     TELEPON: telepon_pic,
+  //     PORT: port,
+  //     TANGGAL_LIVE: tanggal_live,
+  //     TANGGAL_DEPLOY: tanggal_deploy,
+  //     TANGGAL_AKHIR_UPDATE: tanggal_update,
+  //     TANGGAL_TUTUP: tanggal_tutup,
+  //     // BA_DEPLOY: ba_deploy,
+  //     // REQ_DEPLOY: req_deploy,
+  //     ID_ACCOUNT: idAccount,
+  //     JENIS_AKUN: jenisAccount,
+  //     USERNAME: usernameAccount,
+  //     PASS: passAccount,
+  //     EXP_DATE_PASSWORD: expAccount
+  //   };
 
-    // Log the body data
-    console.log("Request body:", JSON.stringify(bodyData, null, 2));
+  //   // Log the body data
+  //   console.log("Request body:", JSON.stringify(bodyData, null, 2));
 
-    try {
-      const response = await fetch(
-        '',
-        {
-          method: 'POST',
-          headers: {
-            Authorization: 'Bearer ' + item,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(bodyData) // Send the JSON string as the body
-        }
-      );
+  //   try {
+  //     const response = await fetch(
+  //       '',
+  //       {
+  //         method: 'POST',
+  //         headers: {
+  //           Authorization: 'Bearer ' + item,
+  //           'Content-Type': 'application/json'
+  //         },
+  //         body: JSON.stringify(bodyData) // Send the JSON string as the body
+  //       }
+  //     );
 
-      if (response.ok) {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "<span style='font-size: 20px'>Successfully edited Result</span>",
-          showConfirmButton: false,
-          timer: 3000,
-          width: 500,
-          height: 500,
-          heightAuto: false,
-        });
-      }
-    } catch (error) {
-      console.error('Error during update:', error);
-    }
-  };
+  //     if (response.ok) {
+  //       Swal.fire({
+  //         position: "center",
+  //         icon: "success",
+  //         title: "<span style='font-size: 20px'>Successfully edited Result</span>",
+  //         showConfirmButton: false,
+  //         timer: 3000,
+  //         width: 500,
+  //         height: 500,
+  //         heightAuto: false,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error('Error during update:', error);
+  //   }
+  // };
 
 
   // const handleUpdateDetail = async (id) => {
@@ -939,33 +1041,33 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.URL}
-                    onChange={e => setURL(e.target.value)}
+                    onChange={e => setURLDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="URL"
-                    // required
+                  // required
                   />
                 </CCol>
                 <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.IP_SERVER}
-                    onChange={e => setIP(e.target.value)}
+                    onChange={e => setIPSpec(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="IP SERVER"
-                    // required
+                  // required
                   />
                 </CCol>
                 <CCol md={6}>
                   <CFormSelect
                     type="text"
-                    defaultValue={item.NAMA_PENEMPATAN}
-                    onChange={e => setPenempatan(e.target.value)}
+                    defaultValue={item.PENEMPATAN}
+                    onChange={e => setPenempatanDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Penempatan"
-                    // required
+                  // required
                   >
                     <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
                     {pilihPenempatan.map(item => (
@@ -976,14 +1078,14 @@ function Dashboard() {
                   </CFormSelect>
                 </CCol>
                 <CCol md={6}>
-                <CFormSelect
+                  <CFormSelect
                     type="text"
-                    defaultValue={item.NAMA_AKSES}
-                    onChange={e => setAkses(e.target.value)}
+                    defaultValue={item.AKSES}
+                    onChange={e => setAksesDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Akses"
-                    // required
+                  // required
                   >
                     <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
                     {pilihAkses.map(item => (
@@ -1006,44 +1108,44 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.CPU}
-                    onChange={e => setCPU(e.target.value)}
+                    onChange={e => setCPUSpec(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="CPU"
-                    // required
+                  // required
                   />
                 </CCol>
                 <CCol md={4}>
                   <CFormInput
                     type="text"
                     defaultValue={item.RAM}
-                    onChange={e => setRAM(e.target.value)}
+                    onChange={e => setRAMSpec(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="RAM"
-                    // required
+                  // required
                   />
                 </CCol>
                 <CCol md={4}>
                   <CFormInput
                     type="text"
                     defaultValue={item.STORAGE}
-                    onChange={e => setStorage(e.target.value)}
+                    onChange={e => setStorageSpec(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Storage"
-                    // required
+                  // required
                   />
                 </CCol>
                 <CCol md={6}>
-                <CFormSelect
+                  <CFormSelect
                     type="text"
-                    defaultValue={item.NAMA_WEB_SERVER}
+                    defaultValue={item.WEB_SERVER}
                     onChange={e => setWebServer(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Web Server"
-                    // required
+                  // required
                   >
                     <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
                     {pilihServer.map(item => (
@@ -1066,55 +1168,55 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.JENIS_DATABASE}
-                    onChange={e => setJenisDatabase(e.target.value)}
+                    onChange={e => setJenisDatabaseDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Jenis Database"
-                    // required
+                  // required
                   />
                 </CCol>
                 <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.FRAMEWORK}
-                    onChange={e => setFramework(e.target.value)}
+                    onChange={e => setFrameworkDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Framework"
-                    // required
+                  // required
                   />
                 </CCol>
                 <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.VER_FRAMEWORK}
-                    onChange={e => setVersiFramework(e.target.value)}
+                    onChange={e => setVerFrameworkDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Version Framework"
-                    // required
+                  // required
                   />
                 </CCol>
                 <CCol md={12}>
                   <CFormInput
                     type="text"
                     defaultValue={item.WAKTU_OPERASIONAL}
-                    onChange={e => setWaktuOperasional(e.target.value)}
+                    onChange={e => setWaktuOperasionalDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Waktu Operasional"
-                    // required
+                  // required
                   />
                 </CCol>
                 <CCol md={12}>
-                <CFormSelect
+                  <CFormSelect
                     type="text"
-                    defaultValue={item.NAMA_DEVELOPER}
-                    onChange={e => setDeveloper(e.target.value)}
+                    defaultValue={item.DEVELOPER}
+                    onChange={e => setDeveloperDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Developer"
-                    // required
+                  // required
                   >
                     <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
                     {pilihDeveloper.map(item => (
@@ -1137,22 +1239,22 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.BUSINESS_OWNER}
-                    onChange={e => setBusinessOwner(e.target.value)}
+                    onChange={e => setBusinessOwnerDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Business Owner"
-                    // required
+                  // required
                   />
                 </CCol>
                 <CCol md={6}>
-                <CFormSelect
+                  <CFormSelect
                     type="text"
-                    defaultValue={item.NAMA}
-                    onChange={e => setPIC(e.target.value)}
+                    defaultValue={item.PIC_NIPPOS}
+                    onChange={e => setPICNipposDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="PIC"
-                    // required
+                  // required
                   >
                     <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
                     {pilihKaryawan.map(item => (
@@ -1166,33 +1268,33 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.TELEPON}
-                    onChange={e => setTeleponPIC(e.target.value)}
+                    onChange={e => setTeleponKaryawan(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Kontak PIC"
-                    // required
+                  // required
                   />
                 </CCol>
                 <CCol md={12}>
                   <CFormInput
                     type="text"
                     defaultValue={item.PORT}
-                    onChange={e => setPort(e.target.value)}
+                    onChange={e => setPortDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Port"
-                    // required
+                  // required
                   />
                 </CCol>
                 <CCol md={12}>
-                <CFormSelect
+                  <CFormSelect
                     type="text"
-                    defaultValue={item.NAMA_STATUS}
-                    onChange={e => setStatus(e.target.value)}
+                    defaultValue={item.FLAG_STATUS}
+                    onChange={e => setFlagProduk(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Status"
-                    // required
+                  // required
                   >
                     <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
                     {pilihStatus.map(item => (
@@ -1215,44 +1317,44 @@ function Dashboard() {
                   <CFormInput
                     type="text"
                     defaultValue={item.TANGGAL_LIVE}
-                    onChange={e => setTanggalLive(e.target.value)}
+                    onChange={e => setTanggalLiveDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Tanggal Live"
-                    // required
+                  // required
                   />
                 </CCol>
                 <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.TANGGAL_DEPLOY}
-                    onChange={e => setTanggalDeploy(e.target.value)}
+                    onChange={e => setTanggalDeployDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Tanggal Deploy"
-                    // required
+                  // required
                   />
                 </CCol>
                 <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.TANGGAL_AKHIR_UPDATE}
-                    onChange={e => setTanggalUpdate(e.target.value)}
+                    onChange={e => setTanggalAkhirUpdateDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Tanggal Update"
-                    // required
+                  // required
                   />
                 </CCol>
                 <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.TANGGAL_TUTUP}
-                    onChange={e => setTanggalTutup(e.target.value)}
+                    onChange={e => setTanggalTutupDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Tanggal Tutup"
-                    // required
+                  // required
                   />
                 </CCol>
                 {/* <CCol md={6}>
@@ -1316,8 +1418,8 @@ function Dashboard() {
                     onChange={(e) => handleJenisAccount(index, e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
-                    // label="Jenis Akun"
-                    // required
+                  // label="Jenis Akun"
+                  // required
                   />
                 </CCol>
                 <CCol md={3}>
@@ -1327,8 +1429,8 @@ function Dashboard() {
                     onChange={(e) => handleUsernameAccount(index, e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
-                    // label="Username"
-                    // required
+                  // label="Username"
+                  // required
                   />
                 </CCol>
                 <CCol md={3}>
@@ -1338,8 +1440,8 @@ function Dashboard() {
                     onChange={(e) => handlePassAccount(index, e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
-                    // label="Password"
-                    // required
+                  // label="Password"
+                  // required
                   />
                 </CCol>
                 <CCol md={3}>
@@ -1349,8 +1451,8 @@ function Dashboard() {
                     onChange={(e) => handleExpAccount(index, e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
-                    // label="Exp Date Pass"
-                    // required
+                  // label="Exp Date Pass"
+                  // required
                   />
                 </CCol>
                 {/* <CCol md={1}>
