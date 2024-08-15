@@ -118,7 +118,10 @@ function Dashboard() {
   const [passAccount, setPassAccount] = useState([])
   const [expAccount, setExpAccount] = useState([])
   const [idAccount, setIdAccount] = useState([])
+  const [lengthIdAccount, setLengthIdAccount] = useState([])
   // const [idProduk, setIdProduk] = useState([])
+
+  const [NewExpAccount, setNewExpAcc] = useState([])
 
 
 
@@ -181,6 +184,48 @@ function Dashboard() {
   const [pilihDeveloper, setPilihDeveloper] = useState([])
   const [pilihStatus, setPilihStatus] = useState([])
   const [pilihServer, setPilihServer] = useState([])
+
+  console.log(tanggalLiveDetail, 'tanggallive')
+
+  const formatDate = (isoDate) => {
+    if (!isoDate) return '';
+    const date = new Date(isoDate);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  useEffect(() => {
+    const newFormattedDates = expAccount.map(dateStr => {
+      // Cek apakah dateStr kosong atau null
+      if (!dateStr) {
+        const date = new Date(dateStr); // Konversi string ISO ke objek Date
+        const day = String(date.getDate()).padStart(2, '0'); // Ambil hari, tambahkan leading zero
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Ambil bulan, tambahkan leading zero
+        const year = date.getFullYear(); // Ambil tahun
+
+        return `${day}/${month}/${year}`;
+      }
+
+      const date = new Date(dateStr); // Konversi string ISO ke objek Date
+      return date.toISOString().split('T')[0]; // Format ke YYYY-MM-DD
+    });
+
+    // Update state dengan tanggal yang telah diformat atau null
+    setNewExpAcc(newFormattedDates);
+  }, [expAccount]);
+
+
+  const formattedTanggalLive = formatDate(tanggalLiveDetail);
+  const formattedTanggalUpdate = formatDate(tanggalAkhirUpdateDetail);
+  const formattedTanggalDeploy = formatDate(tanggalDeployDetail);
+  const formattedTanggalTutup = formatDate(tanggalTutupDetail);
+
+
+  const formattedTanggalExp = formatDate(expAccount);
+
+  // console.log(formattedDates, 'expp')
 
   // const fetchKantorFromBackend = async () => {
   //   try {
@@ -472,6 +517,7 @@ function Dashboard() {
       setUsernameAccount(response.data.map(item => item.USERNAME));
       setPassAccount(response.data.map(item => item.PASS));
       setExpAccount(response.data.map(item => item.EXP_DATE_PASSWORD));
+      setLengthIdAccount(response.data.map(item => item.ID_ACCOUNT).length);
       console.log("dataaaa", response.data)
       // setError(null);
     } catch (err) {
@@ -505,7 +551,7 @@ function Dashboard() {
         ID_STATUS: idStatus,
         NAMA_STATUS: namaStatus,
 
-        ID_PRODUK_DETAIL:idProdukDetail,
+        ID_PRODUK_DETAIL: idProdukDetail,
         PRODUK_ID: produkIdDetail,
         PENEMPATAN: penempatanDetail,
         PIC_NIPPOS: picNipposDetail,
@@ -533,14 +579,15 @@ function Dashboard() {
 
         ID_WEB_SERVER: idServer,
         NAMA_WEB_SERVER: webServer,
-        
+
         // BA_DEPLOY: ba_deploy,
         // REQ_DEPLOY: req_deploy,
         ID_ACCOUNT: idAccount,
         JENIS_AKUN: jenisAccount,
         USERNAME: usernameAccount,
         PASS: passAccount,
-        EXP_DATE_PASSWORD: expAccount
+        EXP_DATE_PASSWORD: expAccount,
+        LENGTH_ACCOUNT: lengthIdAccount
       };
       console.log("Request body:", JSON.stringify(requestBody, null, 2));
 
@@ -552,6 +599,7 @@ function Dashboard() {
       setUpdateFull(response.data);
       // setAccount2(response.data);
       console.log("update full:", response.data);
+      // window.location.reload();
 
       // setIdAccount(response.data.map(item => item.ID_ACCOUNT));
       // setJenisAccount(response.data.map(item => item.JENIS_AKUN));
@@ -1037,7 +1085,7 @@ function Dashboard() {
                     required
                   />
                 </CCol>
-                <CCol md={6}>
+                <CCol md={4}>
                   <CFormInput
                     type="text"
                     defaultValue={item.URL}
@@ -1048,7 +1096,7 @@ function Dashboard() {
                   // required
                   />
                 </CCol>
-                <CCol md={6}>
+                <CCol md={4}>
                   <CFormInput
                     type="text"
                     defaultValue={item.IP_SERVER}
@@ -1059,7 +1107,18 @@ function Dashboard() {
                   // required
                   />
                 </CCol>
-                <CCol md={6}>
+                <CCol md={4}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.PORT}
+                    onChange={e => setPortDetail(e.target.value)}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Port"
+                  // required
+                  />
+                </CCol>
+                <CCol md={4}>
                   <CFormSelect
                     type="text"
                     defaultValue={item.PENEMPATAN}
@@ -1077,7 +1136,7 @@ function Dashboard() {
                     ))}
                   </CFormSelect>
                 </CCol>
-                <CCol md={6}>
+                <CCol md={4}>
                   <CFormSelect
                     type="text"
                     defaultValue={item.AKSES}
@@ -1103,6 +1162,17 @@ function Dashboard() {
                     label="Akses"
                     required
                   /> */}
+                </CCol>
+                <CCol md={4}>
+                  <CFormInput
+                    type="text"
+                    defaultValue={item.WAKTU_OPERASIONAL}
+                    onChange={e => setWaktuOperasionalDetail(e.target.value)}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Waktu Operasional"
+                  // required
+                  />
                 </CCol>
                 <CCol md={4}>
                   <CFormInput
@@ -1140,8 +1210,8 @@ function Dashboard() {
                 <CCol md={6}>
                   <CFormSelect
                     type="text"
-                    defaultValue={item.WEB_SERVER}
-                    onChange={e => setWebServer(e.target.value)}
+                    defaultValue={item.WEB_SERVER_ID}
+                    onChange={e => setWebIdSpec(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Web Server"
@@ -1197,18 +1267,7 @@ function Dashboard() {
                   // required
                   />
                 </CCol>
-                <CCol md={12}>
-                  <CFormInput
-                    type="text"
-                    defaultValue={item.WAKTU_OPERASIONAL}
-                    onChange={e => setWaktuOperasionalDetail(e.target.value)}
-                    feedbackValid="Looks good!"
-                    id="validationCustom01"
-                    label="Waktu Operasional"
-                  // required
-                  />
-                </CCol>
-                <CCol md={12}>
+                <CCol md={6}>
                   <CFormSelect
                     type="text"
                     defaultValue={item.DEVELOPER}
@@ -1235,7 +1294,7 @@ function Dashboard() {
                     required
                   /> */}
                 </CCol>
-                <CCol md={12}>
+                <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.BUSINESS_OWNER}
@@ -1276,17 +1335,6 @@ function Dashboard() {
                   />
                 </CCol>
                 <CCol md={12}>
-                  <CFormInput
-                    type="text"
-                    defaultValue={item.PORT}
-                    onChange={e => setPortDetail(e.target.value)}
-                    feedbackValid="Looks good!"
-                    id="validationCustom01"
-                    label="Port"
-                  // required
-                  />
-                </CCol>
-                <CCol md={12}>
                   <CFormSelect
                     type="text"
                     defaultValue={item.FLAG_STATUS}
@@ -1315,8 +1363,8 @@ function Dashboard() {
                 </CCol>
                 <CCol md={6}>
                   <CFormInput
-                    type="text"
-                    defaultValue={item.TANGGAL_LIVE}
+                    type="date"
+                    defaultValue={formattedTanggalLive}
                     onChange={e => setTanggalLiveDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
@@ -1326,8 +1374,8 @@ function Dashboard() {
                 </CCol>
                 <CCol md={6}>
                   <CFormInput
-                    type="text"
-                    defaultValue={item.TANGGAL_DEPLOY}
+                    type="date"
+                    defaultValue={formattedTanggalDeploy}
                     onChange={e => setTanggalDeployDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
@@ -1337,8 +1385,8 @@ function Dashboard() {
                 </CCol>
                 <CCol md={6}>
                   <CFormInput
-                    type="text"
-                    defaultValue={item.TANGGAL_AKHIR_UPDATE}
+                    type="date"
+                    defaultValue={formattedTanggalUpdate}
                     onChange={e => setTanggalAkhirUpdateDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
@@ -1348,8 +1396,8 @@ function Dashboard() {
                 </CCol>
                 <CCol md={6}>
                   <CFormInput
-                    type="text"
-                    defaultValue={item.TANGGAL_TUTUP}
+                    type="date"
+                    defaultValue={formattedTanggalTutup}
                     onChange={e => setTanggalTutupDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
@@ -1399,140 +1447,50 @@ function Dashboard() {
             </CCol>
             {/* <CCol md={1}>
             </CCol> */}
-            {account2.map((item, index) => (
-              <React.Fragment>
-                {/* <CCol md={1}>
-                  <CFormInput
-                    type="text"
-                    defaultValue={item.JENIS_AKUN}
-                    feedbackValid="Looks good!"
-                    id="validationCustom01"
-                    // label="Jenis Akun"
-                    readOnly
-                  />
-                </CCol> */}
-                <CCol md={3}>
-                  <CFormInput
-                    type="text"
-                    defaultValue={item.JENIS_AKUN}
-                    onChange={(e) => handleJenisAccount(index, e.target.value)}
-                    feedbackValid="Looks good!"
-                    id="validationCustom01"
-                  // label="Jenis Akun"
-                  // required
-                  />
-                </CCol>
-                <CCol md={3}>
-                  <CFormInput
-                    type="text"
-                    defaultValue={item.USERNAME}
-                    onChange={(e) => handleUsernameAccount(index, e.target.value)}
-                    feedbackValid="Looks good!"
-                    id="validationCustom01"
-                  // label="Username"
-                  // required
-                  />
-                </CCol>
-                <CCol md={3}>
-                  <CFormInput
-                    type="text"
-                    defaultValue={item.PASS}
-                    onChange={(e) => handlePassAccount(index, e.target.value)}
-                    feedbackValid="Looks good!"
-                    id="validationCustom01"
-                  // label="Password"
-                  // required
-                  />
-                </CCol>
-                <CCol md={3}>
-                  <CFormInput
-                    type="text"
-                    defaultValue={item.EXP_DATE_PASSWORD}
-                    onChange={(e) => handleExpAccount(index, e.target.value)}
-                    feedbackValid="Looks good!"
-                    id="validationCustom01"
-                  // label="Exp Date Pass"
-                  // required
-                  />
-                </CCol>
-                {/* <CCol md={1}>
-                  <CButton color="primary" className="float-end">
-                    <CIcon icon={cilSend} onClick={() => {
-                      handleUpdateAccount(item.ID_ACCOUNT);
-                    }} />
-                  </CButton>
-                </CCol> */}
-                {/* <CCol md={4}>
-              <CFormInput
-                type="text"
-                defaultValue="Otto"
-                feedbackValid="Looks good!"
-                id="validationCustom02"
-                label="First name"
-                required
-              />
-            </CCol>
-            <CCol md={4}>
-              <CFormLabel htmlFor="validationCustomUsername">Username</CFormLabel>
-              <CInputGroup className="has-validation">
-                <CInputGroupText>@</CInputGroupText>
-                <CFormInput
-                  type="text"
-                  aria-describedby="inputGroupPrependFeedback"
-                  feedbackValid="Please choose a username."
-                  id="validationCustomUsername"
-                  required
-                />
-              </CInputGroup>
-            </CCol>
-            <CCol md={6}>
-              <CFormInput
-                type="text"
-                aria-describedby="validationCustom03Feedback"
-                feedbackInvalid="Please provide a valid city."
-                id="validationCustom03"
-                label="City"
-                required
-              />
-            </CCol>
-            <CCol md={3}>
-              <CFormSelect
-                aria-describedby="validationCustom04Feedback"
-                feedbackInvalid="Please select a valid state."
-                id="validationCustom04"
-                label="State"
-                required
-              >
-                <option disabled>Choose...</option>
-                <option>...</option>
-              </CFormSelect>
-            </CCol>
-            <CCol md={3}>
-              <CFormInput
-                type="text"
-                aria-describedby="validationCustom05Feedback"
-                feedbackInvalid="Please provide a valid zip."
-                id="validationCustom05"
-                label="Zip"
-                required
-              />
-            </CCol> */}
-                {/* <CCol xs={12}>
-                  <CFormCheck
-                    type="checkbox"
-                    id="invalidCheck"
-                    label="Agree to terms and conditions"
-                    required
-                  />
-                  <CFormFeedback invalid>You must agree before submitting.</CFormFeedback>
-                </CCol>
-                <CCol xs={12}>
-                  <CButton color="primary" type="submit">
-                    Submit form
-                  </CButton>
-                </CCol> */}
-              </React.Fragment>
-            ))}
+            <CRow className="mb-3">
+              {account2.map((item, index) => (
+                <div style={{ display: 'flex', marginBottom: '10px' }}>
+                  <CCol md={3} style={{ marginRight: '10px' }}>
+                    <CFormInput
+                      type="text"
+                      defaultValue={item.JENIS_AKUN}
+                      onChange={(e) => handleJenisAccount(index, e.target.value)}
+                      feedbackValid="Looks good!"
+                      id="validationCustom01"
+                    />
+                  </CCol>
+                  <CCol md={3} style={{ marginRight: '10px' }}>
+                    <CFormInput
+                      type="text"
+                      defaultValue={item.USERNAME}
+                      onChange={(e) => handleUsernameAccount(index, e.target.value)}
+                      feedbackValid="Looks good!"
+                      id="validationCustom01"
+                    />
+                  </CCol>
+                  <CCol md={3} style={{ marginRight: '10px' }}>
+                    <CFormInput
+                      type="text"
+                      defaultValue={item.PASS}
+                      onChange={(e) => handlePassAccount(index, e.target.value)}
+                      feedbackValid="Looks good!"
+                      id="validationCustom01"
+                    />
+                  </CCol>
+                  <CCol md={3}>
+                    {NewExpAccount[index] && (
+                      <CFormInput
+                        type="date"
+                        defaultValue={NewExpAccount[index]}
+                        onChange={(e) => handleExpAccount(index, e.target.value)}
+                        feedbackValid="Looks good!"
+                        id="validationCustom01"
+                      />
+                    )}
+                  </CCol>
+                </div>
+              ))}
+            </CRow>
           </CForm>
           {/* <p>
             Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
@@ -1614,9 +1572,9 @@ function Dashboard() {
           </p> */}
         </CModalBody>
         <CModalFooter>
-          <CButton color="secondary" onClick={() => setVisible(false)}>
+          {/* <CButton color="secondary" onClick={() => setVisible(false)}>
             Close
-          </CButton>
+          </CButton> */}
           {detail.map(item => {
             return (
               <React.Fragment key={item.ID_PRODUK}>
@@ -1646,7 +1604,7 @@ function Dashboard() {
         </ul>
       </div> */}
       < WidgetsDropdown className="mb-4" />
-      <WidgetsBrand className="mb-4" withCharts />
+      {/* <WidgetsBrand className="mb-4" withCharts /> */}
       <CCard className="mb-4">
         <CCardBody>
           <CRow>
@@ -1790,7 +1748,7 @@ function Dashboard() {
 
               <br />
 
-              <CTable align="middle" className="mb-0 border" hover responsive>
+              {/* <CTable align="middle" className="mb-0 border" hover responsive>
                 <CTableHead className="text-nowrap">
                   <CTableRow>
                     <CTableHeaderCell className="bg-body-tertiary text-center">
@@ -1807,8 +1765,8 @@ function Dashboard() {
                     <CTableHeaderCell className="bg-body-tertiary">Activity</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
-                <CTableBody>
-                  {/* {tableExample.map((item, index) => (
+                <CTableBody> */}
+              {/* {tableExample.map((item, index) => (
                     <CTableRow v-for="item in tableItems" key={index}>
                       <CTableDataCell className="text-center">
                         <CAvatar size="md" src={item.avatar.src} STATUS={item.avatar.STATUS} />
@@ -1841,8 +1799,8 @@ function Dashboard() {
                       </CTableDataCell>
                     </CTableRow>
                   ))} */}
-                </CTableBody>
-              </CTable>
+              {/* </CTableBody>
+              </CTable> */}
             </CCardBody>
           </CCard>
         </CCol>
