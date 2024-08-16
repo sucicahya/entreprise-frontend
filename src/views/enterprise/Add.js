@@ -854,10 +854,10 @@ function Add() {
                 FRAMEWORK: frameworkDetail,
                 VER_FRAMEWORK: verFrameworkDetail,
                 JENIS_DATABASE: jenisDatabaseDetail,
-                // TANGGAL_LIVE: tanggalLiveDetail,
-                // TANGGAL_AKHIR_UPDATE: tanggalAkhirUpdateDetail,
-                // TANGGAL_TUTUP: tanggalTutupDetail,
-                // TANGGAL_DEPLOY: tanggalDeployDetail,
+                TANGGAL_LIVE: tanggalLiveDetail,
+                TANGGAL_AKHIR_UPDATE: tanggalAkhirUpdateDetail,
+                TANGGAL_TUTUP: tanggalTutupDetail,
+                TANGGAL_DEPLOY: tanggalDeployDetail,
 
                 IP_SERVER: ipSpec,
                 CPU: cpuSpec,
@@ -1145,7 +1145,7 @@ function Add() {
                                     {pilihServer.map(item => (
                                         <CDropdownItem
                                             key={item.ID_WEB_SERVER}
-                                        // onClick={() => handleSelect(item.ID_WEB_SERVER)}
+                                            onClick={e => setServerDetail(item.ID_WEB_SERVER)}
                                         >
                                             {item.NAMA_WEB_SERVER}
                                         </CDropdownItem>
