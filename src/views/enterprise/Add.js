@@ -207,6 +207,8 @@ function Add() {
     const [NEW_TELEPON_PIC, setNew_Telepon_PIC] = useState([]);
     const [NEW_NAMA_STATUS, setNew_Nama_Status] = useState([]);
 
+    const [accounts, setAccounts] = useState([])
+
 
     const handleAdd = () => {
         console.log('Add new item');
@@ -426,36 +428,36 @@ function Add() {
     const handleJenisAccount = (index, value) => {
         console.log("rrxind", index)
         console.log("rrxval", value)
-        const updatedAccount = [...account2];
+        const updatedAccount = [...accounts];
         updatedAccount[index].JENIS_AKUN = value;
-        setAccount2(updatedAccount);
+        setAccounts(updatedAccount);
         setJenisAccount(updatedAccount.map(acc => (acc.JENIS_AKUN)));
     };
 
     const handleUsernameAccount = (index, value) => {
         console.log("rrxind", index)
         console.log("rrxval", value)
-        const updatedAccount = [...account2];
+        const updatedAccount = [...accounts];
         updatedAccount[index].USERNAME = value;
-        setAccount2(updatedAccount);
+        setAccounts(updatedAccount);
         setUsernameAccount(updatedAccount.map(acc => (acc.USERNAME)));
     };
 
     const handlePassAccount = (index, value) => {
         console.log("rrxind", index)
         console.log("rrxval", value)
-        const updatedAccount = [...account2];
+        const updatedAccount = [...accounts];
         updatedAccount[index].PASS = value;
-        setAccount2(updatedAccount);
+        setAccounts(updatedAccount);
         setPassAccount(updatedAccount.map(acc => (acc.PASS)));
     };
 
     const handleExpAccount = (index, value) => {
         console.log("rrxind", index)
         console.log("rrxval", value)
-        const updatedAccount = [...account2];
+        const updatedAccount = [...accounts];
         updatedAccount[index].EXP_DATE_PASSWORD = value;
-        setAccount2(updatedAccount);
+        setAccounts(updatedAccount);
         setExpAccount(updatedAccount.map(acc => (acc.EXP_DATE_PASSWORD)));
     };
 
@@ -865,18 +867,18 @@ function Add() {
                 STORAGE: storageSpec,
                 // ID_SPEC_SERVER: idSpec,
                 // WEB_SERVER_ID: webIdSpec,
-        
+
                 // ID_WEB_SERVER: idServer,
                 // NAMA_WEB_SERVER: webServer,
-        
+
                 // BA_DEPLOY: ba_deploy,
                 // REQ_DEPLOY: req_deploy,
                 // ID_ACCOUNT: idAccount,
-                // JENIS_AKUN: jenisAccount,
-                // USERNAME: usernameAccount,
-                // PASS: passAccount,
-                // EXP_DATE_PASSWORD: expAccount,
-                // LENGTH_ACCOUNT: lengthIdAccount
+                JENIS_AKUN: jenisAccount,
+                USERNAME: usernameAccount,
+                PASS: passAccount,
+                EXP_DATE_PASSWORD: expAccount,
+                LENGTH_ACCOUNT: lengthIdAccount
             }
             console.log("reqbody", requestBody)
 
@@ -902,6 +904,10 @@ function Add() {
             // setAccount(null);
         }
     };
+
+    const addGridAccount = () => {
+        setAccounts([...accounts, { jenis_akun: '', uname: '', pass_akun: '', exp_akun: '' }])
+    }
 
     return (
         <>
@@ -1438,12 +1444,12 @@ function Add() {
                         {/* <CCol md={1}>
             </CCol> */}
                         <CRow className="mb-3">
-                            {account2.map((item, index) => (
+                            {accounts.map((acc, index) => (
                                 <div style={{ display: 'flex', marginBottom: '10px' }}>
                                     <CCol md={3} style={{ marginRight: '10px' }}>
                                         <CFormInput
                                             type="text"
-                                            defaultValue={item.JENIS_AKUN}
+                                            value={acc.jenisAccount}
                                             onChange={(e) => handleJenisAccount(index, e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
@@ -1452,7 +1458,7 @@ function Add() {
                                     <CCol md={3} style={{ marginRight: '10px' }}>
                                         <CFormInput
                                             type="text"
-                                            defaultValue={item.USERNAME}
+                                            value={acc.usernameAccount}
                                             onChange={(e) => handleUsernameAccount(index, e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
@@ -1461,25 +1467,35 @@ function Add() {
                                     <CCol md={3} style={{ marginRight: '10px' }}>
                                         <CFormInput
                                             type="text"
-                                            defaultValue={item.PASS}
+                                            value={acc.passAccount}
                                             onChange={(e) => handlePassAccount(index, e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         />
                                     </CCol>
                                     <CCol md={3}>
-                                        {NewExpAccount[index] && (
-                                            <CFormInput
-                                                type="date"
-                                                defaultValue={NewExpAccount[index]}
-                                                onChange={(e) => handleExpAccount(index, e.target.value)}
-                                                feedbackValid="Looks good!"
-                                                id="validationCustom01"
-                                            />
-                                        )}
+                                        {/* {NewExpAccount[index] && ( */}
+                                        <CFormInput
+                                            type="date"
+                                            value={acc.expAccount}
+                                            onChange={(e) => handleExpAccount(index, e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        />
+                                        {/* )} */}
                                     </CCol>
                                 </div>
                             ))}
+                            <div>
+
+                                <CButton
+                                    color="primary"
+                                    onClick={addGridAccount}
+                                >
+                                    Add Row
+                                </CButton>
+                            </div>
+                            {/* ))}  */}
                         </CRow>
                     </CForm>
                 </CModalBody>
