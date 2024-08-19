@@ -209,6 +209,18 @@ function Add() {
 
     const [accounts, setAccounts] = useState([])
 
+    useEffect(() => {
+        // Initialize with three default milestones
+        if (accounts.length === 0) {
+            setAccounts([
+                // { description: '', progress: '' },
+                // { description: '', progress: '' },
+                // { description: '', progress: '' }
+                { jenis_akun: '', uname: '', pass_akun: '', exp_akun: '' }
+            ]);
+        }
+    }, [accounts]);
+
 
     const handleAdd = () => {
         console.log('Add new item');
@@ -1010,7 +1022,8 @@ function Add() {
                             <span>Penempatan</span>
 
                             <CDropdown className="w-100">
-                                <OutlineDropdownToggle>
+                                <OutlineDropdownToggle style={{ marginTop: '7px' }}>
+                                    -- Pilih --
                                     {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
                                 </OutlineDropdownToggle>
 
@@ -1054,7 +1067,8 @@ function Add() {
                             <span>Akses</span>
 
                             <CDropdown className="w-100">
-                                <OutlineDropdownToggle>
+                                <OutlineDropdownToggle style={{ marginTop: '7px' }}>
+                                    -- Pilih --
                                     {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
                                 </OutlineDropdownToggle>
 
@@ -1143,7 +1157,8 @@ function Add() {
                             <span>Web Server</span>
 
                             <CDropdown className="w-100">
-                                <OutlineDropdownToggle>
+                                <OutlineDropdownToggle style={{ marginTop: '7px' }}>
+                                    -- Pilih --
                                     {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
                                 </OutlineDropdownToggle>
 
@@ -1200,7 +1215,7 @@ function Add() {
                             // required
                             />
                         </CCol>
-                        <CCol md={6}>
+                        <CCol md={4}>
                             {/* <CFormSelect
                                 type="text"
                                 defaultValue={item.DEVELOPER}
@@ -1221,7 +1236,8 @@ function Add() {
                             <span>Developer</span>
 
                             <CDropdown className="w-100">
-                                <OutlineDropdownToggle>
+                                <OutlineDropdownToggle style={{ marginTop: '7px' }}>
+                                    -- Pilih --
                                     {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
                                 </OutlineDropdownToggle>
 
@@ -1245,7 +1261,7 @@ function Add() {
                                 </CDropdownMenu>
                             </CDropdown>
                         </CCol>
-                        <CCol md={6}>
+                        <CCol md={4}>
                             <CFormInput
                                 type="text"
                                 value={businessOwnerDetail}
@@ -1256,7 +1272,7 @@ function Add() {
                             // required
                             />
                         </CCol>
-                        <CCol md={6}>
+                        <CCol md={4}>
                             {/* <CFormSelect
                                 type="text"
                                 defaultValue={item.PIC_NIPPOS}
@@ -1277,7 +1293,8 @@ function Add() {
                             <span>PIC</span>
 
                             <CDropdown className="w-100">
-                                <OutlineDropdownToggle>
+                                <OutlineDropdownToggle style={{ marginTop: '7px' }}>
+                                    -- Pilih --
                                     {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
                                 </OutlineDropdownToggle>
 
@@ -1301,7 +1318,7 @@ function Add() {
                                 </CDropdownMenu>
                             </CDropdown>
                         </CCol>
-                        <CCol md={6}>
+                        {/* <CCol md={6}>
                             <CFormInput
                                 type="text"
                                 value={teleponKaryawan}
@@ -1309,11 +1326,11 @@ function Add() {
                                 feedbackValid="Looks good!"
                                 id="validationCustom01"
                                 label="Kontak PIC"
-                            // required
+                                required
                             />
-                        </CCol>
-                        <CCol md={12}>
-                            {/* <CFormSelect
+                        </CCol> */}
+                        {/* <CCol md={12}> */}
+                        {/* <CFormSelect
                                 type="text"
                                 defaultValue={item.FLAG_STATUS}
                                 onChange={e => setFlagProduk(e.target.value)}
@@ -1330,14 +1347,14 @@ function Add() {
                                 ))}
                             </CFormSelect> */}
 
-                            <span>Status</span>
+                        {/* <span>Status</span> */}
 
-                            <CDropdown className="w-100">
-                                <OutlineDropdownToggle>
-                                    {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
-                                </OutlineDropdownToggle>
+                        {/* <CDropdown className="w-100">
+                                <OutlineDropdownToggle> */}
+                        {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
+                        {/* </OutlineDropdownToggle> */}
 
-                                <CDropdownMenu>
+                        {/* <CDropdownMenu>
                                     {pilihStatus.map(item => (
                                         <CDropdownItem
                                             key={item.ID_STATUS}
@@ -1355,8 +1372,8 @@ function Add() {
                                         Tindakan
                                     </CButton>
                                 </CDropdownMenu>
-                            </CDropdown>
-                        </CCol>
+                            </CDropdown> */}
+                        {/* </CCol> */}
                         <CCol md={6}>
                             <CFormInput
                                 type="date"

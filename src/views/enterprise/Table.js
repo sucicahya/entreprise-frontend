@@ -1006,9 +1006,9 @@ function Dashboard() {
   // ]
   const getBadge = (STATUS) => {
     switch (STATUS) {
-      case 'Active':
+      case 'Aktif':
         return 'success'
-      case 'Inactive':
+      case 'Non-Aktif':
         return 'secondary'
       case 'Pending':
         return 'warning'
@@ -1318,6 +1318,7 @@ function Dashboard() {
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Kontak PIC"
+                    readOnly
                   // required
                   />
                 </CCol>
@@ -1592,7 +1593,7 @@ function Dashboard() {
           { key: 'show_details', label: 'Details' },
           // { key: 'details', label: 'More Details' },
         ]}
-        columnFilter
+        // columnFilter
         columnSorter
         footer
         items={produk.map(item => ({
