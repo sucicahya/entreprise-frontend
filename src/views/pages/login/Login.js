@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 import { Link } from 'react-router-dom'
 import {
   CButton,
@@ -15,8 +16,56 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  const navigate = useNavigate()
+  const [username, setUsername] = useState([]);
+  const [pass, setPass] = useState([]);
+  const [hasilLogin, setHasilLogin] = useState([]);
+  console.log("uname", username)
+  console.log("pas", pass)
+  // console.log("hasillogin", hasilLogin)
+
+
+  const loginsim = async () => {
+    console.log("iddx")
+    try {
+      // setVisibleLg(!visibleLg)
+      const requestBody = {
+        // ID_PRODUK,
+        USERNAME: username,
+        PASS: pass
+      };
+      console.log("Request body:", JSON.stringify(requestBody, null, 2));
+
+      const response = await axios.post('http://localhost:5000/login-sim', requestBody, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      setHasilLogin(response.data);
+      // setAccount2(response.data);
+      console.log("hasillogin:", response.data);
+      if (response.status === 200) {
+        navigate('../enterprise')
+      }
+      // window.location.reload();
+
+      // setIdAccount(response.data.map(item => item.ID_ACCOUNT));
+      // setJenisAccount(response.data.map(item => item.JENIS_AKUN));
+      // setUsernameAccount(response.data.map(item => item.USERNAME));
+      // setPassAccount(response.data.map(item => item.PASS));
+      // setExpAccount(response.data.map(item => item.EXP_DATE_PASSWORD));
+      // console.log("dataaaa", response.data)
+      // setError(null);
+    } catch (err) {
+      // setError('Error fetching details');
+      setHasilLogin(null);
+    }
+  };
+
+
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -32,7 +81,12 @@ const Login = () => {
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
+                      <CFormInput
+                        placeholder="Username"
+                        autoComplete="username"
+                        value={username}
+                        onChange={e => setUsername(e.target.value)}
+                      />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
@@ -42,11 +96,13 @@ const Login = () => {
                         type="password"
                         placeholder="Password"
                         autoComplete="current-password"
+                        value={pass}
+                        onChange={e => setPass(e.target.value)}
                       />
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
+                        <CButton color="primary" className="px-4" onClick={() => { loginsim() }}>
                           Login
                         </CButton>
                       </CCol>
@@ -60,7 +116,7 @@ const Login = () => {
                 </CCardBody>
               </CCard>
               <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
+                {/* <CCardBody className="text-center">
                   <div>
                     <h2>Sign up</h2>
                     <p>
@@ -73,7 +129,7 @@ const Login = () => {
                       </CButton>
                     </Link>
                   </div>
-                </CCardBody>
+                </CCardBody> */}
               </CCard>
             </CCardGroup>
           </CCol>
