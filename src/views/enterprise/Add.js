@@ -327,7 +327,7 @@ function Add() {
     // console.log(formattedDates, 'expp')
 
     useEffect(() => {
-        axios.get('http://localhost:5000/pilih-penempatan')
+        axios.get('http://localhost:5000/detail/pilih-penempatan')
             .then(response => {
                 // console.log('Data received:', response.data); // Cek data yang diterima
                 if (Array.isArray(response.data)) {
@@ -344,7 +344,7 @@ function Add() {
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/pilih-karyawan')
+        axios.get('http://localhost:5000/detail/pilih-karyawan')
             .then(response => {
                 // console.log('Data received:', response.data); // Cek data yang diterima
                 if (Array.isArray(response.data)) {
@@ -361,7 +361,7 @@ function Add() {
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/pilih-akses')
+        axios.get('http://localhost:5000/detail/pilih-akses')
             .then(response => {
                 // console.log('Data received:', response.data); // Cek data yang diterima
                 if (Array.isArray(response.data)) {
@@ -378,7 +378,7 @@ function Add() {
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/pilih-developer')
+        axios.get('http://localhost:5000/detail/pilih-developer')
             .then(response => {
                 // console.log('Data received:', response.data); // Cek data yang diterima
                 if (Array.isArray(response.data)) {
@@ -395,7 +395,7 @@ function Add() {
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/pilih-status')
+        axios.get('http://localhost:5000/detail/pilih-status')
             .then(response => {
                 // console.log('Data received:', response.data); // Cek data yang diterima
                 if (Array.isArray(response.data)) {
@@ -412,7 +412,7 @@ function Add() {
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/pilih-server')
+        axios.get('http://localhost:5000/detail/pilih-server')
             .then(response => {
                 // console.log('Data received:', response.data); // Cek data yang diterima
                 if (Array.isArray(response.data)) {
@@ -488,7 +488,7 @@ function Add() {
     }
 
     useEffect(() => {
-        axios.get('http://localhost:5000/main-table')
+        axios.get('http://localhost:5000/detail/main-table')
             .then(response => {
                 // console.log('Data received:', response.data); // Cek data yang diterima
                 if (Array.isArray(response.data)) {
@@ -569,7 +569,7 @@ function Add() {
             };
             console.log("Request body:", JSON.stringify(requestBody, null, 2));
 
-            const response = await axios.post('http://localhost:5000/update-all', requestBody, {
+            const response = await axios.post('http://localhost:5000/detail/update-all', requestBody, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -682,7 +682,7 @@ function Add() {
         console.log(NEW_NAMA_PENEMPATAN, "NEW_NAMA_PENEMPATAN")
         try {
             setVisibleSmPenempatan(!visibleSmPenempatan)
-            const response = await axios.post('http://localhost:5000/new-penempatan', { NEW_NAMA_PENEMPATAN });
+            const response = await axios.post('http://localhost:5000/add/new-penempatan', { NEW_NAMA_PENEMPATAN });
             // setAccount(response.data);
             // setAccount2(response.data);
             console.log("Account2 data:", response.data);
@@ -705,7 +705,7 @@ function Add() {
         console.log(NEW_NAMA_AKSES, "NEW_NAMA_AKSES")
         try {
             setVisibleSmAkses(!visibleSmAkses)
-            const response = await axios.post('http://localhost:5000/new-akses', { NEW_NAMA_AKSES });
+            const response = await axios.post('http://localhost:5000/add/new-akses', { NEW_NAMA_AKSES });
             // setAccount(response.data);
             // setAccount2(response.data);
             console.log("Account2 data:", response.data);
@@ -728,7 +728,7 @@ function Add() {
         console.log(NEW_NAMA_WEB_SERVER, "NEW_NAMA_WEB_SERVER")
         try {
             setVisibleSmWebServer(!visibleSmWebServer)
-            const response = await axios.post('http://localhost:5000/new-webserver', { NEW_NAMA_WEB_SERVER });
+            const response = await axios.post('http://localhost:5000/add/new-webserver', { NEW_NAMA_WEB_SERVER });
             // setAccount(response.data);
             // setAccount2(response.data);
             console.log("Account2 data:", response.data);
@@ -751,7 +751,7 @@ function Add() {
         console.log(NEW_NAMA_DEVELOPER, "NEW_NAMA_DEVELOPER")
         try {
             setVisibleSmDeveloper(!visibleSmDeveloper)
-            const response = await axios.post('http://localhost:5000/new-developer', { NEW_NAMA_DEVELOPER });
+            const response = await axios.post('http://localhost:5000/add/new-developer', { NEW_NAMA_DEVELOPER });
             // setAccount(response.data);
             // setAccount2(response.data);
             console.log("Account2 data:", response.data);
@@ -783,7 +783,7 @@ function Add() {
                 NEW_TELEPON_PIC: NEW_TELEPON_PIC
             }
 
-            const response = await axios.post('http://localhost:5000/new-pic', requestBody, {
+            const response = await axios.post('http://localhost:5000/add/new-pic', requestBody, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -810,7 +810,7 @@ function Add() {
         console.log(NEW_NAMA_STATUS, "NEW_NAMA_STATUS")
         try {
             setVisibleSmStatus(!visibleSmStatus)
-            const response = await axios.post('http://localhost:5000/new-status', { NEW_NAMA_STATUS });
+            const response = await axios.post('http://localhost:5000/add/new-status', { NEW_NAMA_STATUS });
             // setAccount(response.data);
             // setAccount2(response.data);
             console.log("Account2 data:", response.data);
@@ -894,7 +894,7 @@ function Add() {
             }
             console.log("reqbody", requestBody)
 
-            const response = await axios.post('http://localhost:5000/new-produk', requestBody, {
+            const response = await axios.post('http://localhost:5000/add/new-produk', requestBody, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -1042,7 +1042,7 @@ function Add() {
                                         onClick={handleButtonNewPenempatan}
                                         className="ml-2"
                                     >
-                                        Tindakan
+                                        Tambah Penempatan
                                     </CButton>
                                 </CDropdownMenu>
                             </CDropdown>
@@ -1087,7 +1087,7 @@ function Add() {
                                         onClick={handleButtonNewAkses}
                                         className="ml-2"
                                     >
-                                        Tindakan
+                                        Tambah Akses
                                     </CButton>
                                 </CDropdownMenu>
                             </CDropdown>
@@ -1177,7 +1177,7 @@ function Add() {
                                         onClick={handleButtonNewWebServer}
                                         className="ml-2"
                                     >
-                                        Tindakan
+                                        Tambah Web Server
                                     </CButton>
                                 </CDropdownMenu>
                             </CDropdown>
@@ -1256,7 +1256,7 @@ function Add() {
                                         onClick={handleButtonNewDeveloper}
                                         className="ml-2"
                                     >
-                                        Tindakan
+                                        Tambah Developer
                                     </CButton>
                                 </CDropdownMenu>
                             </CDropdown>
@@ -1313,7 +1313,7 @@ function Add() {
                                         onClick={handleButtonNewPIC}
                                         className="ml-2"
                                     >
-                                        Tindakan
+                                        Tambah PIC
                                     </CButton>
                                 </CDropdownMenu>
                             </CDropdown>

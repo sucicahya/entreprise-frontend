@@ -22,7 +22,7 @@ const Charts = () => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:5000/jenis-database')
+        axios.get('http://localhost:5000/card/jenis-database')
             .then(response => {
                 // console.log('Data received:', response.data); // Cek data yang diterima
                 if (Array.isArray(response.data)) {
@@ -135,16 +135,19 @@ const Charts = () => {
                     </CCardBody>
                 </CCard>
             </CCol> */}
-            <CCol xs={6}>
+            <CCol xs={12}>
                 <CCard className="mb-4">
                     <CCardHeader>Pie Chart</CCardHeader>
                     <CCardBody>
                         {loading ? (
                             <p>Loading...</p>
                         ) : (
-                            <CChartPie
-                                data={chartData}
-                            />
+                            <div style={{ width: '100%', height: '300px' }}>
+                                <CChartPie
+                                    data={chartData}
+                                    style={{ width: '100%', height: '100%' }} // Mengatur lebar dan tinggi chart
+                                />
+                            </div>
                         )}
                     </CCardBody>
                 </CCard>

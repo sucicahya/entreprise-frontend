@@ -250,7 +250,7 @@ function Dashboard() {
   // }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/pilih-penempatan')
+    axios.get('http://localhost:5000/detail/pilih-penempatan')
       .then(response => {
         // console.log('Data received:', response.data); // Cek data yang diterima
         if (Array.isArray(response.data)) {
@@ -267,7 +267,7 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/pilih-karyawan')
+    axios.get('http://localhost:5000/detail/pilih-karyawan')
       .then(response => {
         // console.log('Data received:', response.data); // Cek data yang diterima
         if (Array.isArray(response.data)) {
@@ -284,7 +284,7 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/pilih-akses')
+    axios.get('http://localhost:5000/detail/pilih-akses')
       .then(response => {
         // console.log('Data received:', response.data); // Cek data yang diterima
         if (Array.isArray(response.data)) {
@@ -301,7 +301,7 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/pilih-developer')
+    axios.get('http://localhost:5000/detail/pilih-developer')
       .then(response => {
         // console.log('Data received:', response.data); // Cek data yang diterima
         if (Array.isArray(response.data)) {
@@ -318,7 +318,7 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/pilih-status')
+    axios.get('http://localhost:5000/detail/pilih-status')
       .then(response => {
         // console.log('Data received:', response.data); // Cek data yang diterima
         if (Array.isArray(response.data)) {
@@ -335,7 +335,7 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/pilih-server')
+    axios.get('http://localhost:5000/detail/pilih-server')
       .then(response => {
         // console.log('Data received:', response.data); // Cek data yang diterima
         if (Array.isArray(response.data)) {
@@ -411,7 +411,7 @@ function Dashboard() {
   }
 
   useEffect(() => {
-    axios.get('http://localhost:5000/main-table')
+    axios.get('http://localhost:5000/detail/main-table')
       .then(response => {
         // console.log('Data received:', response.data); // Cek data yang diterima
         if (Array.isArray(response.data)) {
@@ -448,7 +448,7 @@ function Dashboard() {
     console.log(id, "idd")
     try {
       setVisibleLg(!visibleLg)
-      const response = await axios.post('http://localhost:5000/full-detail', { id });
+      const response = await axios.post('http://localhost:5000/detail/full-detail', { id });
       setDetail(response.data);
       setIdProduk(response.data.map(item => item.ID_PRODUK))
       setNamaProduk(response.data.map(item => item.NAMA_PRODUK));
@@ -510,7 +510,7 @@ function Dashboard() {
     console.log(id, "idd")
     try {
       setVisibleLg(!visibleLg)
-      const response = await axios.post('http://localhost:5000/full-account', { id });
+      const response = await axios.post('http://localhost:5000/detail/full-account', { id });
       setAccount(response.data);
       setAccount2(response.data);
       console.log("Account2 data:", response.data);
@@ -594,7 +594,7 @@ function Dashboard() {
       };
       console.log("Request body:", JSON.stringify(requestBody, null, 2));
 
-      const response = await axios.post('http://localhost:5000/update-all', requestBody, {
+      const response = await axios.post('http://localhost:5000/detail/update-all', requestBody, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -1148,7 +1148,7 @@ function Dashboard() {
           </CRow>
         </CCardFooter>
       </CCard> 
-      <Chart />  
+      {/* <Chart />   */}
       <Add />   
       <Table />
     </>
