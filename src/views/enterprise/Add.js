@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import classNames from 'classnames'
 import { CSmartTable, CBadge, CCollapse } from '@coreui/react-pro';
+import AddServer from './AddServer'
 
 
 
@@ -1446,7 +1447,7 @@ function Add() {
                         {/* <CCol md={1}>
               <span>Nomor</span>
             </CCol> */}
-                        <CCol md={3}>
+                        {/* <CCol md={3}>
                             <span>Jenis Akun</span>
                         </CCol>
                         <CCol md={3}>
@@ -1457,10 +1458,10 @@ function Add() {
                         </CCol>
                         <CCol md={3}>
                             <span>Exp Date Pass</span>
-                        </CCol>
+                        </CCol> */}
                         {/* <CCol md={1}>
             </CCol> */}
-                        <CRow className="mb-3">
+                        {/* <CRow className="mb-3">
                             {accounts.map((acc, index) => (
                                 <div style={{ display: 'flex', marginBottom: '10px' }}>
                                     <CCol md={3} style={{ marginRight: '10px' }}>
@@ -1490,17 +1491,17 @@ function Add() {
                                             id="validationCustom01"
                                         />
                                     </CCol>
-                                    <CCol md={3}>
+                                    <CCol md={3}> */}
                                         {/* {NewExpAccount[index] && ( */}
-                                        <CFormInput
+                                        {/* <CFormInput
                                             type="date"
                                             value={acc.expAccount}
                                             onChange={(e) => handleExpAccount(index, e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
-                                        />
+                                        /> */}
                                         {/* )} */}
-                                    </CCol>
+                                    {/* </CCol>
                                 </div>
                             ))}
                             <div>
@@ -1511,9 +1512,9 @@ function Add() {
                                 >
                                     Add Row
                                 </CButton>
-                            </div>
+                            </div> */}
                             {/* ))}  */}
-                        </CRow>
+                        {/* </CRow> */}
                     </CForm>
                 </CModalBody>
                 <CModal
@@ -1815,14 +1816,16 @@ function Add() {
                     {/* {detail.map(item => {
                         return (
                             <React.Fragment key={item.ID_PRODUK}> */}
-                    <CButton
+                    {/* <CButton
                         color="primary"
                         onClick={() => {
                             handleNewProduk();
                         }}
                     >
-                        Save changes
-                    </CButton>
+                        Save changes and Go to next page
+                    </CButton> */}
+                    
+                    <AddServer />
                     {/* </React.Fragment>
                         );
                     })} */}
