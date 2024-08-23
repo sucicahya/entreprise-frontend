@@ -80,7 +80,8 @@ import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import Table from './Table'
 
-function AddServer() {
+function AddServer({ isOpen, toggle }) {
+    const [selectedServers, setSelectedServers] = useState([]);
     const [produk, setProduk] = useState([]);
     // const [id_produk_detail, setIdProdukDetail] = useState([]);
     const [detail, setDetail] = useState([]);
@@ -90,6 +91,7 @@ function AddServer() {
     const [details, setDetails] = useState([])
     const [visibleLg, setVisibleLg] = useState(false)
     const [visibleLg2, setVisibleLg2] = useState(false)
+    const [visibleLg3, setVisibleLg3] = useState(false)
     const [visibleSmPenempatan, setVisibleSmPenempatan] = useState(false)
     const [visibleSmAkses, setVisibleSmAkses] = useState(false)
     const [visibleSmWebServer, setVisibleSmWebServer] = useState(false)
@@ -211,6 +213,7 @@ function AddServer() {
 
     const [accounts, setAccounts] = useState([])
     const [servers, setServers] = useState([])
+    const [clickedServers, setClickedServers] = useState([]);
 
     useEffect(() => {
         // Initialize with three default milestones
@@ -332,6 +335,23 @@ function AddServer() {
         updatedServer[index].IP_SERVER = value;
         setServers(updatedServer);
         setIPSpec(updatedServer.map(acc => (acc.IP_SERVER)));
+    };
+    console.log("Clickedd Servers Array:", servers);
+
+    const handleClick = (index, id) => {
+        console.log("idclick", id)
+        const updatedServer = [...servers];
+        updatedServer[index].web_server = id;
+        console.log("Clicked Servers Array:", updatedServer);
+        setServers(updatedServer);
+        setServerDetail(updatedServer.map(acc => (acc.web_server)));
+        // setClickedServers(servers => {
+        //     const updatedServer = [...servers];
+        //     updatedServer[index].web_server = id;
+
+        //     console.log("Clicked Servers Array:", updatedServers);
+        //     return updatedServer;
+        // });
     };
 
     const handleCPUServer = (index, value) => {
@@ -771,7 +791,7 @@ function AddServer() {
         }
     };
 
-    const handleNewProduk = async () => {
+    const handleNewServer = async () => {
         console.log(NEW_NAMA_PIC, "NEW_NAMA_PIC")
         try {
             setVisibleLg(!visibleLg)
@@ -835,9 +855,9 @@ function AddServer() {
                 EXP_DATE_PASSWORD: expAccount,
                 LENGTH_ACCOUNT: lengthIdAccount
             }
-            console.log("reqbody", requestBody)
+            console.log("reqbody2", requestBody)
 
-            const response = await axios.post('http://localhost:5000/add/new-produk', requestBody, {
+            const response = await axios.post('http://localhost:5000/add/new-server', requestBody, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -867,19 +887,19 @@ function AddServer() {
     return (
         <>
 
-            <CButton
+            {/* <CButton
                 color="primary"
                 onClick={() => {
                     handleNewProduk();
                 }}
             >
                 Save changes and Go to next page
-            </CButton>
+            </CButton> */}
             <CModal
                 scrollable
                 size="lg"
-                visible={visibleLg2}
-                onClose={() => setVisibleLg2(false)}
+                visible={isOpen}
+                onClose={toggle}
                 aria-labelledby="OptionalSizesExample2"
             >
                 <CModalHeader>
@@ -892,6 +912,31 @@ function AddServer() {
                         validated={validated}
                         onSubmit={handleSubmit}
                     >
+                        <CCol md={12}>
+                            <CButton
+                                color="primary"
+                                onClick={handleButtonNewWebServer}
+                            >
+                                Tambah Web Server
+                            </CButton>
+                        </CCol>
+                        <CRow>
+                            <CCol md={2}>
+                                <span>IP Server</span>
+                            </CCol>
+                            <CCol md={2}>
+                                <span>Web Server</span>
+                            </CCol>
+                            <CCol md={2}>
+                                <span>CPU</span>
+                            </CCol>
+                            <CCol md={2}>
+                                <span>RAM</span>
+                            </CCol>
+                            <CCol md={2}>
+                                <span>Storage</span>
+                            </CCol>
+                        </CRow>
                         {servers.map((acc, index) => (
                             <div style={{ display: 'flex', marginBottom: '10px' }}>
                                 <CCol md={2}>
@@ -901,7 +946,7 @@ function AddServer() {
                                         onChange={e => handleIpServer(index, e.target.value)}
                                         feedbackValid="Looks good!"
                                         id="validationCustom01"
-                                        label="IP SERVER"
+                                    // label="IP SERVER"
                                     // required
                                     />
                                 </CCol>
@@ -924,7 +969,7 @@ function AddServer() {
                                 ))}
                             </CFormSelect> */}
 
-                                    <span>Web Server</span>
+                                    {/* <span>Web Server</span> */}
 
                                     <CDropdown className="w-100">
                                         <OutlineDropdownToggle style={{ marginTop: '7px' }}>
@@ -936,19 +981,11 @@ function AddServer() {
                                             {pilihServer.map(item => (
                                                 <CDropdownItem
                                                     key={item.ID_WEB_SERVER}
-                                                    onClick={e => setServerDetail(item.ID_WEB_SERVER)}
+                                                    onClick={e => handleClick(index, item.ID_WEB_SERVER)}
                                                 >
                                                     {item.NAMA_WEB_SERVER}
                                                 </CDropdownItem>
                                             ))}
-
-                                            <CButton
-                                                color="link"
-                                                onClick={handleButtonNewWebServer}
-                                                className="ml-2"
-                                            >
-                                                Tambah Web Server
-                                            </CButton>
                                         </CDropdownMenu>
                                     </CDropdown>
                                 </CCol>
@@ -959,7 +996,7 @@ function AddServer() {
                                         onChange={e => handleCPUServer(index, e.target.value)}
                                         feedbackValid="Looks good!"
                                         id="validationCustom01"
-                                        label="CPU"
+                                    // label="CPU"
                                     // required
                                     />
                                 </CCol>
@@ -970,7 +1007,7 @@ function AddServer() {
                                         onChange={e => handleRAMServer(index, e.target.value)}
                                         feedbackValid="Looks good!"
                                         id="validationCustom01"
-                                        label="RAM"
+                                    // label="RAM"
                                     // required
                                     />
                                 </CCol>
@@ -981,7 +1018,7 @@ function AddServer() {
                                         onChange={e => handleStorageServer(index, e.target.value)}
                                         feedbackValid="Looks good!"
                                         id="validationCustom01"
-                                        label="Storage"
+                                    // label="Storage"
                                     // required
                                     />
                                 </CCol>
@@ -992,7 +1029,9 @@ function AddServer() {
                                     >
                                         Add Account
                                     </CButton> */}
-                                    <AddAccount />
+                                    <AddServer
+                                        isOpen={visibleLg3}
+                                        toggle={() => setVisibleLg3(!visibleLg3)} />
                                 </CCol>
                             </div>
                         ))}
@@ -1052,11 +1091,13 @@ function AddServer() {
                     <CButton
                         color="primary"
                         onClick={() => {
-                            handleNewProduk();
+                            handleNewServer();
                         }}
                     >
-                        Save changes
+                        Save changes and Go to next page
                     </CButton>
+
+
                 </CModalFooter>
             </CModal>
 

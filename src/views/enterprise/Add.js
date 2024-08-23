@@ -89,6 +89,7 @@ function Add() {
     const [loading, setLoading] = useState(true);
     const [details, setDetails] = useState([])
     const [visibleLg, setVisibleLg] = useState(false)
+    const [visibleLg2, setVisibleLg2] = useState(false)
     const [visibleSmPenempatan, setVisibleSmPenempatan] = useState(false)
     const [visibleSmAkses, setVisibleSmAkses] = useState(false)
     const [visibleSmWebServer, setVisibleSmWebServer] = useState(false)
@@ -833,7 +834,8 @@ function Add() {
     const handleNewProduk = async () => {
         console.log(NEW_NAMA_PIC, "NEW_NAMA_PIC")
         try {
-            setVisibleLg(!visibleLg)
+            // setVisibleLg(!visibleLg)
+            setVisibleLg2(true)
             const requestBody = {
                 // ID_PRODUK,
                 NAMA_PRODUK: namaProduk,
@@ -969,7 +971,7 @@ function Add() {
                                 required
                             />
                         </CCol>
-                        <CCol md={4}>
+                        <CCol md={6}>
                             <CFormInput
                                 type="text"
                                 value={urlDetail}
@@ -980,7 +982,7 @@ function Add() {
                             // required
                             />
                         </CCol>
-                        <CCol md={4}>
+                        {/* <CCol md={4}>
                             <CFormInput
                                 type="text"
                                 value={ipSpec}
@@ -990,8 +992,8 @@ function Add() {
                                 label="IP SERVER"
                             // required
                             />
-                        </CCol>
-                        <CCol md={4}>
+                        </CCol> */}
+                        <CCol md={6}>
                             <CFormInput
                                 type="text"
                                 value={portDetail}
@@ -1002,7 +1004,7 @@ function Add() {
                             // required
                             />
                         </CCol>
-                        <CCol md={4}>
+                        <CCol md={6}>
                             {/* <CFormSelect
                                 type="text"
                                 defaultValue={item.PENEMPATAN}
@@ -1048,7 +1050,7 @@ function Add() {
                                 </CDropdownMenu>
                             </CDropdown>
                         </CCol>
-                        <CCol md={4}>
+                        <CCol md={6}>
                             {/* <CFormSelect
                                 type="text"
                                 defaultValue={item.AKSES}
@@ -1093,7 +1095,7 @@ function Add() {
                                 </CDropdownMenu>
                             </CDropdown>
                         </CCol>
-                        <CCol md={4}>
+                        <CCol md={6}>
                             <CFormInput
                                 type="text"
                                 value={waktuOperasionalDetail}
@@ -1104,7 +1106,7 @@ function Add() {
                             // required
                             />
                         </CCol>
-                        <CCol md={4}>
+                        {/* <CCol md={4}>
                             <CFormInput
                                 type="text"
                                 value={cpuSpec}
@@ -1136,8 +1138,8 @@ function Add() {
                                 label="Storage"
                             // required
                             />
-                        </CCol>
-                        <CCol md={6}>
+                        </CCol> */}
+                        {/* <CCol md={6}> */}
                             {/* <CFormSelect
                                 type="text"
                                 defaultValue={item.WEB_SERVER_ID}
@@ -1155,13 +1157,13 @@ function Add() {
                                 ))}
                             </CFormSelect> */}
 
-                            <span>Web Server</span>
+                            {/* <span>Web Server</span>
 
                             <CDropdown className="w-100">
                                 <OutlineDropdownToggle style={{ marginTop: '7px' }}>
-                                    -- Pilih --
+                                    -- Pilih -- */}
                                     {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
-                                </OutlineDropdownToggle>
+                                {/* </OutlineDropdownToggle>
 
                                 <CDropdownMenu>
                                     {pilihServer.map(item => (
@@ -1182,7 +1184,7 @@ function Add() {
                                     </CButton>
                                 </CDropdownMenu>
                             </CDropdown>
-                        </CCol>
+                        </CCol> */}
                         <CCol md={6}>
                             <CFormInput
                                 type="text"
@@ -1492,16 +1494,16 @@ function Add() {
                                         />
                                     </CCol>
                                     <CCol md={3}> */}
-                                        {/* {NewExpAccount[index] && ( */}
-                                        {/* <CFormInput
+                        {/* {NewExpAccount[index] && ( */}
+                        {/* <CFormInput
                                             type="date"
                                             value={acc.expAccount}
                                             onChange={(e) => handleExpAccount(index, e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         /> */}
-                                        {/* )} */}
-                                    {/* </CCol>
+                        {/* )} */}
+                        {/* </CCol>
                                 </div>
                             ))}
                             <div>
@@ -1513,7 +1515,7 @@ function Add() {
                                     Add Row
                                 </CButton>
                             </div> */}
-                            {/* ))}  */}
+                        {/* ))}  */}
                         {/* </CRow> */}
                     </CForm>
                 </CModalBody>
@@ -1813,19 +1815,18 @@ function Add() {
                     </CModalFooter>
                 </CModal>
                 <CModalFooter>
-                    {/* {detail.map(item => {
-                        return (
-                            <React.Fragment key={item.ID_PRODUK}> */}
-                    {/* <CButton
+                    <CButton
                         color="primary"
                         onClick={() => {
                             handleNewProduk();
                         }}
                     >
                         Save changes and Go to next page
-                    </CButton> */}
-                    
-                    <AddServer />
+                    </CButton>
+
+                    <AddServer
+                        isOpen={visibleLg2}
+                        toggle={() => setVisibleLg2(!visibleLg2)} />
                     {/* </React.Fragment>
                         );
                     })} */}

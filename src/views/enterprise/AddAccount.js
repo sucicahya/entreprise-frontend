@@ -79,7 +79,7 @@ import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import Table from './Table'
 
-function AddAccount() {
+function AddAccount({ isOpen, toggle }) {
     const [produk, setProduk] = useState([]);
     // const [id_produk_detail, setIdProdukDetail] = useState([]);
     const [detail, setDetail] = useState([]);
@@ -867,12 +867,12 @@ function AddAccount() {
 
     return (
         <>
-            <CButton
+            {/* <CButton
                 color="primary"
                 onClick={handleNewProduk}
             >
                 Add Account
-            </CButton>
+            </CButton> */}
             <CModal
                 scrollable
                 size="lg"
