@@ -133,6 +133,7 @@ function Add() {
     const [idAccount, setIdAccount] = useState([])
     const [lengthIdAccount, setLengthIdAccount] = useState([])
     // const [idProduk, setIdProduk] = useState([])
+    const [isDisabled, setIsDisabled] = useState(false);
 
     const [NewExpAccount, setNewExpAcc] = useState([])
 
@@ -832,6 +833,7 @@ function Add() {
     };
 
     const handleNewProduk = async () => {
+        setIsDisabled(true);
         console.log(NEW_NAMA_PIC, "NEW_NAMA_PIC")
         try {
             // setVisibleLg(!visibleLg)
@@ -1820,6 +1822,7 @@ function Add() {
                         onClick={() => {
                             handleNewProduk();
                         }}
+                        disabled={isDisabled}
                     >
                         Save changes and Go to next page
                     </CButton>

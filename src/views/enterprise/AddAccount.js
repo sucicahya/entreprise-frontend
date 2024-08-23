@@ -876,8 +876,8 @@ function AddAccount({ isOpen, toggle }) {
             <CModal
                 scrollable
                 size="lg"
-                visible={visibleLg3}
-                onClose={() => setVisibleLg3(false)}
+                visible={isOpen}
+                onClose={toggle}
                 aria-labelledby="OptionalSizesExample2"
             >
                 <CModalHeader>

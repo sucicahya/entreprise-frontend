@@ -134,6 +134,9 @@ function AddServer({ isOpen, toggle }) {
     const [expAccount, setExpAccount] = useState([])
     const [idAccount, setIdAccount] = useState([])
     const [lengthIdAccount, setLengthIdAccount] = useState([])
+    const [isDisabled, setIsDisabled] = useState(false);
+    const [isDisabled2, setIsDisabled2] = useState(true);
+    const [isDisabled3, setIsDisabled3] = useState(false);
     // const [idProduk, setIdProduk] = useState([])
 
     const [NewExpAccount, setNewExpAcc] = useState([])
@@ -226,6 +229,16 @@ function AddServer({ isOpen, toggle }) {
             ]);
         }
     }, [servers]);
+
+    const handleNewAccount = async (index) => {
+        console.log(index, "NEW_NAMA_PIC")
+        try {
+            // setVisibleLg(!visibleLg)
+            setVisibleLg3(true)
+
+        } catch (err) {
+        }
+    };
 
     const handleAdd = () => {
         console.log('Add new item');
@@ -793,6 +806,9 @@ function AddServer({ isOpen, toggle }) {
 
     const handleNewServer = async () => {
         console.log(NEW_NAMA_PIC, "NEW_NAMA_PIC")
+        setIsDisabled(true);
+        setIsDisabled2(false);
+        setIsDisabled3(true);
         try {
             setVisibleLg(!visibleLg)
             setVisibleLg2(!visibleLg2)
@@ -1023,13 +1039,15 @@ function AddServer({ isOpen, toggle }) {
                                     />
                                 </CCol>
                                 <CCol md={2}>
-                                    {/* <CButton
+                                    <CButton
+                                        key={index}
                                         color="primary"
-                                        onClick={addGridServer}
+                                        onClick={() => handleNewAccount(index)}
+                                        disabled={isDisabled2}
                                     >
                                         Add Account
-                                    </CButton> */}
-                                    <AddServer
+                                    </CButton>
+                                    <AddAccount
                                         isOpen={visibleLg3}
                                         toggle={() => setVisibleLg3(!visibleLg3)} />
                                 </CCol>
@@ -1040,6 +1058,7 @@ function AddServer({ isOpen, toggle }) {
                             <CButton
                                 color="primary"
                                 onClick={addGridServer}
+                                disabled={isDisabled3}
                             >
                                 Add Row
                             </CButton>
@@ -1093,6 +1112,7 @@ function AddServer({ isOpen, toggle }) {
                         onClick={() => {
                             handleNewServer();
                         }}
+                        disabled={isDisabled}
                     >
                         Save changes and Go to next page
                     </CButton>
