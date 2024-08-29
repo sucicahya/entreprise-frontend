@@ -79,7 +79,7 @@ import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import Table from './Table'
 
-function AddAccount({ isOpen, toggle }) {
+function AddAccount() {
     const [produk, setProduk] = useState([]);
     // const [id_produk_detail, setIdProdukDetail] = useState([]);
     const [detail, setDetail] = useState([]);
@@ -130,6 +130,7 @@ function AddAccount({ isOpen, toggle }) {
     const [usernameAccount, setUsernameAccount] = useState([])
     const [passAccount, setPassAccount] = useState([])
     const [expAccount, setExpAccount] = useState([])
+    const [specAccount, setSpecAccount] = useState([])
     const [idAccount, setIdAccount] = useState([])
     const [lengthIdAccount, setLengthIdAccount] = useState([])
     // const [idProduk, setIdProduk] = useState([])
@@ -197,6 +198,7 @@ function AddAccount({ isOpen, toggle }) {
     const [pilihDeveloper, setPilihDeveloper] = useState([])
     const [pilihStatus, setPilihStatus] = useState([])
     const [pilihServer, setPilihServer] = useState([])
+    const [pilihIPProduk, setPilihIPProduk] = useState([])
 
     const [NEW_NAMA_PENEMPATAN, setNew_Nama_Penempatan] = useState([]);
     const [NEW_NAMA_AKSES, setNew_Nama_Akses] = useState([]);
@@ -219,7 +221,7 @@ function AddAccount({ isOpen, toggle }) {
                 // { description: '', progress: '' },
                 // { description: '', progress: '' },
                 // { description: '', progress: '' }
-                { jenis_akun: '', uname: '', pass_akun: '', exp_akun: '' }
+                { jenis_akun: '', uname: '', pass_akun: '', exp_akun: '', spec_server: '' }
             ]);
         }
     }, [accounts]);
@@ -402,6 +404,22 @@ function AddAccount({ isOpen, toggle }) {
         setAccounts(updatedAccount);
         setExpAccount(updatedAccount.map(acc => (acc.EXP_DATE_PASSWORD)));
     };
+    
+    const handleClick = (index, id) => {
+        console.log("idclick", id)
+        const updatedAccount = [...accounts];
+        updatedAccount[index].SPEC_SERVER_ID = id;
+        console.log("Clicked Servers Array:", updatedAccount);
+        setAccounts(updatedAccount);
+        setSpecAccount(updatedAccount.map(acc => (acc.SPEC_SERVER_ID)));
+        // setClickedServers(servers => {
+        //     const updatedServer = [...servers];
+        //     updatedServer[index].web_server = id;
+
+        //     console.log("Clicked Servers Array:", updatedServers);
+        //     return updatedServer;
+        // });
+    };
 
     const handleSubmit = (event) => {
         const form = event.currentTarget
@@ -435,6 +453,23 @@ function AddAccount({ isOpen, toggle }) {
                 // console.log('Data received:', response.data); // Cek data yang diterima
                 if (Array.isArray(response.data)) {
                     setPilihServer(response.data);
+                } else {
+                    console.error('Data format is not an array:', response.data);
+                }
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setLoading(false);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/detail/pilih-ip-produk')
+            .then(response => {
+                // console.log('Data received:', response.data); // Cek data yang diterima
+                if (Array.isArray(response.data)) {
+                    setPilihIPProduk(response.data);
                 } else {
                     console.error('Data format is not an array:', response.data);
                 }
@@ -771,7 +806,7 @@ function AddAccount({ isOpen, toggle }) {
         }
     };
 
-    const handleNewProduk = async () => {
+    const handleNewAccount = async () => {
         console.log(NEW_NAMA_PIC, "NEW_NAMA_PIC")
         try {
             setVisibleLg(!visibleLg)
@@ -834,11 +869,12 @@ function AddAccount({ isOpen, toggle }) {
                 USERNAME: usernameAccount,
                 PASS: passAccount,
                 EXP_DATE_PASSWORD: expAccount,
+                ID_SPEC_SERVER: specAccount,
                 LENGTH_ACCOUNT: lengthIdAccount
             }
             console.log("reqbody", requestBody)
 
-            const response = await axios.post('', requestBody, {
+            const response = await axios.post('http://localhost:5000/add/new-account', requestBody, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -862,11 +898,14 @@ function AddAccount({ isOpen, toggle }) {
     };
 
     const addGridAccount = () => {
-        setAccounts([...accounts, { jenis_akun: '', uname: '', pass_akun: '', exp_akun: '' }])
+        setAccounts([...accounts, { jenis_akun: '', uname: '', pass_akun: '', exp_akun: '', spec_server: '' }])
     }
 
     return (
         <>
+            <div className="mb-3">
+                <CButton color="primary" onClick={() => { handleNewAccount() }}>Add New Account</CButton>
+            </div>
             {/* <CButton
                 color="primary"
                 onClick={handleNewProduk}
@@ -876,8 +915,8 @@ function AddAccount({ isOpen, toggle }) {
             <CModal
                 scrollable
                 size="lg"
-                visible={isOpen}
-                onClose={toggle}
+                visible={visibleLg3}
+                onClose={() => setVisibleLg3(false)}
                 aria-labelledby="OptionalSizesExample2"
             >
                 <CModalHeader>
@@ -890,22 +929,25 @@ function AddAccount({ isOpen, toggle }) {
                         validated={validated}
                         onSubmit={handleSubmit}
                     >
-                        <CCol md={3}>
+                        <CCol md={2}>
                             <span>Jenis Akun</span>
                         </CCol>
-                        <CCol md={3}>
+                        <CCol md={2}>
                             <span>Username</span>
                         </CCol>
-                        <CCol md={3}>
+                        <CCol md={2}>
                             <span>Password</span>
                         </CCol>
-                        <CCol md={3}>
+                        <CCol md={2}>
                             <span>Exp Date Pass</span>
+                        </CCol>
+                        <CCol md={2}>
+                            <span>Server - Produk</span>
                         </CCol>
                         <CRow className="mb-3">
                             {accounts.map((acc, index) => (
                                 <div style={{ display: 'flex', marginBottom: '10px' }}>
-                                    <CCol md={3} style={{ marginRight: '10px' }}>
+                                    <CCol md={2} style={{ marginRight: '10px' }}>
                                         <CFormInput
                                             type="text"
                                             value={acc.jenisAccount}
@@ -914,7 +956,7 @@ function AddAccount({ isOpen, toggle }) {
                                             id="validationCustom01"
                                         />
                                     </CCol>
-                                    <CCol md={3} style={{ marginRight: '10px' }}>
+                                    <CCol md={2} style={{ marginRight: '10px' }}>
                                         <CFormInput
                                             type="text"
                                             value={acc.usernameAccount}
@@ -923,7 +965,7 @@ function AddAccount({ isOpen, toggle }) {
                                             id="validationCustom01"
                                         />
                                     </CCol>
-                                    <CCol md={3} style={{ marginRight: '10px' }}>
+                                    <CCol md={2} style={{ marginRight: '10px' }}>
                                         <CFormInput
                                             type="text"
                                             value={acc.passAccount}
@@ -932,7 +974,7 @@ function AddAccount({ isOpen, toggle }) {
                                             id="validationCustom01"
                                         />
                                     </CCol>
-                                    <CCol md={3}>
+                                    <CCol md={2}>
                                         {/* {NewExpAccount[index] && ( */}
                                         <CFormInput
                                             type="date"
@@ -943,6 +985,44 @@ function AddAccount({ isOpen, toggle }) {
                                         />
                                         {/* )} */}
                                     </CCol>
+                                    <CCol md={2}>
+                                    {/* <CFormSelect
+                                type="text"
+                                defaultValue={item.WEB_SERVER_ID}
+                                onChange={e => setWebIdSpec(e.target.value)}
+                                feedbackValid="Looks good!"
+                                id="validationCustom01"
+                                label="Web Server"
+                                required
+                            >
+                                <option value="">-- Pilih --</option>
+                                {pilihServer.map(item => (
+                                    <option key={item.ID_WEB_SERVER} value={item.ID_WEB_SERVER}>
+                                        {item.NAMA_WEB_SERVER}
+                                    </option>
+                                ))}
+                            </CFormSelect> */}
+
+                                    {/* <span>Web Server</span> */}
+
+                                    <CDropdown className="w-100">
+                                        <OutlineDropdownToggle>
+                                            -- Pilih --
+                                            {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
+                                        </OutlineDropdownToggle>
+
+                                        <CDropdownMenu>
+                                            {pilihIPProduk.map(item => (
+                                                <CDropdownItem
+                                                    key={item.ID_SPEC_SERVER}
+                                                    onClick={e => handleClick(index, item.ID_SPEC_SERVER)}
+                                                >
+                                                    {item.IP_SERVER}-{item.NAMA_PRODUK}
+                                                </CDropdownItem>
+                                            ))}
+                                        </CDropdownMenu>
+                                    </CDropdown>
+                                </CCol>
                                 </div>
                             ))}
                             <div>
@@ -1003,7 +1083,7 @@ function AddAccount({ isOpen, toggle }) {
                     <CButton
                         color="primary"
                         onClick={() => {
-                            handleNewProduk();
+                            handleNewAccount();
                         }}
                     >
                         Save changes

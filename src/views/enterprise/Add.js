@@ -1827,9 +1827,9 @@ function Add() {
                         Save changes and Go to next page
                     </CButton>
 
-                    <AddServer
+                    {/* <AddServer
                         isOpen={visibleLg2}
-                        toggle={() => setVisibleLg2(!visibleLg2)} />
+                        toggle={() => setVisibleLg2(!visibleLg2)} /> */}
                     {/* </React.Fragment>
                         );
                     })} */}

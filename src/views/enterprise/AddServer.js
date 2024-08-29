@@ -80,7 +80,7 @@ import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import Table from './Table'
 
-function AddServer({ isOpen, toggle }) {
+function AddServer() {
     const [selectedServers, setSelectedServers] = useState([]);
     const [produk, setProduk] = useState([]);
     // const [id_produk_detail, setIdProdukDetail] = useState([]);
@@ -172,6 +172,7 @@ function AddServer({ isOpen, toggle }) {
     const [aksesDetail, setAksesDetail] = useState([]);
     const [developerDetail, setDeveloperDetail] = useState([]);
     const [serverDetail, setServerDetail] = useState([]);
+    const [produkServer, setProdukServer] = useState([]);
     const [businessOwnerDetail, setBusinessOwnerDetail] = useState([]);
     const [waktuOperasionalDetail, setWaktuOperasionalDetail] = useState([]);
     const [urlDetail, setURLDetail] = useState([]);
@@ -202,6 +203,7 @@ function AddServer({ isOpen, toggle }) {
     const [pilihDeveloper, setPilihDeveloper] = useState([])
     const [pilihStatus, setPilihStatus] = useState([])
     const [pilihServer, setPilihServer] = useState([])
+    const [pilihProduk, setPilihProduk] = useState([])
 
     const [NEW_NAMA_PENEMPATAN, setNew_Nama_Penempatan] = useState([]);
     const [NEW_NAMA_AKSES, setNew_Nama_Akses] = useState([]);
@@ -216,6 +218,7 @@ function AddServer({ isOpen, toggle }) {
 
     const [accounts, setAccounts] = useState([])
     const [servers, setServers] = useState([])
+    const [products, setProducts] = useState([])
     const [clickedServers, setClickedServers] = useState([]);
 
     useEffect(() => {
@@ -225,7 +228,7 @@ function AddServer({ isOpen, toggle }) {
                 // { description: '', progress: '' },
                 // { description: '', progress: '' },
                 // { description: '', progress: '' }
-                { ip_server: '', web_server: '', cpu: '', ram: '', storage: '' }
+                { ip_server: '', web_server: '', cpu: '', ram: '', storage: '', produk_server: '' }
             ]);
         }
     }, [servers]);
@@ -367,6 +370,22 @@ function AddServer({ isOpen, toggle }) {
         // });
     };
 
+    const handleClick2 = (index, id) => {
+        console.log("idclick", id)
+        const updatedServer = [...servers];
+        updatedServer[index].produk_server = id;
+        console.log("Clicked Servers Array:", updatedServer);
+        setServers(updatedServer);
+        setProdukServer(updatedServer.map(acc => (acc.produk_server)));
+        // setClickedServers(servers => {
+        //     const updatedServer = [...servers];
+        //     updatedServer[index].web_server = id;
+
+        //     console.log("Clicked Servers Array:", updatedServers);
+        //     return updatedServer;
+        // });
+    };
+
     const handleCPUServer = (index, value) => {
         console.log("rrxind", index)
         console.log("rrxval", value)
@@ -468,6 +487,23 @@ function AddServer({ isOpen, toggle }) {
                 // console.log('Data received:', response.data); // Cek data yang diterima
                 if (Array.isArray(response.data)) {
                     setPilihServer(response.data);
+                } else {
+                    console.error('Data format is not an array:', response.data);
+                }
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setLoading(false);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/detail/pilih-produk')
+            .then(response => {
+                // console.log('Data received:', response.data); // Cek data yang diterima
+                if (Array.isArray(response.data)) {
+                    setPilihProduk(response.data);
                 } else {
                     console.error('Data format is not an array:', response.data);
                 }
@@ -806,9 +842,9 @@ function AddServer({ isOpen, toggle }) {
 
     const handleNewServer = async () => {
         console.log(NEW_NAMA_PIC, "NEW_NAMA_PIC")
-        setIsDisabled(true);
-        setIsDisabled2(false);
-        setIsDisabled3(true);
+        // setIsDisabled(true);
+        setIsDisabled2(true);
+        // setIsDisabled3(true);
         try {
             setVisibleLg(!visibleLg)
             setVisibleLg2(!visibleLg2)
@@ -840,6 +876,7 @@ function AddServer({ isOpen, toggle }) {
                 AKSES: aksesDetail,
                 DEVELOPER: developerDetail,
                 SERVER: serverDetail,
+                PRODUK: produkServer,
                 BUSINESS_OWNER: businessOwnerDetail,
                 WAKTU_OPERASIONAL: waktuOperasionalDetail,
                 URL: urlDetail,
@@ -897,11 +934,14 @@ function AddServer({ isOpen, toggle }) {
     };
 
     const addGridServer = () => {
-        setServers([...servers, { ip_server: '', web_server: '', cpu: '', ram: '', storage: '' }])
+        setServers([...servers, { ip_server: '', web_server: '', cpu: '', ram: '', storage: '', produk_server: '' }])
     }
 
     return (
         <>
+            <div className="mb-3">
+                <CButton color="primary" onClick={() => { handleNewServer() }}>Add New Server</CButton>
+            </div>
 
             {/* <CButton
                 color="primary"
@@ -914,8 +954,8 @@ function AddServer({ isOpen, toggle }) {
             <CModal
                 scrollable
                 size="lg"
-                visible={isOpen}
-                onClose={toggle}
+                visible={visibleLg2}
+                onClose={() => setVisibleLg2(false)}
                 aria-labelledby="OptionalSizesExample2"
             >
                 <CModalHeader>
@@ -951,6 +991,9 @@ function AddServer({ isOpen, toggle }) {
                             </CCol>
                             <CCol md={2}>
                                 <span>Storage</span>
+                            </CCol>
+                            <CCol md={2}>
+                                <span>Produk</span>
                             </CCol>
                         </CRow>
                         {servers.map((acc, index) => (
@@ -988,7 +1031,7 @@ function AddServer({ isOpen, toggle }) {
                                     {/* <span>Web Server</span> */}
 
                                     <CDropdown className="w-100">
-                                        <OutlineDropdownToggle style={{ marginTop: '7px' }}>
+                                        <OutlineDropdownToggle>
                                             -- Pilih --
                                             {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
                                         </OutlineDropdownToggle>
@@ -1039,17 +1082,42 @@ function AddServer({ isOpen, toggle }) {
                                     />
                                 </CCol>
                                 <CCol md={2}>
-                                    <CButton
-                                        key={index}
-                                        color="primary"
-                                        onClick={() => handleNewAccount(index)}
-                                        disabled={isDisabled2}
-                                    >
-                                        Add Account
-                                    </CButton>
-                                    <AddAccount
-                                        isOpen={visibleLg3}
-                                        toggle={() => setVisibleLg3(!visibleLg3)} />
+                                    {/* <CFormSelect
+                                type="text"
+                                defaultValue={item.WEB_SERVER_ID}
+                                onChange={e => setWebIdSpec(e.target.value)}
+                                feedbackValid="Looks good!"
+                                id="validationCustom01"
+                                label="Web Server"
+                                required
+                            >
+                                <option value="">-- Pilih --</option>
+                                {pilihServer.map(item => (
+                                    <option key={item.ID_WEB_SERVER} value={item.ID_WEB_SERVER}>
+                                        {item.NAMA_WEB_SERVER}
+                                    </option>
+                                ))}
+                            </CFormSelect> */}
+
+                                    {/* <span>Web Server</span> */}
+
+                                    <CDropdown className="w-100">
+                                        <OutlineDropdownToggle>
+                                            -- Pilih --
+                                            {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
+                                        </OutlineDropdownToggle>
+
+                                        <CDropdownMenu>
+                                            {pilihProduk.map(item => (
+                                                <CDropdownItem
+                                                    key={item.ID_PRODUK}
+                                                    onClick={e => handleClick2(index, item.ID_PRODUK)}
+                                                >
+                                                    {item.NAMA_PRODUK}
+                                                </CDropdownItem>
+                                            ))}
+                                        </CDropdownMenu>
+                                    </CDropdown>
                                 </CCol>
                             </div>
                         ))}

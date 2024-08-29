@@ -1421,7 +1421,7 @@ function Dashboard() {
             {/* <CCol md={1}>
               <span>Nomor</span>
             </CCol> */}
-            <CCol md={3}>
+            {/* <CCol md={3}>
               <span>Jenis Akun</span>
             </CCol>
             <CCol md={3}>
@@ -1432,7 +1432,7 @@ function Dashboard() {
             </CCol>
             <CCol md={3}>
               <span>Exp Date Pass</span>
-            </CCol>
+            </CCol> */}
             {/* <CCol md={1}>
             </CCol> */}
             <CRow className="mb-3">

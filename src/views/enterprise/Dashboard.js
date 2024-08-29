@@ -76,6 +76,8 @@ import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import Table from './Table'
 import Add from './Add'
 import Chart from './Chart'
+import AddServer from './AddServer';
+import AddAccount from './AddAccount';
 
 function Dashboard() {
   const [produk, setProduk] = useState([]);
@@ -1147,9 +1149,14 @@ function Dashboard() {
             ))} */}
           </CRow>
         </CCardFooter>
-      </CCard> 
+      </CCard>
       {/* <Chart />   */}
-      <Add />   
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <Add />
+        <AddServer />
+        <AddAccount />
+      </div>
+
       <Table />
     </>
   )
