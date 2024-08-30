@@ -929,25 +929,25 @@ function AddAccount() {
                         validated={validated}
                         onSubmit={handleSubmit}
                     >
-                        <CCol md={2}>
+                        <CCol style={{ flexBasis: '20%' }}>
                             <span>Jenis Akun</span>
                         </CCol>
-                        <CCol md={2}>
+                        <CCol style={{ flexBasis: '20%' }}>
                             <span>Username</span>
                         </CCol>
-                        <CCol md={2}>
+                        <CCol style={{ flexBasis: '20%' }}>
                             <span>Password</span>
                         </CCol>
-                        <CCol md={2}>
+                        <CCol style={{ flexBasis: '20%' }}>
                             <span>Exp Date Pass</span>
                         </CCol>
-                        <CCol md={2}>
+                        <CCol style={{ flexBasis: '20%' }}>
                             <span>Server - Produk</span>
                         </CCol>
                         <CRow className="mb-3">
                             {accounts.map((acc, index) => (
                                 <div style={{ display: 'flex', marginBottom: '10px' }}>
-                                    <CCol md={2} style={{ marginRight: '10px' }}>
+                                    <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
                                         <CFormInput
                                             type="text"
                                             value={acc.jenisAccount}
@@ -956,7 +956,7 @@ function AddAccount() {
                                             id="validationCustom01"
                                         />
                                     </CCol>
-                                    <CCol md={2} style={{ marginRight: '10px' }}>
+                                    <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
                                         <CFormInput
                                             type="text"
                                             value={acc.usernameAccount}
@@ -965,7 +965,7 @@ function AddAccount() {
                                             id="validationCustom01"
                                         />
                                     </CCol>
-                                    <CCol md={2} style={{ marginRight: '10px' }}>
+                                    <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
                                         <CFormInput
                                             type="text"
                                             value={acc.passAccount}
@@ -974,7 +974,7 @@ function AddAccount() {
                                             id="validationCustom01"
                                         />
                                     </CCol>
-                                    <CCol md={2}>
+                                    <CCol style={{  marginRight: '5px', flexBasis: '20%' }}>
                                         {/* {NewExpAccount[index] && ( */}
                                         <CFormInput
                                             type="date"
@@ -985,7 +985,7 @@ function AddAccount() {
                                         />
                                         {/* )} */}
                                     </CCol>
-                                    <CCol md={2}>
+                                    <CCol style={{ flexBasis: '20%' }}>
                                     {/* <CFormSelect
                                 type="text"
                                 defaultValue={item.WEB_SERVER_ID}

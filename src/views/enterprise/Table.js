@@ -73,16 +73,20 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import Table from './Table'
+import Detail from './Detail'
 
 function Dashboard() {
   const [produk, setProduk] = useState([]);
   // const [id_produk_detail, setIdProdukDetail] = useState([]);
   const [detail, setDetail] = useState([]);
   const [account, setAccount] = useState([]);
+  const [server, setServer] = useState([]);
   const [updateFull, setUpdateFull] = useState([]);
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState([])
   const [visibleLg, setVisibleLg] = useState(false)
+  const [visibleLg2, setVisibleLg2] = useState(false)
+  const [visibleLg3, setVisibleLg3] = useState(false)
   const [dataa, setData] = useState([])
   const [visible, setVisible] = useState(false)
   const [validated, setValidated] = useState(false)
@@ -342,6 +346,10 @@ function Dashboard() {
   const [account2, setAccount2] = React.useState(
     searchResults.account || []
   )
+  
+  const [server2, setServer2] = React.useState(
+    searchResults.account || []
+  )
 
 
   const handleJenisAccount = (index, value) => {
@@ -490,10 +498,33 @@ function Dashboard() {
     }
   };
 
+  const handleFetchServer = async (id) => {
+    console.log(id, "idd")
+    try {
+      setVisibleLg2(!visibleLg2)
+      const response = await axios.post('http://localhost:5000/detail/full-server', { id });
+      setServer(response.data);
+      setServer2(response.data);
+      console.log("Server2 data:", response.data);
+
+      // setIdAccount(response.data.map(item => item.ID_ACCOUNT));
+      // setJenisAccount(response.data.map(item => item.JENIS_AKUN));
+      // setUsernameAccount(response.data.map(item => item.USERNAME));
+      // setPassAccount(response.data.map(item => item.PASS));
+      // setExpAccount(response.data.map(item => item.EXP_DATE_PASSWORD));
+      // setLengthIdAccount(response.data.map(item => item.ID_ACCOUNT).length);
+      console.log("dataaaa", response.data)
+      // setError(null);
+    } catch (err) {
+      // setError('Error fetching details');
+      setServer(null);
+    }
+  };
+
   const handleFetchAccount = async (id) => {
     console.log(id, "idd")
     try {
-      setVisibleLg(!visibleLg)
+      setVisibleLg3(!visibleLg3)
       const response = await axios.post('http://localhost:5000/detail/full-account', { id });
       setAccount(response.data);
       setAccount2(response.data);
@@ -726,284 +757,7 @@ function Dashboard() {
     show_details: item,
     details: item
   }));
-
-
-
-  // const progressExample = [
-  //   { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
-  //   { title: 'Unique', value: '24.093 Users', percent: 20, color: 'info' },
-  //   { title: 'Pageviews', value: '78.706 Views', percent: 60, color: 'warning' },
-  //   { title: 'New Users', value: '22.123 Users', percent: 80, color: 'danger' },
-  //   { title: 'Bounce Rate', value: 'Average Rate', percent: 40.15, color: 'primary' },
-  // ]
-
-  // const progressGroupExample1 = [
-  //   { title: 'Monday', value1: 34, value2: 78 },
-  //   { title: 'Tuesday', value1: 56, value2: 94 },
-  //   { title: 'Wednesday', value1: 12, value2: 67 },
-  //   { title: 'Thursday', value1: 43, value2: 91 },
-  //   { title: 'Friday', value1: 22, value2: 73 },
-  //   { title: 'Saturday', value1: 53, value2: 82 },
-  //   { title: 'Sunday', value1: 9, value2: 69 },
-  // ]
-
-  // const progressGroupExample2 = [
-  //   { title: 'Male', icon: cilUser, value: 53 },
-  //   { title: 'Female', icon: cilUserFemale, value: 43 },
-  // ]
-
-  // const progressGroupExample3 = [
-  //   { title: 'Organic Search', icon: cibGoogle, percent: 56, value: '191,235' },
-  //   { title: 'Facebook', icon: cibFacebook, percent: 15, value: '51,223' },
-  //   { title: 'Twitter', icon: cibTwitter, percent: 11, value: '37,564' },
-  //   { title: 'LinkedIn', icon: cibLinkedin, percent: 8, value: '27,319' },
-  // ]
-
-  // const tableExample = [
-  //   {
-  //     avatar: { src: avatar1, STATUS: 'success' },
-  //     user: {
-  //       NAMA_PRODUK: 'Yiorgos Avraamu',
-  //       new: true,
-  //       IP: 'Jan 1, 2023',
-  //     },
-  //     country: { NAMA_PRODUK: 'USA', flag: cifUs },
-  //     usage: {
-  //       value: 50,
-  //       period: 'Jun 11, 2023 - Jul 10, 2023',
-  //       color: 'success',
-  //     },
-  //     payment: { NAMA_PRODUK: 'Mastercard', icon: cibCcMastercard },
-  //     activity: '10 sec ago',
-  //   },
-  //   {
-  //     avatar: { src: avatar2, STATUS: 'danger' },
-  //     user: {
-  //       NAMA_PRODUK: 'Avram Tarasios',
-  //       new: false,
-  //       IP: 'Jan 1, 2023',
-  //     },
-  //     country: { NAMA_PRODUK: 'Brazil', flag: cifBr },
-  //     usage: {
-  //       value: 22,
-  //       period: 'Jun 11, 2023 - Jul 10, 2023',
-  //       color: 'info',
-  //     },
-  //     payment: { NAMA_PRODUK: 'Visa', icon: cibCcVisa },
-  //     activity: '5 minutes ago',
-  //   },
-  //   {
-  //     avatar: { src: avatar3, STATUS: 'warning' },
-  //     user: { NAMA_PRODUK: 'Quintin Ed', new: true, IP: 'Jan 1, 2023' },
-  //     country: { NAMA_PRODUK: 'India', flag: cifIn },
-  //     usage: {
-  //       value: 74,
-  //       period: 'Jun 11, 2023 - Jul 10, 2023',
-  //       color: 'warning',
-  //     },
-  //     payment: { NAMA_PRODUK: 'Stripe', icon: cibCcStripe },
-  //     activity: '1 hour ago',
-  //   },
-  //   {
-  //     avatar: { src: avatar4, STATUS: 'secondary' },
-  //     user: { NAMA_PRODUK: 'Enéas Kwadwo', new: true, IP: 'Jan 1, 2023' },
-  //     country: { NAMA_PRODUK: 'France', flag: cifFr },
-  //     usage: {
-  //       value: 98,
-  //       period: 'Jun 11, 2023 - Jul 10, 2023',
-  //       color: 'danger',
-  //     },
-  //     payment: { NAMA_PRODUK: 'PayPal', icon: cibCcPaypal },
-  //     activity: 'Last month',
-  //   },
-  //   {
-  //     avatar: { src: avatar5, STATUS: 'success' },
-  //     user: {
-  //       NAMA_PRODUK: 'Agapetus Tadeáš',
-  //       new: true,
-  //       IP: 'Jan 1, 2023',
-  //     },
-  //     country: { NAMA_PRODUK: 'Spain', flag: cifEs },
-  //     usage: {
-  //       value: 22,
-  //       period: 'Jun 11, 2023 - Jul 10, 2023',
-  //       color: 'primary',
-  //     },
-  //     payment: { NAMA_PRODUK: 'Google Wallet', icon: cibCcApplePay },
-  //     activity: 'Last week',
-  //   },
-  //   {
-  //     avatar: { src: avatar6, STATUS: 'danger' },
-  //     user: {
-  //       NAMA_PRODUK: 'Friderik Dávid',
-  //       new: true,
-  //       IP: 'Jan 1, 2023',
-  //     },
-  //     country: { NAMA_PRODUK: 'Poland', flag: cifPl },
-  //     usage: {
-  //       value: 43,
-  //       period: 'Jun 11, 2023 - Jul 10, 2023',
-  //       color: 'success',
-  //     },
-  //     payment: { NAMA_PRODUK: 'Amex', icon: cibCcAmex },
-  //     activity: 'Last week',
-  //   },
-  // ]
-
-
-  // const columns = [
-  // {
-  //   key: 'avatar',
-  //   label: '',
-  //   filter: false,
-  //   sorter: false,
-  // },
-  //   {
-  //     key: 'NAMA_PRODUK',
-  //     _style: { width: '20%' },
-  //   },
-  //   'IP',
-  //   {
-  //     key: 'PIC',
-  //     _style: { width: '20%' }
-  //   },
-  //   {
-  //     key: 'STATUS',
-  //     _style: { width: '20%' }
-  //   },
-  //   {
-  //     key: 'show_details',
-  //     label: '',
-  //     _style: { width: '1%' },
-  //     filter: false,
-  //     sorter: false,
-  //   },
-  // ]
-  // const usersData = [
-  //   {
-  //     id: 1,
-  //     NAMA_PRODUK: 'Samppa Nori',
-  //     avatar: '1.jpg',
-  //     IP: '2022/01/01',
-  //     PIC: 'Member',
-  //     STATUS: 'Active',
-  //   },
-  //   {
-  //     id: 2,
-  //     NAMA_PRODUK: 'EXPLORA',
-  //     avatar: '2.jpg',
-  //     IP: '10.27.0.248',
-  //     PIC: '997492363',
-  //     STATUS: 'Active',
-  //   },
-  //   {
-  //     id: 3,
-  //     NAMA_PRODUK: 'Chetan Mohamed',
-  //     avatar: '3.jpg',
-  //     IP: '2022/02/07',
-  //     PIC: 'Admin',
-  //     STATUS: 'Inactive',
-  //     _selected: true,
-  //   },
-  //   {
-  //     id: 4,
-  //     NAMA_PRODUK: 'Derick Maximinus',
-  //     avatar: '4.jpg',
-  //     IP: '2022/03/19',
-  //     PIC: 'Member',
-  //     STATUS: 'Pending',
-  //   },
-  //   {
-  //     id: 5,
-  //     NAMA_PRODUK: 'Friderik Dávid',
-  //     avatar: '5.jpg',
-  //     IP: '2022/01/21',
-  //     PIC: 'Staff',
-  //     STATUS: 'Active'
-  //   },
-  //   {
-  //     id: 6,
-  //     NAMA_PRODUK: 'Yiorgos Avraamu',
-  //     avatar: '6.jpg',
-  //     IP: '2022/01/01',
-  //     PIC: 'Member',
-  //     STATUS: 'Active'
-  //   },
-  //   {
-  //     id: 7,
-  //     NAMA_PRODUK: 'Avram Tarasios',
-  //     avatar: '7.jpg',
-  //     IP: '2022/02/07',
-  //     PIC: 'Staff',
-  //     STATUS: 'Banned',
-  //     _selected: true,
-  //   },
-  //   {
-  //     id: 8,
-  //     NAMA_PRODUK: 'Quintin Ed',
-  //     avatar: '8.jpg',
-  //     IP: '2022/02/07',
-  //     PIC: 'Admin',
-  //     STATUS: 'Inactive'
-  //   },
-  //   {
-  //     id: 9,
-  //     NAMA_PRODUK: 'Enéas Kwadwo',
-  //     avatar: '9.jpg',
-  //     IP: '2022/03/19',
-  //     PIC: 'Member',
-  //     STATUS: 'Pending'
-  //   },
-  //   {
-  //     id: 10,
-  //     NAMA_PRODUK: 'Agapetus Tadeáš',
-  //     avatar: '10.jpg',
-  //     IP: '2022/01/21',
-  //     PIC: 'Staff',
-  //     STATUS: 'Active'
-  //   },
-  //   {
-  //     id: 11,
-  //     NAMA_PRODUK: 'Carwyn Fachtna',
-  //     avatar: '11.jpg',
-  //     IP: '2022/01/01',
-  //     PIC: 'Member',
-  //     STATUS: 'Active'
-  //   },
-  //   {
-  //     id: 12,
-  //     NAMA_PRODUK: 'Nehemiah Tatius',
-  //     avatar: '12.jpg',
-  //     IP: '2022/02/07',
-  //     PIC: 'Staff',
-  //     STATUS: 'Banned',
-  //     _selected: true,
-  //   },
-  //   {
-  //     id: 13,
-  //     NAMA_PRODUK: 'Ebbe Gemariah',
-  //     avatar: '13.jpg',
-  //     IP: '2022/02/07',
-  //     PIC: 'Admin',
-  //     STATUS: 'Inactive'
-  //   },
-  //   {
-  //     id: 14,
-  //     NAMA_PRODUK: 'Eustorgios Amulius',
-  //     avatar: '14.jpg',
-  //     IP: '2022/03/19',
-  //     PIC: 'Member',
-  //     STATUS: 'Pending',
-  //   },
-  //   {
-  //     id: 15,
-  //     NAMA_PRODUK: 'IHSAN',
-  //     avatar: '15.jpg',
-  //     IP: '10.27.0.249',
-  //     PIC: '901494306',
-  //     STATUS: 'Active'
-  //   },
-  // ]
+  
   const getBadge = (STATUS) => {
     switch (STATUS) {
       case 'Aktif':
@@ -1072,7 +826,34 @@ function Dashboard() {
                     required
                   />
                 </CCol>
-                <CCol md={4}>
+                <CCol md={12}>
+                  <CFormSelect
+                    type="text"
+                    defaultValue={item.FLAG_STATUS}
+                    onChange={e => setFlagProduk(e.target.value)}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Status"
+                  // required
+                  >
+                    <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
+                    {pilihStatus.map(item => (
+                      <option key={item.ID_STATUS} value={item.ID_STATUS}>
+                        {item.NAMA_STATUS}
+                      </option>
+                    ))}
+                  </CFormSelect>
+                  {/* <CFormInput
+                    type="text"
+                    defaultValue={item.NAMA_STATUS}
+                    onChange={e => setStatus(e.target.value)}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Status"
+                    required
+                  /> */}
+                </CCol>
+                <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.URL}
@@ -1083,7 +864,7 @@ function Dashboard() {
                   // required
                   />
                 </CCol>
-                <CCol md={4}>
+                {/* <CCol md={4}>
                   <CFormInput
                     type="text"
                     defaultValue={item.IP_SERVER}
@@ -1091,10 +872,10 @@ function Dashboard() {
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="IP SERVER"
-                  // required
+                  required
                   />
-                </CCol>
-                <CCol md={4}>
+                </CCol> */}
+                <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.PORT}
@@ -1105,7 +886,7 @@ function Dashboard() {
                   // required
                   />
                 </CCol>
-                <CCol md={4}>
+                <CCol md={6}>
                   <CFormSelect
                     type="text"
                     defaultValue={item.PENEMPATAN}
@@ -1123,7 +904,7 @@ function Dashboard() {
                     ))}
                   </CFormSelect>
                 </CCol>
-                <CCol md={4}>
+                <CCol md={6}>
                   <CFormSelect
                     type="text"
                     defaultValue={item.AKSES}
@@ -1150,7 +931,7 @@ function Dashboard() {
                     required
                   /> */}
                 </CCol>
-                <CCol md={4}>
+                <CCol md={6}>
                   <CFormInput
                     type="text"
                     defaultValue={item.WAKTU_OPERASIONAL}
@@ -1161,7 +942,7 @@ function Dashboard() {
                   // required
                   />
                 </CCol>
-                <CCol md={4}>
+                {/* <CCol md={4}>
                   <CFormInput
                     type="text"
                     defaultValue={item.CPU}
@@ -1169,10 +950,10 @@ function Dashboard() {
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="CPU"
-                  // required
+                  required
                   />
-                </CCol>
-                <CCol md={4}>
+                </CCol> */}
+                {/* <CCol md={4}>
                   <CFormInput
                     type="text"
                     defaultValue={item.RAM}
@@ -1180,10 +961,10 @@ function Dashboard() {
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="RAM"
-                  // required
+                  required
                   />
-                </CCol>
-                <CCol md={4}>
+                </CCol> */}
+                {/* <CCol md={4}>
                   <CFormInput
                     type="text"
                     defaultValue={item.STORAGE}
@@ -1191,10 +972,10 @@ function Dashboard() {
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Storage"
-                  // required
+                  required
                   />
-                </CCol>
-                <CCol md={6}>
+                </CCol> */}
+                {/* <CCol md={6}>
                   <CFormSelect
                     type="text"
                     defaultValue={item.WEB_SERVER_ID}
@@ -1202,15 +983,15 @@ function Dashboard() {
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Web Server"
-                  // required
+                  required
                   >
-                    <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
+                    <option value="">-- Pilih --</option> 
                     {pilihServer.map(item => (
                       <option key={item.ID_WEB_SERVER} value={item.ID_WEB_SERVER}>
                         {item.NAMA_WEB_SERVER}
                       </option>
                     ))}
-                  </CFormSelect>
+                  </CFormSelect> */}
                   {/* <CFormInput
                     type="text"
                     defaultValue={item.NAMA_WEB_SERVER}
@@ -1220,7 +1001,7 @@ function Dashboard() {
                     label="Web Server"
                     required
                   /> */}
-                </CCol>
+                {/* </CCol> */}
                 <CCol md={6}>
                   <CFormInput
                     type="text"
@@ -1322,33 +1103,6 @@ function Dashboard() {
                   // required
                   />
                 </CCol>
-                <CCol md={12}>
-                  <CFormSelect
-                    type="text"
-                    defaultValue={item.FLAG_STATUS}
-                    onChange={e => setFlagProduk(e.target.value)}
-                    feedbackValid="Looks good!"
-                    id="validationCustom01"
-                    label="Status"
-                  // required
-                  >
-                    <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
-                    {pilihStatus.map(item => (
-                      <option key={item.ID_STATUS} value={item.ID_STATUS}>
-                        {item.NAMA_STATUS}
-                      </option>
-                    ))}
-                  </CFormSelect>
-                  {/* <CFormInput
-                    type="text"
-                    defaultValue={item.NAMA_STATUS}
-                    onChange={e => setStatus(e.target.value)}
-                    feedbackValid="Looks good!"
-                    id="validationCustom01"
-                    label="Status"
-                    required
-                  /> */}
-                </CCol>
                 <CCol md={6}>
                   <CFormInput
                     type="date"
@@ -1435,6 +1189,215 @@ function Dashboard() {
             </CCol> */}
             {/* <CCol md={1}>
             </CCol> */}
+            {/* <CRow className="mb-3">
+              {account2.map((item, index) => (
+                <div style={{ display: 'flex', marginBottom: '10px' }}>
+                  <CCol md={3} style={{ marginRight: '10px' }}>
+                    <CFormInput
+                      type="text"
+                      defaultValue={item.JENIS_AKUN}
+                      onChange={(e) => handleJenisAccount(index, e.target.value)}
+                      feedbackValid="Looks good!"
+                      id="validationCustom01"
+                    />
+                  </CCol>
+                  <CCol md={3} style={{ marginRight: '10px' }}>
+                    <CFormInput
+                      type="text"
+                      defaultValue={item.USERNAME}
+                      onChange={(e) => handleUsernameAccount(index, e.target.value)}
+                      feedbackValid="Looks good!"
+                      id="validationCustom01"
+                    />
+                  </CCol>
+                  <CCol md={3} style={{ marginRight: '10px' }}>
+                    <CFormInput
+                      type="text"
+                      defaultValue={item.PASS}
+                      onChange={(e) => handlePassAccount(index, e.target.value)}
+                      feedbackValid="Looks good!"
+                      id="validationCustom01"
+                    />
+                  </CCol>
+                  <CCol md={3}>
+                    {NewExpAccount[index] && (
+                      <CFormInput
+                        type="date"
+                        defaultValue={NewExpAccount[index]}
+                        onChange={(e) => handleExpAccount(index, e.target.value)}
+                        feedbackValid="Looks good!"
+                        id="validationCustom01"
+                      />
+                    )}
+                  </CCol>
+                </div>
+              ))}
+            </CRow> */}
+          </CForm>
+        </CModalBody>
+        <CModalFooter>
+          {/* <CButton color="secondary" onClick={() => setVisible(false)}>
+            Close
+          </CButton> */}
+          {detail.map(item => {
+            return (
+              <React.Fragment key={item.ID_PRODUK}>
+                <CButton
+                  color="primary"
+                  onClick={() => {
+                    handleUpdateDetail(item.ID_PRODUK);
+                  }}
+                >
+                  Save changes
+                </CButton>
+              </React.Fragment>
+            );
+          })}
+        </CModalFooter>
+      </CModal>
+
+      <CModal
+        scrollable
+        size="lg"
+        visible={visibleLg2}
+        onClose={() => setVisibleLg2(false)}
+        aria-labelledby="OptionalSizesExample2"
+      >
+        <CModalHeader>
+          <CModalTitle id="ScrollingLongContentExampleLabel2">Details Server</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <CForm
+            className="row g-3 needs-validation"
+            noValidate
+            validated={validated}
+            onSubmit={handleSubmit}
+          >
+            <CCol style={{ flexBasis: '20%' }}>
+              <span>Web Server</span>
+            </CCol>
+            <CCol style={{ flexBasis: '20%' }}>
+              <span>IP Server</span>
+            </CCol>
+            <CCol style={{ flexBasis: '20%' }}>
+              <span>CPU</span>
+            </CCol>
+            <CCol style={{ flexBasis: '20%' }}>
+              <span>RAM</span>
+            </CCol>
+            <CCol style={{ flexBasis: '20%' }}>
+              <span>Storage</span>
+            </CCol>
+            {/* <CCol md={1}>
+            </CCol> */}
+            <CRow className="mb-3">
+              {server2.map((item, index) => (
+                <div style={{ display: 'flex', marginBottom: '10px' }}>
+                  <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
+                    <CFormInput
+                      type="text"
+                      defaultValue={item.NAMA_WEB_SERVER}
+                      // onChange={(e) => handleJenisAccount(index, e.target.value)}
+                      feedbackValid="Looks good!"
+                      id="validationCustom01"
+                    />
+                  </CCol>
+                  <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
+                    <CFormInput
+                      type="text"
+                      defaultValue={item.IP_SERVER}
+                      // onChange={(e) => handleUsernameAccount(index, e.target.value)}
+                      feedbackValid="Looks good!"
+                      id="validationCustom01"
+                    />
+                  </CCol>
+                  <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
+                    <CFormInput
+                      type="text"
+                      defaultValue={item.CPU}
+                      // onChange={(e) => handlePassAccount(index, e.target.value)}
+                      feedbackValid="Looks good!"
+                      id="validationCustom01"
+                    />
+                  </CCol>
+                  <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
+                    <CFormInput
+                      type="text"
+                      defaultValue={item.RAM}
+                      // onChange={(e) => handlePassAccount(index, e.target.value)}
+                      feedbackValid="Looks good!"
+                      id="validationCustom01"
+                    />
+                  </CCol>
+                  <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
+                    <CFormInput
+                      type="text"
+                      defaultValue={item.STORAGE}
+                      // onChange={(e) => handlePassAccount(index, e.target.value)}
+                      feedbackValid="Looks good!"
+                      id="validationCustom01"
+                    />
+                  </CCol>
+                </div>
+              ))}
+            </CRow>
+          </CForm>
+        </CModalBody>
+        <CModalFooter>
+          {/* <CButton color="secondary" onClick={() => setVisible(false)}>
+            Close
+          </CButton> */}
+          {detail.map(item => {
+            return (
+              <React.Fragment key={item.ID_PRODUK}>
+                <CButton
+                  color="primary"
+                  onClick={() => {
+                    handleUpdateDetail(item.ID_PRODUK);
+                  }}
+                >
+                  Save changes
+                </CButton>
+              </React.Fragment>
+            );
+          })}
+        </CModalFooter>
+      </CModal>
+
+      <CModal
+        scrollable
+        size="lg"
+        visible={visibleLg3}
+        onClose={() => setVisibleLg3(false)}
+        aria-labelledby="OptionalSizesExample2"
+      >
+        <CModalHeader>
+          <CModalTitle id="ScrollingLongContentExampleLabel2">Details Account</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <CForm
+            className="row g-3 needs-validation"
+            noValidate
+            validated={validated}
+            onSubmit={handleSubmit}
+          >
+            {/* <CCol md={1}>
+              <span>Jenis Akun</span>
+            </CCol> */}
+            <CCol md={3}>
+              <span>Jenis Akun</span>
+            </CCol>
+            <CCol md={3}>
+              <span>Username</span>
+            </CCol>
+            <CCol md={3}>
+              <span>Password</span>
+            </CCol>
+            <CCol md={3}>
+              <span>Exp Date Pass</span>
+            </CCol>
+            {/* <CCol md={1}>
+            </CCol> */}
             <CRow className="mb-3">
               {account2.map((item, index) => (
                 <div style={{ display: 'flex', marginBottom: '10px' }}>
@@ -1480,84 +1443,6 @@ function Dashboard() {
               ))}
             </CRow>
           </CForm>
-          {/* <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </p>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
-            vel augue laoreet rutrum faucibus dolor auctor.
-          </p>
-          <p>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-            auctor fringilla.
-          </p>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </p>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
-            vel augue laoreet rutrum faucibus dolor auctor.
-          </p>
-          <p>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-            auctor fringilla.
-          </p>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </p>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
-            vel augue laoreet rutrum faucibus dolor auctor.
-          </p>
-          <p>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-            auctor fringilla.
-          </p>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </p>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
-            vel augue laoreet rutrum faucibus dolor auctor.
-          </p>
-          <p>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-            auctor fringilla.
-          </p>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </p>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
-            vel augue laoreet rutrum faucibus dolor auctor.
-          </p>
-          <p>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-            auctor fringilla.
-          </p>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </p>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
-            vel augue laoreet rutrum faucibus dolor auctor.
-          </p>
-          <p>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-            auctor fringilla.
-          </p> */}
         </CModalBody>
         <CModalFooter>
           {/* <CButton color="secondary" onClick={() => setVisible(false)}>
@@ -1579,6 +1464,9 @@ function Dashboard() {
           })}
         </CModalFooter>
       </CModal>
+
+
+
       <CSmartTable
         activePage={2}
         cleaner
@@ -1587,10 +1475,12 @@ function Dashboard() {
           { key: 'ID_PRODUK', label: 'ID Produk' },
           { key: 'NAMA_PRODUK', label: 'Nama Produk' },
           { key: 'URL', label: 'URL' },
-          { key: 'IP', label: 'IP Server' },
+          // { key: 'IP', label: 'IP Server' },
           { key: 'PIC', label: 'PIC' },
           { key: 'STATUS', label: 'Status' },
           { key: 'show_details', label: 'Details' },
+          { key: 'show_details2', label: 'Server Details' },
+          { key: 'show_details3', label: 'Account Details' },
           // { key: 'details', label: 'More Details' },
         ]}
         // columnFilter
@@ -1600,10 +1490,12 @@ function Dashboard() {
           ID_PRODUK: item.ID_PRODUK,
           NAMA_PRODUK: item.NAMA_PRODUK,
           URL: item.URL,
-          IP: item.IP_SERVER,
+          // IP: item.IP_SERVER,
           PIC: item.NAMA,
           STATUS: item.NAMA_STATUS,
           show_details: item,
+          show_details2: item,
+          show_details3: item,
           details: item
         }))}
         itemsPerPageSelect
@@ -1638,6 +1530,47 @@ function Dashboard() {
                   size="sm"
                   onClick={() => {
                     handleFetchDetails(item.ID_PRODUK)
+                    // handleFetchAccount(item.ID_PRODUK)
+                  }}
+                >
+                  {details.includes(item.ID_PRODUK) ? 'Hide' : 'Show'}
+                </CButton>
+              </td>
+            )
+          },
+          show_details2: (item) => {
+            return (
+              <td className="py-2">
+
+                {/* <CButton color="primary" onClick={() => setVisible(!visible)}>Details</CButton> */}
+                <CButton
+                  color="primary"
+                  variant="outline"
+                  shape="square"
+                  size="sm"
+                  onClick={() => {
+                    handleFetchServer(item.ID_PRODUK)
+                    // handleFetchDetails(item.ID_PRODUK)
+                    // handleFetchAccount(item.ID_PRODUK)
+                  }}
+                >
+                  {details.includes(item.ID_PRODUK) ? 'Hide' : 'Show'}
+                </CButton>
+              </td>
+            )
+          },
+          show_details3: (item) => {
+            return (
+              <td className="py-2">
+
+                {/* <CButton color="primary" onClick={() => setVisible(!visible)}>Details</CButton> */}
+                <CButton
+                  color="primary"
+                  variant="outline"
+                  shape="square"
+                  size="sm"
+                  onClick={() => {
+                    // handleFetchDetails(item.ID_PRODUK)
                     handleFetchAccount(item.ID_PRODUK)
                   }}
                 >
