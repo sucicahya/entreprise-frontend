@@ -92,6 +92,7 @@ function Add() {
     const [visibleLg2, setVisibleLg2] = useState(false)
     const [visibleSmPenempatan, setVisibleSmPenempatan] = useState(false)
     const [visibleSmAkses, setVisibleSmAkses] = useState(false)
+    const [visibleSmDatabase, setVisibleSmDatabase] = useState(false)
     const [visibleSmWebServer, setVisibleSmWebServer] = useState(false)
     const [visibleSmDeveloper, setVisibleSmDeveloper] = useState(false)
     const [visibleSmPIC, setVisibleSmPIC] = useState(false)
@@ -198,9 +199,11 @@ function Add() {
     const [pilihDeveloper, setPilihDeveloper] = useState([])
     const [pilihStatus, setPilihStatus] = useState([])
     const [pilihServer, setPilihServer] = useState([])
+    const [pilihDatabase, setPilihDatabase] = useState([])
 
     const [NEW_NAMA_PENEMPATAN, setNew_Nama_Penempatan] = useState([]);
     const [NEW_NAMA_AKSES, setNew_Nama_Akses] = useState([]);
+    const [NEW_NAMA_DATABASE, setNew_Nama_Database] = useState([]);
     const [NEW_NAMA_WEB_SERVER, setNew_Nama_Web_Server] = useState([]);
     const [NEW_NAMA_DEVELOPER, setNew_Nama_Developer] = useState([]);
     const [NEW_NAMA_PIC, setNew_Nama_PIC] = useState([]);
@@ -431,6 +434,23 @@ function Add() {
             });
     }, []);
 
+    useEffect(() => {
+        axios.get('http://localhost:5000/detail/pilih-database')
+            .then(response => {
+                // console.log('Data received:', response.data); // Cek data yang diterima
+                if (Array.isArray(response.data)) {
+                    setPilihDatabase(response.data);
+                } else {
+                    console.error('Data format is not an array:', response.data);
+                }
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setLoading(false);
+            });
+    }, []);
+
     console.log("idacc", idAccount)
     // console.log("namaproduk", nama_produk)
 
@@ -626,6 +646,17 @@ function Add() {
         }
     };
 
+    const handleButtonNewDatabase = () => {
+        // alert(`Selected Akses`);
+
+        try {
+            setVisibleSmDatabase(!visibleSmDatabase)
+        } catch (err) {
+            // setError('Error fetching details');
+            // setDetail(null);
+        }
+    };
+
     const handleButtonNewWebServer = () => {
         // alert(`Selected WebServer`);
 
@@ -709,6 +740,29 @@ function Add() {
         try {
             setVisibleSmAkses(!visibleSmAkses)
             const response = await axios.post('http://localhost:5000/add/new-akses', { NEW_NAMA_AKSES });
+            // setAccount(response.data);
+            // setAccount2(response.data);
+            console.log("Account2 data:", response.data);
+
+            // setIdAccount(response.data.map(item => item.ID_ACCOUNT));
+            // setJenisAccount(response.data.map(item => item.JENIS_AKUN));
+            // setUsernameAccount(response.data.map(item => item.USERNAME));
+            // setPassAccount(response.data.map(item => item.PASS));
+            // setExpAccount(response.data.map(item => item.EXP_DATE_PASSWORD));
+            // setLengthIdAccount(response.data.map(item => item.ID_ACCOUNT).length);
+            // console.log("dataaaa", response.data)
+            // setError(null);
+        } catch (err) {
+            // setError('Error fetching details');
+            // setAccount(null);
+        }
+    };
+
+    const handleNewDatabase = async (NEW_NAMA_DATABASE) => {
+        console.log(NEW_NAMA_DATABASE, "NEW_NAMA_DATABASE")
+        try {
+            setVisibleSmDatabase(!visibleSmDatabase)
+            const response = await axios.post('http://localhost:5000/add/new-database', { NEW_NAMA_DATABASE });
             // setAccount(response.data);
             // setAccount2(response.data);
             console.log("Account2 data:", response.data);
@@ -1142,7 +1196,7 @@ function Add() {
                             />
                         </CCol> */}
                         {/* <CCol md={6}> */}
-                            {/* <CFormSelect
+                        {/* <CFormSelect
                                 type="text"
                                 defaultValue={item.WEB_SERVER_ID}
                                 onChange={e => setWebIdSpec(e.target.value)}
@@ -1159,13 +1213,13 @@ function Add() {
                                 ))}
                             </CFormSelect> */}
 
-                            {/* <span>Web Server</span>
+                        {/* <span>Web Server</span>
 
                             <CDropdown className="w-100">
                                 <OutlineDropdownToggle style={{ marginTop: '7px' }}>
                                     -- Pilih -- */}
-                                    {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
-                                {/* </OutlineDropdownToggle>
+                        {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
+                        {/* </OutlineDropdownToggle>
 
                                 <CDropdownMenu>
                                     {pilihServer.map(item => (
@@ -1188,15 +1242,42 @@ function Add() {
                             </CDropdown>
                         </CCol> */}
                         <CCol md={6}>
-                            <CFormInput
+                            {/* <CFormInput
                                 type="text"
                                 value={jenisDatabaseDetail}
                                 onChange={e => setJenisDatabaseDetail(e.target.value)}
                                 feedbackValid="Looks good!"
                                 id="validationCustom01"
                                 label="Jenis Database"
-                            // required
-                            />
+                            required
+                            /> */}
+                            <span>Database</span>
+
+                            <CDropdown className="w-100">
+                                <OutlineDropdownToggle style={{ marginTop: '7px' }}>
+                                    -- Pilih --
+                                    {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
+                                </OutlineDropdownToggle>
+
+                                <CDropdownMenu>
+                                    {pilihDatabase.map(item => (
+                                        <CDropdownItem
+                                            key={item.ID_DATABASE}
+                                            onClick={e => setDatabaseDetail(item.ID_DATABASE)}
+                                        >
+                                            {item.NAMA_DATABASE}
+                                        </CDropdownItem>
+                                    ))}
+
+                                    <CButton
+                                        color="link"
+                                        onClick={handleButtonNewDatabase}
+                                        className="ml-2"
+                                    >
+                                        Tambah Database
+                                    </CButton>
+                                </CDropdownMenu>
+                            </CDropdown>
                         </CCol>
                         <CCol md={6}>
                             <CFormInput
@@ -1599,6 +1680,47 @@ function Add() {
                             color="primary"
                             onClick={() => {
                                 handleNewAkses(NEW_NAMA_AKSES);
+                            }}
+                        >
+                            Save changes
+                        </CButton>
+                    </CModalFooter>
+                </CModal>
+                <CModal
+                    scrollable
+                    size="sm"
+                    visible={visibleSmDatabase}
+                    onClose={() => setVisibleSmDatabase(false)}
+                    aria-labelledby="OptionalSizesExample2"
+                >
+                    <CModalHeader>
+                        <CModalTitle id="ScrollingLongContentExampleLabel2">Add New Database</CModalTitle>
+                    </CModalHeader>
+                    <CModalBody>
+                        <CForm
+                            className="row g-3 needs-validation"
+                            noValidate
+                            validated={validated}
+                            onSubmit={handleSubmit}
+                        >
+                            <CCol md={12}>
+                                <CFormInput
+                                    type="text"
+                                    value={NEW_NAMA_DATABASE}
+                                    onChange={e => setNew_Nama_Database(e.target.value)}
+                                    feedbackValid="Looks good!"
+                                    id="validationCustom01"
+                                    label="Nama Produk"
+                                    required
+                                />
+                            </CCol>
+                        </CForm>
+                    </CModalBody>
+                    <CModalFooter>
+                        <CButton
+                            color="primary"
+                            onClick={() => {
+                                handleNewDatabase(NEW_NAMA_DATABASE);
                             }}
                         >
                             Save changes

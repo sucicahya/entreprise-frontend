@@ -82,6 +82,8 @@ function Dashboard() {
   const [account, setAccount] = useState([]);
   const [server, setServer] = useState([]);
   const [updateFull, setUpdateFull] = useState([]);
+  const [updateAccount, setUpdateAccount] = useState([]);
+  const [updateServer, setUpdateServer] = useState([]);
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState([])
   const [visibleLg, setVisibleLg] = useState(false)
@@ -123,6 +125,7 @@ function Dashboard() {
   const [expAccount, setExpAccount] = useState([])
   const [idAccount, setIdAccount] = useState([])
   const [lengthIdAccount, setLengthIdAccount] = useState([])
+  const [lengthIdServer, setLengthIdServer] = useState([])
   // const [idProduk, setIdProduk] = useState([])
 
   const [NewExpAccount, setNewExpAcc] = useState([])
@@ -156,6 +159,7 @@ function Dashboard() {
   const [penempatanDetail, setPenempatanDetail] = useState([]);
   const [picNipposDetail, setPICNipposDetail] = useState([]);
   const [aksesDetail, setAksesDetail] = useState([]);
+  const [databaseDetail, setDatabaseDetail] = useState([]);
   const [developerDetail, setDeveloperDetail] = useState([]);
   const [serverDetail, setServerDetail] = useState([]);
   const [businessOwnerDetail, setBusinessOwnerDetail] = useState([]);
@@ -185,6 +189,7 @@ function Dashboard() {
   const [pilihPenempatan, setPilihPenempatan] = useState([])
   const [pilihKaryawan, setPilihKaryawan] = useState([])
   const [pilihAkses, setPilihAkses] = useState([])
+  const [pilihDatabase, setPilihDatabase] = useState([])
   const [pilihDeveloper, setPilihDeveloper] = useState([])
   const [pilihStatus, setPilihStatus] = useState([])
   const [pilihServer, setPilihServer] = useState([])
@@ -289,6 +294,23 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
+    axios.get('http://localhost:5000/detail/pilih-database')
+      .then(response => {
+        // console.log('Data received:', response.data); // Cek data yang diterima
+        if (Array.isArray(response.data)) {
+          setPilihDatabase(response.data);
+        } else {
+          console.error('Data format is not an array:', response.data);
+        }
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
     axios.get('http://localhost:5000/detail/pilih-developer')
       .then(response => {
         // console.log('Data received:', response.data); // Cek data yang diterima
@@ -346,7 +368,7 @@ function Dashboard() {
   const [account2, setAccount2] = React.useState(
     searchResults.account || []
   )
-  
+
   const [server2, setServer2] = React.useState(
     searchResults.account || []
   )
@@ -386,6 +408,51 @@ function Dashboard() {
     updatedAccount[index].EXP_DATE_PASSWORD = value;
     setAccount2(updatedAccount);
     setExpAccount(updatedAccount.map(acc => (acc.EXP_DATE_PASSWORD)));
+  };
+
+  const handleWebServer = (index, value) => {
+    console.log("rrxind", index)
+    console.log("rrxval", value)
+    const updatedServer = [...server2];
+    updatedServer[index].WEB_SERVER = parseInt(value, 10);
+    setServer2(updatedServer);
+    setWebServer(updatedServer.map(acc => parseInt(acc.WEB_SERVER, 10)));
+  };
+
+  const handleIPServer = (index, value) => {
+    console.log("rrxind", index)
+    console.log("rrxval", value)
+    const updatedServer = [...server2];
+    updatedServer[index].IP_SERVER = value;
+    setServer2(updatedServer);
+    setIPSpec(updatedServer.map(acc => (acc.IP_SERVER)));
+  };
+
+  const handleCPUServer = (index, value) => {
+    console.log("rrxind", index)
+    console.log("rrxval", value)
+    const updatedServer = [...server2];
+    updatedServer[index].CPU = value;
+    setServer2(updatedServer);
+    setCPUSpec(updatedServer.map(acc => (acc.CPU)));
+  };
+
+  const handleRAMServer = (index, value) => {
+    console.log("rrxind", index)
+    console.log("rrxval", value)
+    const updatedServer = [...server2];
+    updatedServer[index].RAM = value;
+    setServer2(updatedServer);
+    setRAMSpec(updatedServer.map(acc => (acc.RAM)));
+  };
+
+  const handleStorageServer = (index, value) => {
+    console.log("rrxind", index)
+    console.log("rrxval", value)
+    const updatedServer = [...server2];
+    updatedServer[index].STORAGE = value;
+    setServer2(updatedServer);
+    setStorageSpec(updatedServer.map(acc => (acc.STORAGE)));
   };
 
   console.log("DETAIL", detail)
@@ -467,6 +534,7 @@ function Dashboard() {
       setPenempatanDetail(response.data.map(item => item.PENEMPATAN));
       setPICNipposDetail(response.data.map(item => item.PIC_NIPPOS));
       setAksesDetail(response.data.map(item => item.AKSES));
+      setDatabaseDetail(response.data.map(item => item.JENIS_DB));
       setDeveloperDetail(response.data.map(item => item.DEVELOPER));
       setServerDetail(response.data.map(item => item.SERVER));
       setBusinessOwnerDetail(response.data.map(item => item.BUSINESS_OWNER));
@@ -507,12 +575,13 @@ function Dashboard() {
       setServer2(response.data);
       console.log("Server2 data:", response.data);
 
-      // setIdAccount(response.data.map(item => item.ID_ACCOUNT));
-      // setJenisAccount(response.data.map(item => item.JENIS_AKUN));
-      // setUsernameAccount(response.data.map(item => item.USERNAME));
-      // setPassAccount(response.data.map(item => item.PASS));
-      // setExpAccount(response.data.map(item => item.EXP_DATE_PASSWORD));
-      // setLengthIdAccount(response.data.map(item => item.ID_ACCOUNT).length);
+      setIdSpec(response.data.map(item => item.ID_SPEC_SERVER));
+      setWebServer(response.data.map(item => item.WEB_SERVER_ID));
+      setIPSpec(response.data.map(item => item.IP_SERVER));
+      setCPUSpec(response.data.map(item => item.CPU));
+      setRAMSpec(response.data.map(item => item.RAM));
+      setStorageSpec(response.data.map(item => item.STORAGE));
+      setLengthIdServer(response.data.map(item => item.ID_SPEC_SERVER).length);
       console.log("dataaaa", response.data)
       // setError(null);
     } catch (err) {
@@ -536,6 +605,7 @@ function Dashboard() {
       setPassAccount(response.data.map(item => item.PASS));
       setExpAccount(response.data.map(item => item.EXP_DATE_PASSWORD));
       setLengthIdAccount(response.data.map(item => item.ID_ACCOUNT).length);
+      setLengthIdServer(response.data.map(item => item.ID_SPEC_SERVER).length);
       console.log("dataaaa", response.data)
       // setError(null);
     } catch (err) {
@@ -582,7 +652,7 @@ function Dashboard() {
         PORT: portDetail,
         FRAMEWORK: frameworkDetail,
         VER_FRAMEWORK: verFrameworkDetail,
-        JENIS_DATABASE: jenisDatabaseDetail,
+        JENIS_DATABASE: databaseDetail,
         TANGGAL_LIVE: tanggalLiveDetail,
         TANGGAL_AKHIR_UPDATE: tanggalAkhirUpdateDetail,
         TANGGAL_TUTUP: tanggalTutupDetail,
@@ -609,7 +679,7 @@ function Dashboard() {
       };
       console.log("Request body:", JSON.stringify(requestBody, null, 2));
 
-      const response = await axios.post('http://localhost:5000/update-all', requestBody, {
+      const response = await axios.post('http://localhost:5000/detail/update-all', requestBody, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -629,6 +699,184 @@ function Dashboard() {
     } catch (err) {
       // setError('Error fetching details');
       setUpdateFull(null);
+    }
+  };
+
+  const handleUpdateServer = async () => {
+    // console.log(ID_PRODUK, "iddx")
+    try {
+      setVisibleLg(!visibleLg)
+      const requestBody = {
+        // ID_PRODUK,
+        NAMA_PRODUK: namaProduk,
+        DESKRIPSI_PRODUK: deskripsiProduk,
+        FLAG_STATUS: flagProduk,
+
+        ID_AKSES: idAkses,
+        NAMA_AKSES: namaAkses,
+
+        ID_DEVELOPER: idDeveloper,
+        NAMA_DEVELOPER: namaDeveloper,
+
+        NAMA: namaKaryawan,
+        TELEPON: teleponKaryawan,
+        NIPPOS: nipposKaryawan,
+        // USERNAME: usernameKaryawan,
+        // PASS: passKaryawan,
+
+        ID_STATUS: idStatus,
+        NAMA_STATUS: namaStatus,
+
+        ID_PRODUK_DETAIL: idProdukDetail,
+        PRODUK_ID: produkIdDetail,
+        PENEMPATAN: penempatanDetail,
+        PIC_NIPPOS: picNipposDetail,
+        AKSES: aksesDetail,
+        DEVELOPER: developerDetail,
+        SERVER: serverDetail,
+        BUSINESS_OWNER: businessOwnerDetail,
+        WAKTU_OPERASIONAL: waktuOperasionalDetail,
+        URL: urlDetail,
+        PORT: portDetail,
+        FRAMEWORK: frameworkDetail,
+        VER_FRAMEWORK: verFrameworkDetail,
+        JENIS_DATABASE: databaseDetail,
+        TANGGAL_LIVE: tanggalLiveDetail,
+        TANGGAL_AKHIR_UPDATE: tanggalAkhirUpdateDetail,
+        TANGGAL_TUTUP: tanggalTutupDetail,
+        TANGGAL_DEPLOY: tanggalDeployDetail,
+
+        IP_SERVER: ipSpec,
+        CPU: cpuSpec,
+        RAM: ramSpec,
+        STORAGE: storageSpec,
+        ID_SPEC_SERVER: idSpec,
+        WEB_SERVER_ID: webIdSpec,
+
+        ID_WEB_SERVER: idServer,
+        NAMA_WEB_SERVER: webServer,
+
+        // BA_DEPLOY: ba_deploy,
+        // REQ_DEPLOY: req_deploy,
+        ID_ACCOUNT: idAccount,
+        JENIS_AKUN: jenisAccount,
+        USERNAME: usernameAccount,
+        PASS: passAccount,
+        EXP_DATE_PASSWORD: expAccount,
+        LENGTH_ACCOUNT: lengthIdAccount,
+
+        LENGTH_SERVER: lengthIdServer
+      };
+      console.log("Request body:", JSON.stringify(requestBody, null, 2));
+
+      const response = await axios.post('http://localhost:5000/detail/update-server', requestBody, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      setUpdateServer(response.data);
+      // setAccount2(response.data);
+      console.log("update full:", response.data);
+      window.location.reload();
+
+      // setIdAccount(response.data.map(item => item.ID_ACCOUNT));
+      // setJenisAccount(response.data.map(item => item.JENIS_AKUN));
+      // setUsernameAccount(response.data.map(item => item.USERNAME));
+      // setPassAccount(response.data.map(item => item.PASS));
+      // setExpAccount(response.data.map(item => item.EXP_DATE_PASSWORD));
+      // console.log("dataaaa", response.data)
+      // setError(null);
+    } catch (err) {
+      // setError('Error fetching details');
+      setUpdateServer(null);
+    }
+  };
+
+  const handleUpdateAccount = async () => {
+    // console.log(ID_PRODUK, "iddx")
+    try {
+      setVisibleLg(!visibleLg)
+      const requestBody = {
+        // ID_PRODUK,
+        NAMA_PRODUK: namaProduk,
+        DESKRIPSI_PRODUK: deskripsiProduk,
+        FLAG_STATUS: flagProduk,
+
+        ID_AKSES: idAkses,
+        NAMA_AKSES: namaAkses,
+
+        ID_DEVELOPER: idDeveloper,
+        NAMA_DEVELOPER: namaDeveloper,
+
+        NAMA: namaKaryawan,
+        TELEPON: teleponKaryawan,
+        NIPPOS: nipposKaryawan,
+        // USERNAME: usernameKaryawan,
+        // PASS: passKaryawan,
+
+        ID_STATUS: idStatus,
+        NAMA_STATUS: namaStatus,
+
+        ID_PRODUK_DETAIL: idProdukDetail,
+        PRODUK_ID: produkIdDetail,
+        PENEMPATAN: penempatanDetail,
+        PIC_NIPPOS: picNipposDetail,
+        AKSES: aksesDetail,
+        DEVELOPER: developerDetail,
+        SERVER: serverDetail,
+        BUSINESS_OWNER: businessOwnerDetail,
+        WAKTU_OPERASIONAL: waktuOperasionalDetail,
+        URL: urlDetail,
+        PORT: portDetail,
+        FRAMEWORK: frameworkDetail,
+        VER_FRAMEWORK: verFrameworkDetail,
+        JENIS_DATABASE: databaseDetail,
+        TANGGAL_LIVE: tanggalLiveDetail,
+        TANGGAL_AKHIR_UPDATE: tanggalAkhirUpdateDetail,
+        TANGGAL_TUTUP: tanggalTutupDetail,
+        TANGGAL_DEPLOY: tanggalDeployDetail,
+
+        IP_SERVER: ipSpec,
+        CPU: cpuSpec,
+        RAM: ramSpec,
+        STORAGE: storageSpec,
+        ID_SPEC_SERVER: idSpec,
+        WEB_SERVER_ID: webIdSpec,
+
+        ID_WEB_SERVER: idServer,
+        NAMA_WEB_SERVER: webServer,
+
+        // BA_DEPLOY: ba_deploy,
+        // REQ_DEPLOY: req_deploy,
+        ID_ACCOUNT: idAccount,
+        JENIS_AKUN: jenisAccount,
+        USERNAME: usernameAccount,
+        PASS: passAccount,
+        EXP_DATE_PASSWORD: expAccount,
+        LENGTH_ACCOUNT: lengthIdAccount
+      };
+      console.log("Request body:", JSON.stringify(requestBody, null, 2));
+
+      const response = await axios.post('http://localhost:5000/detail/update-account', requestBody, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      setUpdateAccount(response.data);
+      // setAccount2(response.data);
+      console.log("update full:", response.data);
+      window.location.reload();
+
+      // setIdAccount(response.data.map(item => item.ID_ACCOUNT));
+      // setJenisAccount(response.data.map(item => item.JENIS_AKUN));
+      // setUsernameAccount(response.data.map(item => item.USERNAME));
+      // setPassAccount(response.data.map(item => item.PASS));
+      // setExpAccount(response.data.map(item => item.EXP_DATE_PASSWORD));
+      // console.log("dataaaa", response.data)
+      // setError(null);
+    } catch (err) {
+      // setError('Error fetching details');
+      setUpdateAccount(null);
     }
   };
 
@@ -718,24 +966,6 @@ function Dashboard() {
   // }
   // };
 
-  const handleUpdateAccount = async (id) => {
-    console.log(id, "iddaccount")
-    // try {
-    //   setVisible(!visible)
-    //   const response = await axios.post('http://localhost:5000/full-detail', { id });
-    //   setDetail(response.data);
-    //   console.log("dataaaa", response.data)
-    //   // setError(null);
-    // } catch (err) {
-    //   // setError('Error fetching details');
-    //   setDetail(null);
-    // }
-  };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   const columns = [
     { key: 'ID_PRODUK', label: 'ID Produk' },
     { key: 'NAMA_PRODUK', label: 'Nama Produk' },
@@ -757,7 +987,7 @@ function Dashboard() {
     show_details: item,
     details: item
   }));
-  
+
   const getBadge = (STATUS) => {
     switch (STATUS) {
       case 'Aktif':
@@ -992,7 +1222,7 @@ function Dashboard() {
                       </option>
                     ))}
                   </CFormSelect> */}
-                  {/* <CFormInput
+                {/* <CFormInput
                     type="text"
                     defaultValue={item.NAMA_WEB_SERVER}
                     onChange={e => setWebServer(e.target.value)}
@@ -1003,15 +1233,31 @@ function Dashboard() {
                   /> */}
                 {/* </CCol> */}
                 <CCol md={6}>
-                  <CFormInput
+                  <CFormSelect
+                    type="text"
+                    defaultValue={item.JENIS_DB}
+                    onChange={e => setDatabaseDetail(e.target.value)}
+                    feedbackValid="Looks good!"
+                    id="validationCustom01"
+                    label="Database"
+                  // required
+                  >
+                    <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
+                    {pilihDatabase.map(item => (
+                      <option key={item.ID_DATABASE} value={item.ID_DATABASE}>
+                        {item.NAMA_DATABASE}
+                      </option>
+                    ))}
+                  </CFormSelect>
+                  {/* <CFormInput
                     type="text"
                     defaultValue={item.JENIS_DATABASE}
                     onChange={e => setJenisDatabaseDetail(e.target.value)}
                     feedbackValid="Looks good!"
                     id="validationCustom01"
                     label="Jenis Database"
-                  // required
-                  />
+                    required
+                  /> */}
                 </CCol>
                 <CCol md={6}>
                   <CFormInput
@@ -1294,19 +1540,28 @@ function Dashboard() {
               {server2.map((item, index) => (
                 <div style={{ display: 'flex', marginBottom: '10px' }}>
                   <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
-                    <CFormInput
+                    <CFormSelect
                       type="text"
-                      defaultValue={item.NAMA_WEB_SERVER}
-                      // onChange={(e) => handleJenisAccount(index, e.target.value)}
+                      defaultValue={item.WEB_SERVER_ID}
+                      onChange={(e) => handleWebServer(index, e.target.value)}
                       feedbackValid="Looks good!"
                       id="validationCustom01"
-                    />
+                      // label="Web Server"
+                    // required
+                    >
+                      <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
+                      {pilihServer.map(item => (
+                        <option key={item.ID_WEB_SERVER} value={item.ID_WEB_SERVER}>
+                          {item.NAMA_WEB_SERVER}
+                        </option>
+                      ))}
+                    </CFormSelect>
                   </CCol>
                   <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
                     <CFormInput
                       type="text"
                       defaultValue={item.IP_SERVER}
-                      // onChange={(e) => handleUsernameAccount(index, e.target.value)}
+                      onChange={(e) => handleIPServer(index, e.target.value)}
                       feedbackValid="Looks good!"
                       id="validationCustom01"
                     />
@@ -1315,7 +1570,7 @@ function Dashboard() {
                     <CFormInput
                       type="text"
                       defaultValue={item.CPU}
-                      // onChange={(e) => handlePassAccount(index, e.target.value)}
+                      onChange={(e) => handleCPUServer(index, e.target.value)}
                       feedbackValid="Looks good!"
                       id="validationCustom01"
                     />
@@ -1324,7 +1579,7 @@ function Dashboard() {
                     <CFormInput
                       type="text"
                       defaultValue={item.RAM}
-                      // onChange={(e) => handlePassAccount(index, e.target.value)}
+                      onChange={(e) => handleRAMServer(index, e.target.value)}
                       feedbackValid="Looks good!"
                       id="validationCustom01"
                     />
@@ -1333,7 +1588,7 @@ function Dashboard() {
                     <CFormInput
                       type="text"
                       defaultValue={item.STORAGE}
-                      // onChange={(e) => handlePassAccount(index, e.target.value)}
+                      onChange={(e) => handleStorageServer(index, e.target.value)}
                       feedbackValid="Looks good!"
                       id="validationCustom01"
                     />
@@ -1347,20 +1602,20 @@ function Dashboard() {
           {/* <CButton color="secondary" onClick={() => setVisible(false)}>
             Close
           </CButton> */}
-          {detail.map(item => {
+          {/* {detail.map(item => {
             return (
-              <React.Fragment key={item.ID_PRODUK}>
-                <CButton
-                  color="primary"
-                  onClick={() => {
-                    handleUpdateDetail(item.ID_PRODUK);
-                  }}
-                >
-                  Save changes
-                </CButton>
-              </React.Fragment>
+              <React.Fragment key={item.ID_PRODUK}> */}
+          <CButton
+            color="primary"
+            onClick={() => {
+              handleUpdateServer();
+            }}
+          >
+            Save changes
+          </CButton>
+          {/* </React.Fragment>
             );
-          })}
+          })} */}
         </CModalFooter>
       </CModal>
 
@@ -1448,20 +1703,20 @@ function Dashboard() {
           {/* <CButton color="secondary" onClick={() => setVisible(false)}>
             Close
           </CButton> */}
-          {detail.map(item => {
+          {/* {detail.map(item => {
             return (
-              <React.Fragment key={item.ID_PRODUK}>
-                <CButton
-                  color="primary"
-                  onClick={() => {
-                    handleUpdateDetail(item.ID_PRODUK);
-                  }}
-                >
-                  Save changes
-                </CButton>
-              </React.Fragment>
+              <React.Fragment> */}
+          <CButton
+            color="primary"
+            onClick={() => {
+              handleUpdateAccount();
+            }}
+          >
+            Save changes
+          </CButton>
+          {/* </React.Fragment>
             );
-          })}
+          })} */}
         </CModalFooter>
       </CModal>
 
