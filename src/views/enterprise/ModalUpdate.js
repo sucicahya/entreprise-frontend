@@ -74,7 +74,7 @@ import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import Table from './Table'
 
-function Dashboard() {
+function ModalUpdate() {
   const [produk, setProduk] = useState([]);
   // const [id_produk_detail, setIdProdukDetail] = useState([]);
   const [detail, setDetail] = useState([]);
@@ -1904,4 +1904,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default ModalUpdate

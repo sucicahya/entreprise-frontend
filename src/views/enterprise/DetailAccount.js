@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
     CModal,
     CModalHeader,
@@ -15,6 +16,7 @@ import {
 
 const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, account2, handleJenisAccount, handleUsernameAccount, handlePassAccount, handleExpAccount, handleUpdateAccount }) => {
     const [visible, setVisible] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     return (
         <>
