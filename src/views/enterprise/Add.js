@@ -954,7 +954,7 @@ function Add() {
             }
             console.log("reqbody", requestBody)
 
-            const response = await axios.post('http://localhost:5000/add/new-produk', requestBody, {
+            const response = await axios.post('http://localhost:5000/add/new-down-time', requestBody, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

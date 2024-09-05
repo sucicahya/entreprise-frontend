@@ -77,7 +77,9 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
+import TableDown from './TableDown'
 import Table from './Table'
+import AddDownTime from './AddDownTime'
 import Add from './Add'
 import Chart from './Chart'
 import AddServer from './AddServer';
@@ -279,7 +281,7 @@ function Dashboard() {
       };
       console.log("postdata", postData);
       console.log("nipposLogin", nipposLogin);
-  
+
       axios.post('http://localhost:5000/card/pemberitahuan', postData, {
         headers: {
           'Content-Type': 'application/json'
@@ -313,7 +315,7 @@ function Dashboard() {
   const showNotifications = (data) => {
     data.forEach(item => {
       toast.info(
-        `Produk: ${item.NAMA_PRODUK}, IP Server: ${item.IP_SERVER}, Jenis Akun: ${item.JENIS_AKUN}, Tanggal Exp: ${new Date(item.EXP_DATE_PASSWORD).toLocaleDateString()}`, 
+        `Produk: ${item.NAMA_PRODUK}, IP Server: ${item.IP_SERVER}, Jenis Akun: ${item.JENIS_AKUN}, Tanggal Exp: ${new Date(item.EXP_DATE_PASSWORD).toLocaleDateString()}`,
         {
           // position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000, // Adjust duration as needed
@@ -321,8 +323,8 @@ function Dashboard() {
       );
     });
   };
-  
-  
+
+
 
   useEffect(() => {
     axios.get('http://localhost:5000/detail/pilih-penempatan')
@@ -1125,7 +1127,7 @@ function Dashboard() {
 
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <CModal
         scrollable
         size="lg"
@@ -1229,11 +1231,14 @@ function Dashboard() {
       </CCard>
       {/* <Chart />   */}
       <div style={{ display: 'flex', gap: '10px' }}>
+        <AddDownTime />
+      </div>
+      <TableDown />
+      <div style={{ display: 'flex', gap: '10px' }}>
         <Add />
         <AddServer />
         <AddAccount />
       </div>
-
       <Table />
     </>
   )
