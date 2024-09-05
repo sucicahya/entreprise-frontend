@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import classNames from 'classnames'
 import { CSmartTable, CBadge, CCollapse } from '@coreui/react-pro';
+import auth from '../../helpers/auth';
 
 
 
@@ -1904,4 +1905,4 @@ function ModalUpdate() {
   )
 }
 
-export default ModalUpdate
+export default auth(ModalUpdate)

@@ -47,8 +47,9 @@ const Login = () => {
       setHasilLogin(response.data);
       // setAccount2(response.data);
       console.log("hasillogin:", response.data);
-      if (response.status === 200) {
-        navigate('../enterprise')
+      if (response.status === 200 && response.data.token) {
+        localStorage.setItem('authToken', response.data.token);
+        navigate('../enterprise', { state: { loginData: response.data } });
       }
       // window.location.reload();
 

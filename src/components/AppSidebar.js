@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 
 import {
@@ -23,6 +24,19 @@ const AppSidebar = () => {
   const dispatch = useDispatch()
   const unfoldable = useSelector((state) => state.sidebarUnfoldable)
   const sidebarShow = useSelector((state) => state.sidebarShow)
+
+  const navigate = useNavigate(); // Inisialisasi useNavigate\
+  const handleSidebarToggle = () => {
+    // Reset localStorage
+    localStorage.clear(); // Atau gunakan localStorage.removeItem('key') jika hanya ingin menghapus item tertentu
+    
+    // Redirect ke halaman login
+    navigate('/login');
+    
+    // Dispatch action untuk toggle sidebar
+    // dispatch({ type: 'set', sidebarUnfoldable: !unfoldable });
+  };
+
 
   return (
     <CSidebar
@@ -49,7 +63,8 @@ const AppSidebar = () => {
       <AppSidebarNav items={navigation} />
       <CSidebarFooter className="border-top d-none d-lg-flex">
         <CSidebarToggler
-          onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
+          // onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
+          onClick={handleSidebarToggle}
         />
       </CSidebarFooter>
     </CSidebar>

@@ -13,6 +13,7 @@ import {
   CModalFooter,
   CButton,
 } from '@coreui/react';
+import auth from '../../helpers/auth';
 
 const DetailServer = ({ item, details, handleFetchServer, server2, handleWebServer, handleIPServer, handleCPUServer, handleRAMServer, handleStorageServer, handleUpdateServer }) => {
   const [visible, setVisible] = useState(false);
@@ -139,4 +140,4 @@ const DetailServer = ({ item, details, handleFetchServer, server2, handleWebServ
   );
 };
 
-export default DetailServer;
+export default auth(DetailServer);

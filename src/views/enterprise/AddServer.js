@@ -3,6 +3,7 @@ import axios from 'axios';
 import classNames from 'classnames'
 import { CSmartTable, CBadge, CCollapse } from '@coreui/react-pro';
 import AddAccount from './AddAccount'
+import auth from '../../helpers/auth';
 
 
 
@@ -1193,4 +1194,4 @@ function AddServer() {
     )
 }
 
-export default AddServer
+export default auth(AddServer)

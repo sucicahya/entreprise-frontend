@@ -10,6 +10,7 @@ import {
     CChartRadar,
 } from '@coreui/react-chartjs'
 import { DocsCallout } from 'src/components'
+import auth from '../../helpers/auth';
 
 const Charts = () => {
     const random = () => Math.round(Math.random() * 100)
@@ -216,4 +217,4 @@ const Charts = () => {
     )
 }
 
-export default Charts
+export default auth(Charts)

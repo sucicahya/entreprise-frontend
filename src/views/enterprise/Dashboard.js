@@ -3,6 +3,10 @@ import axios from 'axios';
 import classNames from 'classnames'
 import { CSmartTable, CBadge, CCollapse } from '@coreui/react-pro';
 import MainChart from '../dashboard/MainChart'
+import auth from '../../helpers/auth';
+import { useLocation } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -80,12 +84,19 @@ import AddServer from './AddServer';
 import AddAccount from './AddAccount';
 
 function Dashboard() {
+  const [nipposLogin, setNipposLogin] = useState([]);
+  const location = useLocation();
+  const { loginData } = location.state || {};
+  console.log("logindata", nipposLogin)
   const [produk, setProduk] = useState([]);
   // const [id_produk_detail, setIdProdukDetail] = useState([]);
   const [detail, setDetail] = useState([]);
   const [account, setAccount] = useState([]);
   const [updateFull, setUpdateFull] = useState([]);
+  const [dataLogin, setDataLogin] = useState([]);
+  console.log("xxyyzzaabbcc", dataLogin)
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [details, setDetails] = useState([])
   const [visibleLg, setVisibleLg] = useState(false)
   const [dataa, setData] = useState([])
@@ -250,6 +261,68 @@ function Dashboard() {
   // useEffect(() => {
   //   fetchKantorFromBackend();
   // }, []);
+
+
+  useEffect(() => {
+    if (loginData.results && loginData.results.length > 0) {
+      setNipposLogin(loginData.results[0].NIPPOS);
+    }
+  }, [loginData]);
+
+  console.log("typeof", nipposLogin)
+  console.log("typeof", dataLogin)
+
+  useEffect(() => {
+    if (nipposLogin !== null && nipposLogin.length > 0) {
+      const postData = {
+        nippos: nipposLogin,
+      };
+      console.log("postdata", postData);
+      console.log("nipposLogin", nipposLogin);
+  
+      axios.post('http://localhost:5000/card/pemberitahuan', postData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => {
+          // Handle successful response
+          console.log('Data received:', response.data);
+          if (Array.isArray(response.data)) {
+            setDataLogin(response.data);
+          } else {
+            console.error('Data format is not an array:', response.data);
+          }
+          setLoading(false);
+        })
+        .catch(error => {
+          // Handle error
+          console.error('Error fetching data:', error);
+          setError(error);
+          setLoading(false);
+        });
+    }
+  }, [nipposLogin]);
+
+  useEffect(() => {
+    if (dataLogin.length > 0) {
+      showNotifications(dataLogin);
+    }
+  }, [dataLogin]);
+
+  const showNotifications = (data) => {
+    data.forEach(item => {
+      toast.info(
+        `Produk: ${item.NAMA_PRODUK}, IP Server: ${item.IP_SERVER}, Jenis Akun: ${item.JENIS_AKUN}, Tanggal Exp: ${new Date(item.EXP_DATE_PASSWORD).toLocaleDateString()}`, 
+        {
+          // position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000, // Adjust duration as needed
+        }
+      );
+    });
+  };
+  
+  
 
   useEffect(() => {
     axios.get('http://localhost:5000/detail/pilih-penempatan')
@@ -1047,8 +1120,12 @@ function Dashboard() {
     setDetails(newDetails)
   }
 
+  const token = localStorage.getItem('authToken');
+  // console.log("token", token)
+
   return (
     <>
+    <ToastContainer />
       <CModal
         scrollable
         size="lg"
@@ -1162,4 +1239,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default auth(Dashboard)

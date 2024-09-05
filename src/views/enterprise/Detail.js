@@ -12,6 +12,7 @@ import {
     CModalFooter,
     CButton,
 } from '@coreui/react';
+import auth from '../../helpers/auth';
 
 const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, account2, handleJenisAccount, handleUsernameAccount, handlePassAccount, handleExpAccount, handleUpdateAccount }) => {
     const [visible, setVisible] = useState(false);
@@ -132,4 +133,4 @@ const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, accou
     );
 };
 
-export default DetailAccount;
+export default auth(DetailAccount);

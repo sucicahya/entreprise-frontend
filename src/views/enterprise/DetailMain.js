@@ -13,6 +13,7 @@ import {
     CModalFooter,
     CButton,
 } from '@coreui/react';
+import auth from '../../helpers/auth';
 
 const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTanggalTutup, formattedTanggalUpdate, formattedTanggalDeploy, handleFetchDetails, handleUpdateDetail }) => {
     const [visible, setVisible] = useState(false);
@@ -435,4 +436,4 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
     );
 };
 
-export default DetailMain;
+export default auth(DetailMain);

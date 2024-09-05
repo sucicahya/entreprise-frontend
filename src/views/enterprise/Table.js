@@ -9,6 +9,7 @@ import {
 import DetailServer from './DetailServer';
 import DetailAccount from './DetailAccount';
 import DetailMain from './DetailMain';
+import auth from '../../helpers/auth';
 
 function Table() {
   const [produk, setProduk] = useState([]);
@@ -817,4 +818,4 @@ function Table() {
   )
 }
 
-export default Table
+export default auth(Table)
