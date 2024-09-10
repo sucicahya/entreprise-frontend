@@ -67,9 +67,6 @@ const DetailServer = ({ item, details, handleFetchServer, server2, handleWebServ
         <CModalBody>
           <CForm className="row g-3 needs-validation" noValidate onSubmit={handleUpdateServer}>
             <CCol style={{ flexBasis: '20%' }}>
-              <span>Web Server</span>
-            </CCol>
-            <CCol style={{ flexBasis: '20%' }}>
               <span>IP Server</span>
             </CCol>
             <CCol style={{ flexBasis: '20%' }}>
@@ -81,22 +78,12 @@ const DetailServer = ({ item, details, handleFetchServer, server2, handleWebServ
             <CCol style={{ flexBasis: '20%' }}>
               <span>Storage</span>
             </CCol>
+            <CCol style={{ flexBasis: '20%' }}>
+              <span>Web Server</span>
+            </CCol>
             <CRow className="mb-3">
               {server2.map((item, index) => (
                 <div style={{ display: 'flex', marginBottom: '10px' }} key={index}>
-                  <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
-                    <CFormSelect
-                      defaultValue={item.WEB_SERVER_ID}
-                      onChange={(e) => handleWebServer(index, e.target.value)}
-                    >
-                      <option value="">-- Pilih --</option>
-                      {pilihServer.map(server => (
-                        <option key={server.ID_WEB_SERVER} value={server.ID_WEB_SERVER}>
-                          {server.NAMA_WEB_SERVER}
-                        </option>
-                      ))}
-                    </CFormSelect>
-                  </CCol>
                   <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
                     <CFormInput
                       type="text"
@@ -124,6 +111,19 @@ const DetailServer = ({ item, details, handleFetchServer, server2, handleWebServ
                       defaultValue={item.STORAGE}
                       onChange={(e) => handleStorageServer(index, e.target.value)}
                     />
+                  </CCol>
+                  <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
+                    <CFormSelect
+                      defaultValue={item.WEB_SERVER_ID}
+                      onChange={(e) => handleWebServer(index, e.target.value)}
+                    >
+                      <option value="">-- Pilih --</option>
+                      {pilihServer.map(server => (
+                        <option key={server.ID_WEB_SERVER} value={server.ID_WEB_SERVER}>
+                          {server.NAMA_WEB_SERVER}
+                        </option>
+                      ))}
+                    </CFormSelect>
                   </CCol>
                 </div>
               ))}

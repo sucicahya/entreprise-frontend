@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import {
     CModal,
     CModalHeader,
@@ -17,7 +16,6 @@ import auth from '../../helpers/auth';
 
 const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, account2, handleJenisAccount, handleUsernameAccount, handlePassAccount, handleExpAccount, handleUpdateAccount }) => {
     const [visible, setVisible] = useState(false);
-    const [loading, setLoading] = useState(true);
 
     return (
         <>
@@ -88,7 +86,7 @@ const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, accou
                                     </CCol>
                                     <CCol md={3} style={{ marginRight: '10px' }}>
                                         <CFormInput
-                                            type="password"
+                                            type="text"
                                             defaultValue={item.PASS}
                                             onChange={(e) => handlePassAccount(index, e.target.value)}
                                             feedbackValid="Looks good!"

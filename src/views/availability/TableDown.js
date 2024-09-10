@@ -6,12 +6,12 @@ import {
   CButton,
   CCardBody,
 } from '@coreui/react'
-import DetailServer from './DetailServer';
-import DetailAccount from './DetailAccount';
+// import DetailServer from './DetailServer';
+// import DetailAccount from './DetailAccount';
 import DetailMain from './DetailMain';
 import auth from '../../helpers/auth';
 
-function Table() {
+function TableDown() {
   const [produk, setProduk] = useState([]);
   // const [id_produk_detail, setIdProdukDetail] = useState([]);
   const [detail, setDetail] = useState([]);
@@ -243,7 +243,7 @@ function Table() {
   }
 
   useEffect(() => {
-    axios.get('http://localhost:5000/detail/main-table')
+    axios.get('http://localhost:5000/detail/down-table')
       .then(response => {
         // console.log('Data received:', response.data); // Cek data yang diterima
         if (Array.isArray(response.data)) {
@@ -258,6 +258,8 @@ function Table() {
         setLoading(false);
       });
   }, []);
+
+  console.log("produk", produk)
 
   const handleFetchDetails = async (id) => {
     console.log(id, "idd")
@@ -661,31 +663,29 @@ function Table() {
         cleaner
         clickableRows
         columns={[
-          { key: 'ID_PRODUK', label: 'ID Aplikasi' },
-          { key: 'NAMA_PRODUK', label: 'Nama Aplikasi' },
-          { key: 'show_details', label: 'Domain' },
-          // { key: 'IP', label: 'IP Server' },
-          // { key: 'PIC', label: 'PIC' },
-          { key: 'STATUS', label: 'Status' },
-          // { key: 'show_details', label: 'Details' },
-          { key: 'show_details2', label: 'Server Details' },
-          { key: 'show_details3', label: 'Account Details' },
-          // { key: 'details', label: 'More Details' },
+            // { key: 'ID_PRODUK', label: 'ID Produk' },
+            { key: 'NAMA_PRODUK', label: 'Nama Aplikasi' },
+            { key: 'IP_SERVER', label: 'Domain' },
+            { key: 'IP_SERVER', label: 'Up Time' },
+            { key: 'IP_SERVER', label: 'Down Time' },
+            // { key: 'IP', label: 'IP Server' },
+            { key: 'WAKTU_DOWN', label: 'Waktu Down' },
+            { key: 'WAKTU_SOLVED', label: 'Waktu Selesai' },
+            { key: 'PENYEBAB', label: 'Penyebab' },
+            { key: 'SOLUSI', label: 'Solusi' },
         ]}
         // columnFilter
         columnSorter
         footer
         items={produk.map(item => ({
-          ID_PRODUK: item.ID_PRODUK,
+          // ID_PRODUK: item.ID_DOWN_TIME,
           NAMA_PRODUK: item.NAMA_PRODUK,
-          URL: item.URL,
+          IP_SERVER: item.IP_SERVER,
           // IP: item.IP_SERVER,
-          // PIC: item.NAMA,
-          STATUS: item.NAMA_STATUS,
-          show_details: item,
-          show_details2: item,
-          show_details3: item,
-          details: item
+          WAKTU_DOWN: item.WAKTU_DOWN,
+          WAKTU_SOLVED: item.WAKTU_SELESAI,
+          PENYEBAB: item.PENYEBAB,
+          SOLUSI: item.SOLUSI
         }))}
         itemsPerPageSelect
         itemsPerPage={5}
@@ -711,6 +711,7 @@ function Table() {
             return (
               <DetailMain
                 item={item}
+                details={details}
                 detail={detail}
                 formattedTanggalLive={formattedTanggalLive}
                 formattedTanggalUpdate={formattedTanggalUpdate}
@@ -817,4 +818,4 @@ function Table() {
   )
 }
 
-export default auth(Table)
+export default auth(TableDown)

@@ -78,12 +78,12 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import TableDown from './TableDown'
-import Table from './Table'
+// import Table from './Table'
 import AddDownTime from './AddDownTime'
-import Add from './Add'
+// import Add from './Add'
 import Chart from './Chart'
-import AddServer from './AddServer';
-import AddAccount from './AddAccount';
+// import AddServer from './AddServer';
+// import AddAccount from './AddAccount';
 
 function Dashboard() {
   const [nipposLogin, setNipposLogin] = useState([]);
@@ -1173,7 +1173,7 @@ function Dashboard() {
           )}
         </ul>
       </div> */}
-      < WidgetsDropdown className="mb-4" />
+      {/* < WidgetsDropdown className="mb-4" /> */}
       {/* <WidgetsBrand className="mb-4" withCharts /> */}
       {/* <CCard className="mb-4">
         <CCardBody>
@@ -1230,16 +1230,16 @@ function Dashboard() {
         </CCardFooter>
       </CCard> */}
       {/* <Chart />   */}
-      {/* <div style={{ display: 'flex', gap: '10px' }}>
+      <div style={{ display: 'flex', gap: '10px' }}>
         <AddDownTime />
       </div>
-      <TableDown /> */}
-      <div style={{ display: 'flex', gap: '10px' }}>
+      <TableDown />
+      {/* <div style={{ display: 'flex', gap: '10px' }}>
         <Add />
         <AddServer />
         <AddAccount />
       </div>
-      <Table />
+      <Table /> */}
     </>
   )
 }

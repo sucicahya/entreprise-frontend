@@ -22,9 +22,15 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Enterprise',
+    name: 'Daftar Aplikasi',
     to: '/enterprise',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Availability',
+    to: '/availability',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
   },
   // {
   //   component: CNavTitle,
