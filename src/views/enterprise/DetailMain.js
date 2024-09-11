@@ -134,7 +134,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                     // color="primary"
                     // variant="outline"
                     // shape="square"
-                    size="m"
+                    size="md"
                     style={{ border: 'none' }}
                     onClick={() => {
                         handleFetchDetails(item.ID_PRODUK);
@@ -172,257 +172,428 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                     <CForm className="row g-3 needs-validation" noValidate onSubmit={handleUpdateDetail}>
                         {detail.map(item => (
                             <React.Fragment>
-                                <CCol md={12}>
-                                    <CFormInput
-                                        type="text"
-                                        defaultValue={item.NAMA_PRODUK}
-                                        onChange={e => setNamaProduk(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Nama Produk"
-                                        required
-                                    />
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Nama Produk
+                                        </label>
+                                    </div>
                                 </CCol>
-                                <CCol md={12}>
-                                    <CFormInput
-                                        type="text"
-                                        defaultValue={item.DESKRIPSI_PRODUK}
-                                        onChange={e => setDeskripsiProduk(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Deskripsi Produk"
-                                        required
-                                    />
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormInput
+                                            type="text"
+                                            defaultValue={item.NAMA_PRODUK}
+                                            onChange={e => setNamaProduk(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                            // label="Nama Produk"
+                                            required
+                                        />
+                                    </div>
                                 </CCol>
-                                <CCol md={12}>
-                                    <CFormSelect
-                                        type="text"
-                                        defaultValue={item.FLAG_STATUS}
-                                        onChange={e => setFlagProduk(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Status"
-                                    // required
-                                    >
-                                        <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
-                                        {pilihStatus.map(item => (
-                                            <option key={item.ID_STATUS} value={item.ID_STATUS}>
-                                                {item.NAMA_STATUS}
-                                            </option>
-                                        ))}
-                                    </CFormSelect>
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Deskripsi Produk
+                                        </label>
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormInput
-                                        type="text"
-                                        defaultValue={item.URL}
-                                        onChange={e => setURLDetail(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="URL"
-                                    // required
-                                    />
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormInput
+                                            type="text"
+                                            defaultValue={item.DESKRIPSI_PRODUK}
+                                            onChange={e => setDeskripsiProduk(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                            // label="Deskripsi Produk"
+                                            required
+                                        />
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormInput
-                                        type="text"
-                                        defaultValue={item.PORT}
-                                        onChange={e => setPortDetail(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Port"
-                                    // required
-                                    />
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Status
+                                        </label>
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormSelect
-                                        type="text"
-                                        defaultValue={item.PENEMPATAN}
-                                        onChange={e => setPenempatanDetail(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Penempatan"
-                                    // required
-                                    >
-                                        <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
-                                        {pilihPenempatan.map(item => (
-                                            <option key={item.ID_PENEMPATAN} value={item.ID_PENEMPATAN}>
-                                                {item.NAMA_PENEMPATAN}
-                                            </option>
-                                        ))}
-                                    </CFormSelect>
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormSelect
+                                            type="text"
+                                            defaultValue={item.FLAG_STATUS}
+                                            onChange={e => setFlagProduk(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="Status"
+                                        // required
+                                        >
+                                            <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
+                                            {pilihStatus.map(item => (
+                                                <option key={item.ID_STATUS} value={item.ID_STATUS}>
+                                                    {item.NAMA_STATUS}
+                                                </option>
+                                            ))}
+                                        </CFormSelect>
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormSelect
-                                        type="text"
-                                        defaultValue={item.AKSES}
-                                        onChange={e => setAksesDetail(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Akses"
-                                    // required
-                                    >
-                                        <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
-                                        {pilihAkses.map(item => (
-                                            <option key={item.ID_AKSES} value={item.ID_AKSES}>
-                                                {item.NAMA_AKSES}
-                                            </option>
-                                        ))}
-                                    </CFormSelect>
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Domain
+                                        </label>
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormInput
-                                        type="text"
-                                        defaultValue={item.WAKTU_OPERASIONAL}
-                                        onChange={e => setWaktuOperasionalDetail(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Waktu Operasional"
-                                    // required
-                                    />
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormInput
+                                            type="text"
+                                            defaultValue={item.URL}
+                                            onChange={e => setURLDetail(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="URL"
+                                        // required
+                                        />
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormSelect
-                                        type="text"
-                                        defaultValue={item.JENIS_DB}
-                                        onChange={e => setDatabaseDetail(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Database"
-                                    // required
-                                    >
-                                        <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
-                                        {pilihDatabase.map(item => (
-                                            <option key={item.ID_DATABASE} value={item.ID_DATABASE}>
-                                                {item.NAMA_DATABASE}
-                                            </option>
-                                        ))}
-                                    </CFormSelect>
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Port
+                                        </label>
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormInput
-                                        type="text"
-                                        defaultValue={item.FRAMEWORK}
-                                        onChange={e => setFrameworkDetail(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Framework"
-                                    // required
-                                    />
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormInput
+                                            type="text"
+                                            defaultValue={item.PORT}
+                                            onChange={e => setPortDetail(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="Port"
+                                        // required
+                                        />
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormInput
-                                        type="text"
-                                        defaultValue={item.VER_FRAMEWORK}
-                                        onChange={e => setVerFrameworkDetail(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Version Framework"
-                                    // required
-                                    />
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Penempatan
+                                        </label>
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormSelect
-                                        type="text"
-                                        defaultValue={item.DEVELOPER}
-                                        onChange={e => setDeveloperDetail(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Developer"
-                                    // required
-                                    >
-                                        <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
-                                        {pilihDeveloper.map(item => (
-                                            <option key={item.ID_DEVELOPER} value={item.ID_DEVELOPER}>
-                                                {item.NAMA_DEVELOPER}
-                                            </option>
-                                        ))}
-                                    </CFormSelect>
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormSelect
+                                            type="text"
+                                            defaultValue={item.PENEMPATAN}
+                                            onChange={e => setPenempatanDetail(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="Penempatan"
+                                        // required
+                                        >
+                                            <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
+                                            {pilihPenempatan.map(item => (
+                                                <option key={item.ID_PENEMPATAN} value={item.ID_PENEMPATAN}>
+                                                    {item.NAMA_PENEMPATAN}
+                                                </option>
+                                            ))}
+                                        </CFormSelect>
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormInput
-                                        type="text"
-                                        defaultValue={item.BUSINESS_OWNER}
-                                        onChange={e => setBusinessOwnerDetail(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Business Owner"
-                                    // required
-                                    />
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Akses
+                                        </label>
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormSelect
-                                        type="text"
-                                        defaultValue={item.PIC_NIPPOS}
-                                        onChange={e => setPICNipposDetail(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="PIC"
-                                    // required
-                                    >
-                                        <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
-                                        {pilihKaryawan.map(item => (
-                                            <option key={item.NIPPOS} value={item.NIPPOS}>
-                                                {item.NAMA}
-                                            </option>
-                                        ))}
-                                    </CFormSelect>
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormSelect
+                                            type="text"
+                                            defaultValue={item.AKSES}
+                                            onChange={e => setAksesDetail(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="Akses"
+                                        // required
+                                        >
+                                            <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
+                                            {pilihAkses.map(item => (
+                                                <option key={item.ID_AKSES} value={item.ID_AKSES}>
+                                                    {item.NAMA_AKSES}
+                                                </option>
+                                            ))}
+                                        </CFormSelect>
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormInput
-                                        type="text"
-                                        defaultValue={item.TELEPON}
-                                        onChange={e => setTeleponKaryawan(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Kontak PIC"
-                                        readOnly
-                                    // required
-                                    />
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Waktu Operasional
+                                        </label>
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormInput
-                                        type="date"
-                                        defaultValue={formattedTanggalLive}
-                                        onChange={e => setTanggalLiveDetail(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Tanggal Live"
-                                    // required
-                                    />
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormInput
+                                            type="text"
+                                            defaultValue={item.WAKTU_OPERASIONAL}
+                                            onChange={e => setWaktuOperasionalDetail(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="Waktu Operasional"
+                                        // required
+                                        />
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormInput
-                                        type="date"
-                                        defaultValue={formattedTanggalDeploy}
-                                        onChange={e => setTanggalDeployDetail(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Tanggal Deploy"
-                                    // required
-                                    />
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Jenis Database
+                                        </label>
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormInput
-                                        type="date"
-                                        defaultValue={formattedTanggalUpdate}
-                                        onChange={e => setTanggalAkhirUpdateDetail(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Tanggal Update"
-                                    // required
-                                    />
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormSelect
+                                            type="text"
+                                            defaultValue={item.JENIS_DB}
+                                            onChange={e => setDatabaseDetail(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="Database"
+                                        // required
+                                        >
+                                            <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
+                                            {pilihDatabase.map(item => (
+                                                <option key={item.ID_DATABASE} value={item.ID_DATABASE}>
+                                                    {item.NAMA_DATABASE}
+                                                </option>
+                                            ))}
+                                        </CFormSelect>
+                                    </div>
                                 </CCol>
-                                <CCol md={6}>
-                                    <CFormInput
-                                        type="date"
-                                        defaultValue={formattedTanggalTutup}
-                                        onChange={e => setTanggalTutupDetail(e.target.value)}
-                                        feedbackValid="Looks good!"
-                                        id="validationCustom01"
-                                        label="Tanggal Tutup"
-                                    // required
-                                    />
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Framework
+                                        </label>
+                                    </div>
+                                </CCol>
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormInput
+                                            type="text"
+                                            defaultValue={item.FRAMEWORK}
+                                            onChange={e => setFrameworkDetail(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="Framework"
+                                        // required
+                                        />
+                                    </div>
+                                </CCol>
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Versi Framework
+                                        </label>
+                                    </div>
+                                </CCol>
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormInput
+                                            type="text"
+                                            defaultValue={item.VER_FRAMEWORK}
+                                            onChange={e => setVerFrameworkDetail(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="Version Framework"
+                                        // required
+                                        />
+                                    </div>
+                                </CCol>
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Developer
+                                        </label>
+                                    </div>
+                                </CCol>
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormSelect
+                                            type="text"
+                                            defaultValue={item.DEVELOPER}
+                                            onChange={e => setDeveloperDetail(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="Developer"
+                                        // required
+                                        >
+                                            <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
+                                            {pilihDeveloper.map(item => (
+                                                <option key={item.ID_DEVELOPER} value={item.ID_DEVELOPER}>
+                                                    {item.NAMA_DEVELOPER}
+                                                </option>
+                                            ))}
+                                        </CFormSelect>
+                                    </div>
+                                </CCol>
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Business Owner
+                                        </label>
+                                    </div>
+                                </CCol>
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormInput
+                                            type="text"
+                                            defaultValue={item.BUSINESS_OWNER}
+                                            onChange={e => setBusinessOwnerDetail(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="Business Owner"
+                                        // required
+                                        />
+                                    </div>
+                                </CCol>
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            PIC
+                                        </label>
+                                    </div>
+                                </CCol>
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormSelect
+                                            type="text"
+                                            defaultValue={item.PIC_NIPPOS}
+                                            onChange={e => setPICNipposDetail(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="PIC"
+                                        // required
+                                        >
+                                            <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
+                                            {pilihKaryawan.map(item => (
+                                                <option key={item.NIPPOS} value={item.NIPPOS}>
+                                                    {item.NAMA}
+                                                </option>
+                                            ))}
+                                        </CFormSelect>
+                                    </div>
+                                </CCol>
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Telepon PIC
+                                        </label>
+                                    </div>
+                                </CCol>
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormInput
+                                            type="text"
+                                            defaultValue={item.TELEPON}
+                                            onChange={e => setTeleponKaryawan(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                            // label="Kontak PIC"
+                                            readOnly
+                                        // required
+                                        />
+                                    </div>
+                                </CCol>
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Tanggal Live
+                                        </label>
+                                    </div>
+                                </CCol>
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormInput
+                                            type="date"
+                                            defaultValue={formattedTanggalLive}
+                                            onChange={e => setTanggalLiveDetail(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="Tanggal Live"
+                                        // required
+                                        />
+                                    </div>
+                                </CCol>
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Tanggal Deploy
+                                        </label>
+                                    </div>
+                                </CCol>
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormInput
+                                            type="date"
+                                            defaultValue={formattedTanggalDeploy}
+                                            onChange={e => setTanggalDeployDetail(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="Tanggal Deploy"
+                                        // required
+                                        />
+                                    </div>
+                                </CCol>
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Tanggal Update
+                                        </label>
+                                    </div>
+                                </CCol>
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormInput
+                                            type="date"
+                                            defaultValue={formattedTanggalUpdate}
+                                            onChange={e => setTanggalAkhirUpdateDetail(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="Tanggal Update"
+                                        // required
+                                        />
+                                    </div>
+                                </CCol>
+                                <CCol md={3}>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                            Tanggal Tutup
+                                        </label>
+                                    </div>
+                                </CCol>
+                                <CCol md={9}>
+                                    <div className="d-flex align-items-center">
+                                        <CFormInput
+                                            type="date"
+                                            defaultValue={formattedTanggalTutup}
+                                            onChange={e => setTanggalTutupDetail(e.target.value)}
+                                            feedbackValid="Looks good!"
+                                            id="validationCustom01"
+                                        // label="Tanggal Tutup"
+                                        // required
+                                        />
+                                    </div>
                                 </CCol>
                             </React.Fragment>
                         ))}

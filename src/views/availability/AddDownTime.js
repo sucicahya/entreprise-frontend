@@ -218,8 +218,11 @@ function AddDownTime() {
     const [accounts, setAccounts] = useState([])
     const [pilihIPProduk, setPilihIPProduk] = useState([])
     const [specTime, setSpecTime] = useState([])
+    const [durasiUpTime, setDurasiUpTime] = useState([])
+    const [durasiDownTime, setDurasiDownTime] = useState([])
     const [downTime, setDownTime] = useState([])
     const [solvedTime, setSolvedTime] = useState([])
+    const [kejadianTime, setKejadianTime] = useState([])
     const [penyebabTime, setPenyebabTime] = useState([])
     const [solusiTime, setSolusiTime] = useState([])
 
@@ -251,6 +254,35 @@ function AddDownTime() {
             ]);
         }
     }, [accounts]);
+
+    useEffect(() => {
+        if (downTime && solvedTime) {
+            const startTime = new Date(downTime);
+            const endTime = new Date(solvedTime);
+
+            // Calculate the difference in milliseconds
+            const duration = endTime - startTime;
+
+            if (duration >= 0) {
+                // Convert milliseconds to hours and minutes
+                const hours = Math.floor(duration / (1000 * 60 * 60));
+                const minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
+
+                // Format the duration as a readable string
+                setDurasiDownTime(`${hours} hours ${minutes} minutes`);
+            } else {
+                setDurasiDownTime('');
+            }
+        }
+    }, [downTime, solvedTime]);
+
+    const handleTimeChange = (e, type) => {
+        if (type === 'downTime') {
+            setDownTime(e.target.value);
+        } else if (type === 'solvedTime') {
+            setSolvedTime(e.target.value);
+        }
+    };
 
 
     const handleAdd = () => {
@@ -933,14 +965,17 @@ function AddDownTime() {
             // setVisibleLg(true)
             const requestBody = {
                 SPEC_SERVER_ID: specTime,
+                UP_TIME: durasiUpTime,
+                DOWN_TIME: durasiDownTime,
                 WAKTU_DOWN: formattedDownTime,
                 WAKTU_SELESAI: formattedSolvedTime,
+                KEJADIAN: kejadianTime,
                 PENYEBAB: penyebabTime,
                 SOLUSI: solusiTime
             }
             console.log("reqbody", requestBody)
 
-            const response = await axios.post('http://localhost:5000/add/new-down-time', requestBody, {
+            const response = await axios.post('http://localhost:5000/add/new-availability', requestBody, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -967,6 +1002,7 @@ function AddDownTime() {
         setAccounts([...accounts, { jenis_akun: '', uname: '', pass_akun: '', exp_akun: '' }])
     }
 
+
     return (
         <>
 
@@ -990,69 +1026,172 @@ function AddDownTime() {
                         validated={validated}
                         onSubmit={handleSubmit}
                     >
-                        {/* {detail.map(item => ( */}
-                        {/* <React.Fragment> */}
-                        <CCol md={12}>
-                            <CFormLabel htmlFor="dropdownIPProduk">Pilih Produk</CFormLabel>
-                            <CDropdown className="w-100">
-                                <OutlineDropdownToggle>
-                                    -- Pilih --
-                                    {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
-                                </OutlineDropdownToggle>
+                        <CCol md={3}>
+                            <div className="d-flex align-items-center">
+                                <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                    Pilih Produk
+                                </label>
+                            </div>
+                        </CCol>
+                        <CCol md={9}>
+                            <div className="d-flex align-items-center">
+                                <CDropdown className="w-100">
+                                    <OutlineDropdownToggle>
+                                        -- Pilih --
+                                        {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
+                                    </OutlineDropdownToggle>
 
-                                <CDropdownMenu>
-                                    {pilihIPProduk.map(item => (
-                                        <CDropdownItem
-                                            key={item.ID_SPEC_SERVER}
-                                            onClick={e => setSpecTime(item.ID_SPEC_SERVER)}
-                                        >
-                                            {item.IP_SERVER}-{item.NAMA_PRODUK}
-                                        </CDropdownItem>
-                                    ))}
-                                </CDropdownMenu>
-                            </CDropdown>
+                                    <CDropdownMenu>
+                                        {pilihIPProduk.map(item => (
+                                            <CDropdownItem
+                                                key={item.ID_SPEC_SERVER}
+                                                onClick={e => setSpecTime(item.ID_SPEC_SERVER)}
+                                            >
+                                                {item.IP_SERVER}-{item.NAMA_PRODUK}
+                                            </CDropdownItem>
+                                        ))}
+                                    </CDropdownMenu>
+                                </CDropdown>
+                            </div>
                         </CCol>
-                        <CCol md={6}>
-                            <CFormInput
-                                type="datetime-local"
-                                value={downTime}
-                                onChange={e => setDownTime(e.target.value)}
-                                feedbackValid="Looks good!"
-                                id="validationCustom01"
-                                label="Waktu Down"
-                            // required
-                            />
+                        {!specTime && <div className="invalid-feedback d-block">Please select a product</div>}
+                        <CCol md={3}>
+                            <div className="d-flex align-items-center">
+                                <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                    Durasi Up Time
+                                </label>
+                            </div>
                         </CCol>
-                        <CCol md={6}>
-                            <CFormInput
-                                type="datetime-local"
-                                value={solvedTime}
-                                onChange={e => setSolvedTime(e.target.value)}
-                                feedbackValid="Looks good!"
-                                id="validationCustom01"
-                                label="Waktu Solved"
-                            // required
-                            />
+                        <CCol md={9}>
+                            <div className="d-flex align-items-center">
+                                <CFormInput
+                                    type="text"
+                                    value={durasiUpTime}
+                                    onChange={e => setDurasiUpTime(e.target.value)}
+                                    feedbackValid="Looks good!"
+                                    id="validationCustom01"
+                                // label="Up Time"
+                                // required
+                                />
+                            </div>
                         </CCol>
-                        <CCol md={12}>
-                            <CFormTextarea
-                                value={penyebabTime}
-                                onChange={e => setPenyebabTime(e.target.value)}
-                                feedbackValid="Looks good!"
-                                id="validationCustom01"
-                                label="Penyebab"
-                                required
-                            />
+                        <CCol md={3}>
+                            <div className="d-flex align-items-center">
+                                <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                    Durasi Down Time
+                                </label>
+                            </div>
                         </CCol>
-                        <CCol md={12}>
-                            <CFormTextarea
-                                value={solusiTime}
-                                onChange={e => setSolusiTime(e.target.value)}
-                                feedbackValid="Looks good!"
-                                id="validationCustom01"
-                                label="Solusi"
-                                required
-                            />
+                        <CCol md={9}>
+                            <div className="d-flex align-items-center">
+                                <CFormInput
+                                    type="text"
+                                    value={durasiDownTime}
+                                    feedbackValid="Looks good!"
+                                    id="validationCustom01"
+                                    // label="Down Time Duration"
+                                    readOnly
+                                />
+                            </div>
+                        </CCol>
+                        <CCol md={3}>
+                            <div className="d-flex align-items-center">
+                                <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                    Waktu Down
+                                </label>
+                            </div>
+                        </CCol>
+                        <CCol md={9}>
+                            <div className="d-flex align-items-center">
+                                <CFormInput
+                                    type="datetime-local"
+                                    value={downTime}
+                                    // onChange={e => setDownTime(e.target.value)}
+                                    onChange={e => handleTimeChange(e, 'downTime')}
+                                    feedbackValid="Looks good!"
+                                    id="validationCustom01"
+                                // label="Waktu Down"
+                                // required
+                                />
+                            </div>
+                        </CCol>
+                        <CCol md={3}>
+                            <div className="d-flex align-items-center">
+                                <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                    Waktu Solved
+                                </label>
+                            </div>
+                        </CCol>
+                        <CCol md={9}>
+                            <div className="d-flex align-items-center">
+                                <CFormInput
+                                    type="datetime-local"
+                                    value={solvedTime}
+                                    // onChange={e => setSolvedTime(e.target.value)}
+                                    onChange={e => handleTimeChange(e, 'solvedTime')}
+                                    feedbackValid="Looks good!"
+                                    id="validationCustom01"
+                                // label="Waktu Solved"
+                                // required
+                                />
+                            </div>
+                        </CCol>
+                        <CCol md={3}>
+                            <div className="d-flex align-items-center">
+                                <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                    Kejadian
+                                </label>
+                            </div>
+                        </CCol>
+                        <CCol md={9}>
+                            <div className="d-flex align-items-center">
+                                <CFormTextarea
+                                    value={kejadianTime}
+                                    onChange={e => setKejadianTime(e.target.value)}
+                                    feedbackValid="Looks good!"
+                                    id="validationCustom01"
+                                    // label="Kejadian"
+                                    required
+                                />
+                            </div>
+                        </CCol>
+                        <CCol md={3}>
+                            <div className="d-flex align-items-center">
+                                <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                    Penyebab
+                                </label>
+                            </div>
+                        </CCol>
+                        <CCol md={9}>
+                            <div className="d-flex align-items-center">
+                                <CFormTextarea
+                                    value={penyebabTime}
+                                    onChange={e => setPenyebabTime(e.target.value)}
+                                    feedbackValid="Looks good!"
+                                    id="validationCustom01"
+                                    // label="Penyebab"
+                                    required
+                                />
+                            </div>
+                        </CCol>
+                        <CCol md={3}>
+                            <div className="d-flex align-items-center">
+                                <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
+                                    Solusi
+                                </label>
+                            </div>
+                        </CCol>
+                        <CCol md={9}>
+                            <div className="d-flex align-items-center">
+                                <CFormTextarea
+                                    value={solusiTime}
+                                    onChange={e => setSolusiTime(e.target.value)}
+                                    feedbackValid="Looks good!"
+                                    id="validationCustom01"
+                                    // label="Solusi"
+                                    required
+                                />
+                            </div>
                         </CCol>
                     </CForm>
                 </CModalBody>

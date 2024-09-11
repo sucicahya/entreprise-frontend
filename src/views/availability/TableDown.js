@@ -8,7 +8,7 @@ import {
 } from '@coreui/react'
 // import DetailServer from './DetailServer';
 // import DetailAccount from './DetailAccount';
-import DetailMain from './DetailMain';
+import DetailAvailability from './DetailAvailability';
 import auth from '../../helpers/auth';
 
 function TableDown() {
@@ -243,7 +243,7 @@ function TableDown() {
   }
 
   useEffect(() => {
-    axios.get('http://localhost:5000/detail/down-table')
+    axios.get('http://localhost:5000/detail/availibility')
       .then(response => {
         // console.log('Data received:', response.data); // Cek data yang diterima
         if (Array.isArray(response.data)) {
@@ -265,110 +265,62 @@ function TableDown() {
     console.log(id, "idd")
     try {
       setVisibleLg(!visibleLg)
-      const response = await axios.post('http://localhost:5000/detail/full-detail', { id });
+      const response = await axios.post('http://localhost:5000/detail/full-availibility', { id });
       setDetail(response.data);
-      setIdProduk(response.data.map(item => item.ID_PRODUK))
-      setNamaProduk(response.data.map(item => item.NAMA_PRODUK));
-      setDeskripsiProduk(response.data.map(item => item.DESKRIPSI_PRODUK));
-      setFlagProduk(response.data.map(item => item.FLAG_STATUS));
+      // setIdProduk(response.data.map(item => item.ID_PRODUK))
+      // setNamaProduk(response.data.map(item => item.NAMA_PRODUK));
+      // setDeskripsiProduk(response.data.map(item => item.DESKRIPSI_PRODUK));
+      // setFlagProduk(response.data.map(item => item.FLAG_STATUS));
 
-      setIdAkses(response.data.map(item => item.ID_AKSES));
-      setNamaAkses(response.data.map(item => item.NAMA_AKSES));
+      // setIdAkses(response.data.map(item => item.ID_AKSES));
+      // setNamaAkses(response.data.map(item => item.NAMA_AKSES));
 
-      setIdDeveloper(response.data.map(item => item.ID_DEVELOPER));
-      setNamaDeveloper(response.data.map(item => item.NAMA_DEVELOPER));
+      // setIdDeveloper(response.data.map(item => item.ID_DEVELOPER));
+      // setNamaDeveloper(response.data.map(item => item.NAMA_DEVELOPER));
 
-      setNamaKaryawan(response.data.map(item => item.NAMA));
-      setTeleponKaryawan(response.data.map(item => item.TELEPON));
-      setNipposKaryawan(response.data.map(item => item.NIPPOS));
-      setUsernameKaryawan(response.data.map(item => item.USERNAME));
-      setPassKaryawan(response.data.map(item => item.PASS));
+      // setNamaKaryawan(response.data.map(item => item.NAMA));
+      // setTeleponKaryawan(response.data.map(item => item.TELEPON));
+      // setNipposKaryawan(response.data.map(item => item.NIPPOS));
+      // setUsernameKaryawan(response.data.map(item => item.USERNAME));
+      // setPassKaryawan(response.data.map(item => item.PASS));
 
-      setIdStatus(response.data.map(item => item.ID_STATUS));
-      setNamaStatus(response.data.map(item => item.NAMA_STATUS));
+      // setIdStatus(response.data.map(item => item.ID_STATUS));
+      // setNamaStatus(response.data.map(item => item.NAMA_STATUS));
 
-      setIdProdukDetail(response.data.map(item => item.ID_PRODUK_DETAIL));
-      setProdukIdDetail(response.data.map(item => item.PRODUK_ID));
-      setPenempatanDetail(response.data.map(item => item.PENEMPATAN));
-      setPICNipposDetail(response.data.map(item => item.PIC_NIPPOS));
-      setAksesDetail(response.data.map(item => item.AKSES));
-      setDatabaseDetail(response.data.map(item => item.JENIS_DB));
-      setDeveloperDetail(response.data.map(item => item.DEVELOPER));
-      setServerDetail(response.data.map(item => item.SERVER));
-      setBusinessOwnerDetail(response.data.map(item => item.BUSINESS_OWNER));
-      setWaktuOperasionalDetail(response.data.map(item => item.WAKTU_OPERASIONAL));
-      setURLDetail(response.data.map(item => item.URL));
-      setPortDetail(response.data.map(item => item.PORT));
-      setFrameworkDetail(response.data.map(item => item.FRAMEWORK));
-      setVerFrameworkDetail(response.data.map(item => item.VER_FRAMEWORK));
-      setJenisDatabaseDetail(response.data.map(item => item.JENIS_DATABASE));
-      setTanggalLiveDetail(response.data.map(item => item.TANGGAL_LIVE));
-      setTanggalAkhirUpdateDetail(response.data.map(item => item.TANGGAL_AKHIR_UPDATE));
-      setTanggalTutupDetail(response.data.map(item => item.TANGGAL_TUTUP));
-      setTanggalDeployDetail(response.data.map(item => item.TANGGAL_DEPLOY));
+      // setIdProdukDetail(response.data.map(item => item.ID_PRODUK_DETAIL));
+      // setProdukIdDetail(response.data.map(item => item.PRODUK_ID));
+      // setPenempatanDetail(response.data.map(item => item.PENEMPATAN));
+      // setPICNipposDetail(response.data.map(item => item.PIC_NIPPOS));
+      // setAksesDetail(response.data.map(item => item.AKSES));
+      // setDatabaseDetail(response.data.map(item => item.JENIS_DB));
+      // setDeveloperDetail(response.data.map(item => item.DEVELOPER));
+      // setServerDetail(response.data.map(item => item.SERVER));
+      // setBusinessOwnerDetail(response.data.map(item => item.BUSINESS_OWNER));
+      // setWaktuOperasionalDetail(response.data.map(item => item.WAKTU_OPERASIONAL));
+      // setURLDetail(response.data.map(item => item.URL));
+      // setPortDetail(response.data.map(item => item.PORT));
+      // setFrameworkDetail(response.data.map(item => item.FRAMEWORK));
+      // setVerFrameworkDetail(response.data.map(item => item.VER_FRAMEWORK));
+      // setJenisDatabaseDetail(response.data.map(item => item.JENIS_DATABASE));
+      // setTanggalLiveDetail(response.data.map(item => item.TANGGAL_LIVE));
+      // setTanggalAkhirUpdateDetail(response.data.map(item => item.TANGGAL_AKHIR_UPDATE));
+      // setTanggalTutupDetail(response.data.map(item => item.TANGGAL_TUTUP));
+      // setTanggalDeployDetail(response.data.map(item => item.TANGGAL_DEPLOY));
 
-      setIPSpec(response.data.map(item => item.IP_SERVER));
-      setCPUSpec(response.data.map(item => item.CPU));
-      setRAMSpec(response.data.map(item => item.RAM));
-      setStorageSpec(response.data.map(item => item.STORAGE));
-      setIdSpec(response.data.map(item => item.ID_SPEC_SERVER));
-      setWebIdSpec(response.data.map(item => item.WEB_SERVER_ID));
+      // setIPSpec(response.data.map(item => item.IP_SERVER));
+      // setCPUSpec(response.data.map(item => item.CPU));
+      // setRAMSpec(response.data.map(item => item.RAM));
+      // setStorageSpec(response.data.map(item => item.STORAGE));
+      // setIdSpec(response.data.map(item => item.ID_SPEC_SERVER));
+      // setWebIdSpec(response.data.map(item => item.WEB_SERVER_ID));
 
-      setIdServer(response.data.map(item => item.ID_WEB_SERVER));
-      setWebServer(response.data.map(item => item.NAMA_WEB_SERVER));
-      console.log("dataaaa", response.data)
+      // setIdServer(response.data.map(item => item.ID_WEB_SERVER));
+      // setWebServer(response.data.map(item => item.NAMA_WEB_SERVER));
+      // console.log("dataaaa", response.data)
       // setError(null);
     } catch (err) {
       // setError('Error fetching details');
       setDetail(null);
-    }
-  };
-
-  const handleFetchServer = async (id) => {
-    console.log(id, "idd")
-    try {
-      setVisibleLg2(!visibleLg2)
-      const response = await axios.post('http://localhost:5000/detail/full-server', { id });
-      setServer(response.data);
-      setServer2(response.data);
-      console.log("Server2 data:", response.data);
-
-      setIdSpec(response.data.map(item => item.ID_SPEC_SERVER));
-      setWebServer(response.data.map(item => item.WEB_SERVER_ID));
-      setIPSpec(response.data.map(item => item.IP_SERVER));
-      setCPUSpec(response.data.map(item => item.CPU));
-      setRAMSpec(response.data.map(item => item.RAM));
-      setStorageSpec(response.data.map(item => item.STORAGE));
-      setLengthIdServer(response.data.map(item => item.ID_SPEC_SERVER).length);
-      console.log("dataaaa", response.data)
-      // setError(null);
-    } catch (err) {
-      // setError('Error fetching details');
-      setServer(null);
-    }
-  };
-
-  const handleFetchAccount = async (id) => {
-    console.log(id, "idd")
-    try {
-      setVisibleLg3(!visibleLg3)
-      const response = await axios.post('http://localhost:5000/detail/full-account', { id });
-      setAccount(response.data);
-      setAccount2(response.data);
-      console.log("Account2 data:", response.data);
-
-      setIdAccount(response.data.map(item => item.ID_ACCOUNT));
-      setJenisAccount(response.data.map(item => item.JENIS_AKUN));
-      setUsernameAccount(response.data.map(item => item.USERNAME));
-      setPassAccount(response.data.map(item => item.PASS));
-      setExpAccount(response.data.map(item => item.EXP_DATE_PASSWORD));
-      setLengthIdAccount(response.data.map(item => item.ID_ACCOUNT).length);
-      setLengthIdServer(response.data.map(item => item.ID_SPEC_SERVER).length);
-      console.log("dataaaa", response.data)
-      // setError(null);
-    } catch (err) {
-      // setError('Error fetching details');
-      setAccount(null);
     }
   };
 
@@ -460,199 +412,6 @@ function TableDown() {
     }
   };
 
-  const handleUpdateServer = async () => {
-    // console.log(ID_PRODUK, "iddx")
-    try {
-      setVisibleLg(!visibleLg)
-      const requestBody = {
-        // ID_PRODUK,
-        NAMA_PRODUK: namaProduk,
-        DESKRIPSI_PRODUK: deskripsiProduk,
-        FLAG_STATUS: flagProduk,
-
-        ID_AKSES: idAkses,
-        NAMA_AKSES: namaAkses,
-
-        ID_DEVELOPER: idDeveloper,
-        NAMA_DEVELOPER: namaDeveloper,
-
-        NAMA: namaKaryawan,
-        TELEPON: teleponKaryawan,
-        NIPPOS: nipposKaryawan,
-        // USERNAME: usernameKaryawan,
-        // PASS: passKaryawan,
-
-        ID_STATUS: idStatus,
-        NAMA_STATUS: namaStatus,
-
-        ID_PRODUK_DETAIL: idProdukDetail,
-        PRODUK_ID: produkIdDetail,
-        PENEMPATAN: penempatanDetail,
-        PIC_NIPPOS: picNipposDetail,
-        AKSES: aksesDetail,
-        DEVELOPER: developerDetail,
-        SERVER: serverDetail,
-        BUSINESS_OWNER: businessOwnerDetail,
-        WAKTU_OPERASIONAL: waktuOperasionalDetail,
-        URL: urlDetail,
-        PORT: portDetail,
-        FRAMEWORK: frameworkDetail,
-        VER_FRAMEWORK: verFrameworkDetail,
-        JENIS_DATABASE: databaseDetail,
-        TANGGAL_LIVE: tanggalLiveDetail,
-        TANGGAL_AKHIR_UPDATE: tanggalAkhirUpdateDetail,
-        TANGGAL_TUTUP: tanggalTutupDetail,
-        TANGGAL_DEPLOY: tanggalDeployDetail,
-
-        IP_SERVER: ipSpec,
-        CPU: cpuSpec,
-        RAM: ramSpec,
-        STORAGE: storageSpec,
-        ID_SPEC_SERVER: idSpec,
-        WEB_SERVER_ID: webIdSpec,
-
-        ID_WEB_SERVER: idServer,
-        NAMA_WEB_SERVER: webServer,
-
-        // BA_DEPLOY: ba_deploy,
-        // REQ_DEPLOY: req_deploy,
-        ID_ACCOUNT: idAccount,
-        JENIS_AKUN: jenisAccount,
-        USERNAME: usernameAccount,
-        PASS: passAccount,
-        EXP_DATE_PASSWORD: expAccount,
-        LENGTH_ACCOUNT: lengthIdAccount,
-
-        LENGTH_SERVER: lengthIdServer
-      };
-      console.log("Request body:", JSON.stringify(requestBody, null, 2));
-
-      const response = await axios.post('http://localhost:5000/detail/update-server', requestBody, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      setUpdateServer(response.data);
-      // setAccount2(response.data);
-      console.log("update full:", response.data);
-      window.location.reload();
-
-      // setIdAccount(response.data.map(item => item.ID_ACCOUNT));
-      // setJenisAccount(response.data.map(item => item.JENIS_AKUN));
-      // setUsernameAccount(response.data.map(item => item.USERNAME));
-      // setPassAccount(response.data.map(item => item.PASS));
-      // setExpAccount(response.data.map(item => item.EXP_DATE_PASSWORD));
-      // console.log("dataaaa", response.data)
-      // setError(null);
-    } catch (err) {
-      // setError('Error fetching details');
-      setUpdateServer(null);
-    }
-  };
-
-  const handleUpdateAccount = async () => {
-    // console.log(ID_PRODUK, "iddx")
-    try {
-      setVisibleLg(!visibleLg)
-      const requestBody = {
-        // ID_PRODUK,
-        NAMA_PRODUK: namaProduk,
-        DESKRIPSI_PRODUK: deskripsiProduk,
-        FLAG_STATUS: flagProduk,
-
-        ID_AKSES: idAkses,
-        NAMA_AKSES: namaAkses,
-
-        ID_DEVELOPER: idDeveloper,
-        NAMA_DEVELOPER: namaDeveloper,
-
-        NAMA: namaKaryawan,
-        TELEPON: teleponKaryawan,
-        NIPPOS: nipposKaryawan,
-        // USERNAME: usernameKaryawan,
-        // PASS: passKaryawan,
-
-        ID_STATUS: idStatus,
-        NAMA_STATUS: namaStatus,
-
-        ID_PRODUK_DETAIL: idProdukDetail,
-        PRODUK_ID: produkIdDetail,
-        PENEMPATAN: penempatanDetail,
-        PIC_NIPPOS: picNipposDetail,
-        AKSES: aksesDetail,
-        DEVELOPER: developerDetail,
-        SERVER: serverDetail,
-        BUSINESS_OWNER: businessOwnerDetail,
-        WAKTU_OPERASIONAL: waktuOperasionalDetail,
-        URL: urlDetail,
-        PORT: portDetail,
-        FRAMEWORK: frameworkDetail,
-        VER_FRAMEWORK: verFrameworkDetail,
-        JENIS_DATABASE: databaseDetail,
-        TANGGAL_LIVE: tanggalLiveDetail,
-        TANGGAL_AKHIR_UPDATE: tanggalAkhirUpdateDetail,
-        TANGGAL_TUTUP: tanggalTutupDetail,
-        TANGGAL_DEPLOY: tanggalDeployDetail,
-
-        IP_SERVER: ipSpec,
-        CPU: cpuSpec,
-        RAM: ramSpec,
-        STORAGE: storageSpec,
-        ID_SPEC_SERVER: idSpec,
-        WEB_SERVER_ID: webIdSpec,
-
-        ID_WEB_SERVER: idServer,
-        NAMA_WEB_SERVER: webServer,
-
-        // BA_DEPLOY: ba_deploy,
-        // REQ_DEPLOY: req_deploy,
-        ID_ACCOUNT: idAccount,
-        JENIS_AKUN: jenisAccount,
-        USERNAME: usernameAccount,
-        PASS: passAccount,
-        EXP_DATE_PASSWORD: expAccount,
-        LENGTH_ACCOUNT: lengthIdAccount
-      };
-      console.log("Request body:", JSON.stringify(requestBody, null, 2));
-
-      const response = await axios.post('http://localhost:5000/detail/update-account', requestBody, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      setUpdateAccount(response.data);
-      // setAccount2(response.data);
-      console.log("update full:", response.data);
-      window.location.reload();
-
-      // setIdAccount(response.data.map(item => item.ID_ACCOUNT));
-      // setJenisAccount(response.data.map(item => item.JENIS_AKUN));
-      // setUsernameAccount(response.data.map(item => item.USERNAME));
-      // setPassAccount(response.data.map(item => item.PASS));
-      // setExpAccount(response.data.map(item => item.EXP_DATE_PASSWORD));
-      // console.log("dataaaa", response.data)
-      // setError(null);
-    } catch (err) {
-      // setError('Error fetching details');
-      setUpdateAccount(null);
-    }
-  };
-
-  const getBadge = (STATUS) => {
-    switch (STATUS) {
-      case 'Aktif':
-        return 'success'
-      case 'Non-Aktif':
-        return 'secondary'
-      case 'Pending':
-        return 'warning'
-      case 'Banned':
-        return 'danger'
-      default:
-        return 'primary'
-    }
-  }
-
   return (
     <>  
 
@@ -665,27 +424,33 @@ function TableDown() {
         columns={[
             // { key: 'ID_PRODUK', label: 'ID Produk' },
             { key: 'NAMA_PRODUK', label: 'Nama Aplikasi' },
-            { key: 'IP_SERVER', label: 'Domain' },
-            { key: 'IP_SERVER', label: 'Up Time' },
-            { key: 'IP_SERVER', label: 'Down Time' },
+            // { key: 'IP_SERVER', label: 'Domain' },
+            { key: 'UP_TIME', label: 'Up Time' },
+            { key: 'show_details', label: 'Down Time' },
             // { key: 'IP', label: 'IP Server' },
-            { key: 'WAKTU_DOWN', label: 'Waktu Down' },
-            { key: 'WAKTU_SOLVED', label: 'Waktu Selesai' },
-            { key: 'PENYEBAB', label: 'Penyebab' },
-            { key: 'SOLUSI', label: 'Solusi' },
+            // { key: 'WAKTU_DOWN', label: 'Waktu Down' },
+            // { key: 'WAKTU_SOLVED', label: 'Waktu Selesai' },
+            // { key: 'KEJADIAN', label: 'Kejadian' },
+            // { key: 'PENYEBAB', label: 'Penyebab' },
+            // { key: 'SOLUSI', label: 'Solusi' },
         ]}
         // columnFilter
         columnSorter
         footer
         items={produk.map(item => ({
-          // ID_PRODUK: item.ID_DOWN_TIME,
+          ID_PRODUK: item.ID_AVAILABILITY,
           NAMA_PRODUK: item.NAMA_PRODUK,
-          IP_SERVER: item.IP_SERVER,
+          DOWN_TIME: item.DOWN_TIME,
+          // IP_SERVER: item.IP_SERVER,
           // IP: item.IP_SERVER,
-          WAKTU_DOWN: item.WAKTU_DOWN,
-          WAKTU_SOLVED: item.WAKTU_SELESAI,
-          PENYEBAB: item.PENYEBAB,
-          SOLUSI: item.SOLUSI
+          UP_TIME: item.UP_TIME,
+          show_details: item,
+          // DOWN_TIME: item.DOWN_TIME,
+          // WAKTU_DOWN: item.WAKTU_DOWN,
+          // WAKTU_SOLVED: item.WAKTU_SELESAI,
+          // KEJADIAN: item.KEJADIAN,
+          // PENYEBAB: item.PENYEBAB,
+          // SOLUSI: item.SOLUSI
         }))}
         itemsPerPageSelect
         itemsPerPage={5}
@@ -697,39 +462,13 @@ function TableDown() {
           console.log(items)
         }}
         scopedColumns={{
-          avatar: (item) => (
-            <td>
-              <CAvatar src={`/images/avatars/${item.avatar}`} />
-            </td>
-          ),
-          STATUS: (item) => (
-            <td>
-              <CBadge color={getBadge(item.STATUS)}>{item.STATUS}</CBadge>
-            </td>
-          ),
           show_details: (item) => {
             return (
-              <DetailMain
+              <DetailAvailability
                 item={item}
-                details={details}
                 detail={detail}
-                formattedTanggalLive={formattedTanggalLive}
-                formattedTanggalUpdate={formattedTanggalUpdate}
-                formattedTanggalDeploy={formattedTanggalDeploy}
-                formattedTanggalTutup={formattedTanggalTutup}
-                // pilihStatus={pilihStatus}
-                // pilihPenempatan={pilihPenempatan}
-                // pilihAkses={pilihAkses}
-                // pilihDatabase={pilihDatabase}
-                // pilihDeveloper={pilihDeveloper}
-                // pilihKaryawan={pilihKaryawan}
                 handleFetchDetails={handleFetchDetails}
-                // handleWebServer={handleWebServer}
-                // handleIPServer={handleIPServer}
-                // handleCPUServer={handleCPUServer}
-                // handleRAMServer={handleRAMServer}
-                // handleStorageServer={handleStorageServer}
-                handleUpdateDetail={handleUpdateDetail}
+                // handleUpdateDetail={handleUpdateDetail}
               />
               // <td className="py-2">
 
@@ -748,57 +487,7 @@ function TableDown() {
               //   </CButton>
               // </td>
             )
-          },
-          show_details2: (item) => {
-            return (
-              <DetailServer
-                item={item}
-                details={details}
-                server2={server2}
-                // pilihServer={pilihServer}
-                handleFetchServer={handleFetchServer}
-                handleWebServer={handleWebServer}
-                handleIPServer={handleIPServer}
-                handleCPUServer={handleCPUServer}
-                handleRAMServer={handleRAMServer}
-                handleStorageServer={handleStorageServer}
-                handleUpdateServer={handleUpdateServer}
-              />
-            )
-          },
-          show_details3: (item) => {
-            return (
-              <DetailAccount
-                item={item}
-                details={details}
-                account2={account2}
-                // pilihServer={pilihServer}
-                handleFetchAccount={handleFetchAccount}
-                handleJenisAccount={handleJenisAccount}
-                handleUsernameAccount={handleUsernameAccount}
-                handlePassAccount={handlePassAccount}
-                handleExpAccount={handleExpAccount}
-                NewExpAccount={NewExpAccount}
-                handleUpdateAccount={handleUpdateAccount}
-              />
-            )
-          },
-          details: (item) => {
-            return (
-              <CCollapse visible={details.includes(item.ID_PRODUK)}>
-                <CCardBody className="p-3">
-                  <h4>{item.username}</h4>
-                  <p className="text-muted">User since: {item.IP}</p>
-                  <CButton size="sm" color="info">
-                    User Settings
-                  </CButton>
-                  <CButton size="sm" color="danger" className="ml-1">
-                    Delete
-                  </CButton>
-                </CCardBody>
-              </CCollapse>
-            )
-          },
+          }
         }}
         // selectable
         sorterValue={{ column: 'STATUS', state: 'asc' }}
