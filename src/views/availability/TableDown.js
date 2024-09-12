@@ -265,7 +265,7 @@ function TableDown() {
     console.log(id, "idd")
     try {
       setVisibleLg(!visibleLg)
-      const response = await axios.post('http://localhost:5000/detail/full-availibility', { id });
+      const response = await axios.post('http://localhost:5000/detail/full-availability', { id });
       setDetail(response.data);
       // setIdProduk(response.data.map(item => item.ID_PRODUK))
       // setNamaProduk(response.data.map(item => item.NAMA_PRODUK));

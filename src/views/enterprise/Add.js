@@ -985,7 +985,7 @@ function Add() {
         <>
 
             <div className="mb-3">
-                <CButton color="primary" onClick={() => { handleAdd() }}>Add New Item</CButton>
+                <CButton color="primary" size="sm" onClick={() => { handleAdd() }}>Add New Item</CButton>
             </div>
             <CModal
                 scrollable

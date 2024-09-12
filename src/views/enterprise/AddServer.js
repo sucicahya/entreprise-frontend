@@ -941,7 +941,7 @@ function AddServer() {
     return (
         <>
             <div className="mb-3">
-                <CButton color="primary" onClick={() => { handleNewServer() }}>Add New Server</CButton>
+                <CButton color="primary" size="sm" onClick={() => { handleNewServer() }}>Add New Server</CButton>
             </div>
 
             {/* <CButton

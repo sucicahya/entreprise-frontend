@@ -905,7 +905,7 @@ function AddAccount() {
     return (
         <>
             <div className="mb-3">
-                <CButton color="primary" onClick={() => { handleNewAccount() }}>Add New Account</CButton>
+                <CButton color="primary" size="sm" onClick={() => { handleNewAccount() }}>Add New Account</CButton>
             </div>
             {/* <CButton
                 color="primary"

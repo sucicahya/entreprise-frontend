@@ -29,10 +29,10 @@ const AppSidebar = () => {
   const handleSidebarToggle = () => {
     // Reset localStorage
     localStorage.clear(); // Atau gunakan localStorage.removeItem('key') jika hanya ingin menghapus item tertentu
-    
+
     // Redirect ke halaman login
     navigate('/login');
-    
+
     // Dispatch action untuk toggle sidebar
     // dispatch({ type: 'set', sidebarUnfoldable: !unfoldable });
   };
@@ -51,9 +51,13 @@ const AppSidebar = () => {
     >
       <CSidebarHeader className="border-bottom">
         <CSidebarBrand to="/">
-          <CIcon customClassName="sidebar-brand-full" icon={logo} height={32} />
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <img src="src/assets/brand/PosIND_Reverse Color 1.png" alt="Logo" className="sidebar-brand-full" height={32} />
+            <span style={{ marginLeft: '20px', fontSize: '18px', fontWeight: 'bold', color: '#fff' }}>PT. Pos Indonesia</span>
+          </div>
           <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32} />
         </CSidebarBrand>
+
         <CCloseButton
           className="d-lg-none"
           dark

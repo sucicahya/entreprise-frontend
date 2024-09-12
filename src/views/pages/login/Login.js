@@ -76,7 +76,8 @@ const Login = () => {
               <CCard className="p-4">
                 <CCardBody>
                   <CForm>
-                    <h1>Login</h1>
+                    <img src="src/assets/brand/logo_posindo.png" alt="Logo" className="sidebar-brand-full" height={30} style={{ float: 'right', marginTop: '-10px' }} />
+                    <h4>Login</h4>
                     <p className="text-body-secondary">Sign In to your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
@@ -117,7 +118,7 @@ const Login = () => {
                 </CCardBody>
               </CCard>
               {/* <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}> */}
-                {/* <CCardBody className="text-center">
+              {/* <CCardBody className="text-center">
                   <div>
                     <h2>Sign up</h2>
                     <p>
