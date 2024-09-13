@@ -69,28 +69,14 @@ function Table() {
   const [tanggalAkhirUpdateDetail, setTanggalAkhirUpdateDetail] = useState([]);
   const [tanggalTutupDetail, setTanggalTutupDetail] = useState([]);
   const [tanggalDeployDetail, setTanggalDeployDetail] = useState([]);
-
   const [ipSpec, setIPSpec] = useState([]);
   const [cpuSpec, setCPUSpec] = useState([]);
   const [ramSpec, setRAMSpec] = useState([]);
   const [storageSpec, setStorageSpec] = useState([]);
   const [idSpec, setIdSpec] = useState([]);
   const [webIdSpec, setWebIdSpec] = useState([]);
-
   const [idServer, setIdServer] = useState([]);
   const [webServer, setWebServer] = useState([]);
-
-
-
-  
-
-
-  const handleAdd = () => {
-    // Logika untuk menambahkan item
-    console.log('Add new item');
-  };
-
-  console.log(tanggalLiveDetail, 'tanggallive')
 
   const formatDate = (isoDate) => {
     if (!isoDate) return '';
@@ -126,17 +112,6 @@ function Table() {
   const formattedTanggalUpdate = formatDate(tanggalAkhirUpdateDetail);
   const formattedTanggalDeploy = formatDate(tanggalDeployDetail);
   const formattedTanggalTutup = formatDate(tanggalTutupDetail);
-
-
-  const formattedTanggalExp = formatDate(expAccount);
-
-  // console.log(formattedDates, 'expp')
-
-  
-
-  console.log("idacc", idAccount)
-  // console.log("namaproduk", nama_produk)
-
 
   const [account2, setAccount2] = React.useState(
     searchResults.account || []

@@ -144,11 +144,6 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                     <a style={{ color: 'blue', textDecoration: 'underline' }} // Gaya untuk link
                     >{item.URL}
                     </a>
-                    {/* {detail.map(item => (
-                        <React.Fragment>
-                            {item.URL}
-                        </React.Fragment>
-                    ))} */}
                 </CButton>
             </td>
 

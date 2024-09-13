@@ -160,38 +160,9 @@ const WidgetsDropdown = (props) => {
     return color;
   };
 
-  const chartData = {
-    labels: jenisDatabase.map(item => item.db || 'Unknown'), // Mengambil 'db' untuk labels
-    datasets: [
-      {
-        data: jenisDatabase.map(item => item.total || 0), // Mengambil 'total' untuk data
-        backgroundColor: jenisDatabase.map(() => getRandomColor()),
-        // hoverBackgroundColor: jenisDatabase.map(() => getRandomColor()),
-      },
-    ],
-  };
-
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  // useEffect(() => {
-  //   document.documentElement.addEventListener('ColorSchemeChange', () => {
-  //     if (widgetChartRef1.current) {
-  //       setTimeout(() => {
-  //         widgetChartRef1.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-primary')
-  //         widgetChartRef1.current.update()
-  //       })
-  //     }
-
-  //     if (widgetChartRef2.current) {
-  //       setTimeout(() => {
-  //         widgetChartRef2.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-info')
-  //         widgetChartRef2.current.update()
-  //       })
-  //     }
-  //   })
-  // }, [widgetChartRef1, widgetChartRef2])
 
   return (
     <CRow>
@@ -207,26 +178,9 @@ const WidgetsDropdown = (props) => {
                       {item.total}
                     </React.Fragment>
                   ))}
-                  {/* 26K{' '}
-          <span className="fs-6 fw-normal">
-            (-12.4% <CIcon icon={cilArrowBottom} />)
-          </span> */}
                 </>
               }
               title="Jumlah produk masuk"
-              // action={
-              //   <CDropdown alignment="end">
-              //     <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
-              //       <CIcon icon={cilOptions} />
-              //     </CDropdownToggle>
-              //     <CDropdownMenu>
-              //       <CDropdownItem>Action</CDropdownItem>
-              //       <CDropdownItem>Another action</CDropdownItem>
-              //       <CDropdownItem>Something else here...</CDropdownItem>
-              //       <CDropdownItem disabled>Disabled action</CDropdownItem>
-              //     </CDropdownMenu>
-              //   </CDropdown>
-              // }
               chart={
                 <CChartLine
                   ref={widgetChartRef1}
@@ -302,26 +256,9 @@ const WidgetsDropdown = (props) => {
                       {item.total}
                     </React.Fragment>
                   ))}
-                  {/* 26K{' '}
-              <span className="fs-6 fw-normal">
-                (-12.4% <CIcon icon={cilArrowBottom} />)
-              </span> */}
                 </>
               }
               title="Total produk"
-              // action={
-              //   <CDropdown alignment="end">
-              //     <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
-              //       <CIcon icon={cilOptions} />
-              //     </CDropdownToggle>
-              //     <CDropdownMenu>
-              //       <CDropdownItem>Action</CDropdownItem>
-              //       <CDropdownItem>Another action</CDropdownItem>
-              //       <CDropdownItem>Something else here...</CDropdownItem>
-              //       <CDropdownItem disabled>Disabled action</CDropdownItem>
-              //     </CDropdownMenu>
-              //   </CDropdown>
-              // }
               chart={
                 <CChartLine
                   ref={widgetChartRef1}
@@ -394,26 +331,9 @@ const WidgetsDropdown = (props) => {
               style={{ backgroundColor: "#f6ac69" }}
               value={
                 <>
-                  {/* $6.200{' '}
-              <span className="fs-6 fw-normal">
-                (40.9% <CIcon icon={cilArrowTop} />)
-              </span> */}
                 </>
               }
               title="Penempatan"
-              // action={
-              //   <CDropdown alignment="end">
-              //     <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
-              //       <CIcon icon={cilOptions} />
-              //     </CDropdownToggle>
-              //     <CDropdownMenu>
-              //       <CDropdownItem>Action</CDropdownItem>
-              //       <CDropdownItem>Another action</CDropdownItem>
-              //       <CDropdownItem>Something else here...</CDropdownItem>
-              //       <CDropdownItem disabled>Disabled action</CDropdownItem>
-              //     </CDropdownMenu>
-              //   </CDropdown>
-              // }
               chart={
                 <div>
                   <CRow>
@@ -500,29 +420,12 @@ const WidgetsDropdown = (props) => {
           </CCol>
           <CCol> {/*  aktif ga aktif */}
             <CWidgetStatsA
-              style={{ backgroundColor: "#f9" }}
+              style={{ backgroundColor: "#f9ed85" }}
               value={
                 <>
-                  {/* 2.49%{' '}
-              <span className="fs-6 fw-normal">
-                (84.7% <CIcon icon={cilArrowTop} />)
-              </span> */}
                 </>
               }
               title="Status Produk"
-              // action={
-              //   <CDropdown alignment="end">
-              //     <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
-              //       <CIcon icon={cilOptions} />
-              //     </CDropdownToggle>
-              //     <CDropdownMenu>
-              //       <CDropdownItem>Action</CDropdownItem>
-              //       <CDropdownItem>Another action</CDropdownItem>
-              //       <CDropdownItem>Something else here...</CDropdownItem>
-              //       <CDropdownItem disabled>Disabled action</CDropdownItem>
-              //     </CDropdownMenu>
-              //   </CDropdown>
-              // }
               chart={
                 <div>
                   <CRow>

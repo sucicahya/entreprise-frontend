@@ -18,115 +18,12 @@ import auth from '../../helpers/auth';
 
 const DetailAvailability = ({ item, detail, handleFetchDetails, handleUpdateDetail }) => {
     const [visible, setVisible] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [pilihPenempatan, setPilihPenempatan] = useState([])
-    const [pilihKaryawan, setPilihKaryawan] = useState([])
-    const [pilihAkses, setPilihAkses] = useState([])
-    const [pilihDatabase, setPilihDatabase] = useState([])
-    const [pilihDeveloper, setPilihDeveloper] = useState([])
-    const [pilihStatus, setPilihStatus] = useState([])
 
-    useEffect(() => {
-        axios.get('http://localhost:5000/detail/pilih-penempatan')
-            .then(response => {
-                // console.log('Data received:', response.data); // Cek data yang diterima
-                if (Array.isArray(response.data)) {
-                    setPilihPenempatan(response.data);
-                } else {
-                    console.error('Data format is not an array:', response.data);
-                }
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-            });
-    }, []);
-
-    useEffect(() => {
-        axios.get('http://localhost:5000/detail/pilih-karyawan')
-            .then(response => {
-                // console.log('Data received:', response.data); // Cek data yang diterima
-                if (Array.isArray(response.data)) {
-                    setPilihKaryawan(response.data);
-                } else {
-                    console.error('Data format is not an array:', response.data);
-                }
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-            });
-    }, []);
-
-    useEffect(() => {
-        axios.get('http://localhost:5000/detail/pilih-akses')
-            .then(response => {
-                // console.log('Data received:', response.data); // Cek data yang diterima
-                if (Array.isArray(response.data)) {
-                    setPilihAkses(response.data);
-                } else {
-                    console.error('Data format is not an array:', response.data);
-                }
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-            });
-    }, []);
-
-    useEffect(() => {
-        axios.get('http://localhost:5000/detail/pilih-database')
-            .then(response => {
-                // console.log('Data received:', response.data); // Cek data yang diterima
-                if (Array.isArray(response.data)) {
-                    setPilihDatabase(response.data);
-                } else {
-                    console.error('Data format is not an array:', response.data);
-                }
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-            });
-    }, []);
-
-    useEffect(() => {
-        axios.get('http://localhost:5000/detail/pilih-developer')
-            .then(response => {
-                // console.log('Data received:', response.data); // Cek data yang diterima
-                if (Array.isArray(response.data)) {
-                    setPilihDeveloper(response.data);
-                } else {
-                    console.error('Data format is not an array:', response.data);
-                }
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-            });
-    }, []);
-
-    useEffect(() => {
-        axios.get('http://localhost:5000/detail/pilih-status')
-            .then(response => {
-                // console.log('Data received:', response.data); // Cek data yang diterima
-                if (Array.isArray(response.data)) {
-                    setPilihStatus(response.data);
-                } else {
-                    console.error('Data format is not an array:', response.data);
-                }
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-            });
-    }, []);
+    const formatDateTime = (dateTimeString) => {
+        const date = new Date(dateTimeString);
+        return date.toISOString().slice(0, 16); // Mengambil format sesuai dengan datetime-local
+      };
+      
 
     return (
         <>
@@ -145,11 +42,6 @@ const DetailAvailability = ({ item, detail, handleFetchDetails, handleUpdateDeta
                     <a style={{ color: 'blue', textDecoration: 'underline' }} // Gaya untuk link
                     >{item.DOWN_TIME}
                     </a>
-                    {/* {detail.map(item => (
-                        <React.Fragment>
-                            {item.URL}
-                        </React.Fragment>
-                    ))} */}
                 </CButton>
             </td>
 
@@ -184,7 +76,7 @@ const DetailAvailability = ({ item, detail, handleFetchDetails, handleUpdateDeta
                                     <div className="d-flex align-items-center">
                                         <CFormInput
                                             type="datetime-local"
-                                            defaultValue={item.WAKTU_DOWN}
+                                            defaultValue={formatDateTime(item.WAKTU_DOWN)}
                                             onChange={e => setNamaProduk(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
@@ -204,7 +96,7 @@ const DetailAvailability = ({ item, detail, handleFetchDetails, handleUpdateDeta
                                     <div className="d-flex align-items-center">
                                         <CFormInput
                                             type="datetime-local"
-                                            defaultValue={item.WAKTU_SELESAI}
+                                            defaultValue={formatDateTime(item.WAKTU_SELESAI)}
                                             onChange={e => setDeskripsiProduk(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
