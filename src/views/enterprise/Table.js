@@ -523,6 +523,82 @@ function Table() {
     }
   };
 
+  const handleSetNamaProduk = (value) => {
+    setNamaProduk(value);
+  };
+
+  const handleSetDeskripsiProduk = (value) => {
+    setDeskripsiProduk(value);
+  };
+
+  const handleSetFlagProduk = (value) => {
+    setFlagProduk(value);
+  };
+
+  const handleSetURLDetail = (value) => {
+    setURLDetail(value);
+  };
+
+  const handleSetPortDetail = (value) => {
+    setPortDetail(value);
+  };
+
+  const handleSetPenempatanDetail = (value) => {
+    setPenempatanDetail(value);
+  };
+
+  const handleSetAksesDetail = (value) => {
+    setAksesDetail(value);
+  };
+
+  const handleSetWaktuOperasionalDetail = (value) => {
+    setWaktuOperasionalDetail(value);
+  };
+
+  const handleSetDatabaseDetail = (value) => {
+    setDatabaseDetail(value);
+  };
+
+  const handleSetFrameworkDetail = (value) => {
+    setFrameworkDetail(value);
+  };
+
+  const handleSetVerFrameworkDetail = (value) => {
+    setVerFrameworkDetail(value);
+  };
+
+  const handleSetDeveloperDetail = (value) => {
+    setDeveloperDetail(value);
+  };
+
+  const handleSetBusinessOwnerDetail = (value) => {
+    setBusinessOwnerDetail(value);
+  };
+
+  const handleSetPICNipposDetail = (value) => {
+    setPICNipposDetail(value);
+  };
+
+  const handleSetTeleponKaryawan = (value) => {
+    setTeleponKaryawan(value);
+  };
+
+  const handleSetTanggalLiveDetail = (value) => {
+    setTanggalLiveDetail(value);
+  };
+
+  const handleSetTanggalAkhirUpdateDetail = (value) => {
+    setTanggalAkhirUpdateDetail(value);
+  };
+
+  const handleSetTanggalTutupDetail = (value) => {
+    setTanggalTutupDetail(value);
+  };
+
+  const handleSetTanggalDeployDetail = (value) => {
+    setTanggalDeployDetail(value);
+  };
+
   const handleUpdateAccount = async () => {
     // console.log(ID_PRODUK, "iddx")
     try {
@@ -627,7 +703,7 @@ function Table() {
   }
 
   return (
-    <>  
+    <>
 
 
 
@@ -697,6 +773,26 @@ function Table() {
                 // pilihDatabase={pilihDatabase}
                 // pilihDeveloper={pilihDeveloper}
                 // pilihKaryawan={pilihKaryawan}
+                handleSetNamaProduk={handleSetNamaProduk}
+                handleSetDeskripsiProduk={handleSetDeskripsiProduk}
+                handleSetFlagProduk={handleSetFlagProduk}
+                handleSetURLDetail={handleSetURLDetail}
+                handleSetPortDetail={handleSetPortDetail}
+                handleSetPenempatanDetail={handleSetPenempatanDetail}
+                handleSetAksesDetail={handleSetAksesDetail}
+                handleSetWaktuOperasionalDetail={handleSetWaktuOperasionalDetail}
+                handleSetDatabaseDetail={handleSetDatabaseDetail}
+                handleSetFrameworkDetail={handleSetFrameworkDetail}
+                handleSetVerFrameworkDetail={handleSetVerFrameworkDetail}
+                handleSetDeveloperDetail={handleSetDeveloperDetail}
+                handleSetBusinessOwnerDetail={handleSetBusinessOwnerDetail}
+                handleSetPICNipposDetail={handleSetPICNipposDetail}
+                handleSetTeleponKaryawan={handleSetTeleponKaryawan}
+                handleSetTanggalLiveDetail={handleSetTanggalLiveDetail}
+                handleSetTanggalAkhirUpdateDetail={handleSetTanggalAkhirUpdateDetail}
+                handleSetTanggalTutupDetail={handleSetTanggalTutupDetail}
+                handleSetTanggalDeployDetail={handleSetTanggalDeployDetail}
+
                 handleFetchDetails={handleFetchDetails}
                 // handleWebServer={handleWebServer}
                 // handleIPServer={handleIPServer}

@@ -15,7 +15,25 @@ import {
 } from '@coreui/react';
 import auth from '../../helpers/auth';
 
-const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTanggalTutup, formattedTanggalUpdate, formattedTanggalDeploy, handleFetchDetails, handleUpdateDetail }) => {
+const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTanggalTutup, formattedTanggalUpdate, formattedTanggalDeploy, handleFetchDetails, handleUpdateDetail, handleSetNamaProduk,
+    handleSetDeskripsiProduk,
+    handleSetFlagProduk,
+    handleSetURLDetail,
+    handleSetPortDetail,
+    handleSetPenempatanDetail,
+    handleSetAksesDetail,
+    handleSetWaktuOperasionalDetail,
+    handleSetDatabaseDetail,
+    handleSetFrameworkDetail,
+    handleSetVerFrameworkDetail,
+    handleSetDeveloperDetail,
+    handleSetBusinessOwnerDetail,
+    handleSetPICNipposDetail,
+    handleSetTeleponKaryawan,
+    handleSetTanggalLiveDetail,
+    handleSetTanggalAkhirUpdateDetail,
+    handleSetTanggalTutupDetail,
+    handleSetTanggalDeployDetail }) => {
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(true);
     const [pilihPenempatan, setPilihPenempatan] = useState([])
@@ -179,7 +197,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormInput
                                             type="text"
                                             defaultValue={item.NAMA_PRODUK}
-                                            onChange={e => setNamaProduk(e.target.value)}
+                                            onChange={e => handleSetNamaProduk(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                             // label="Nama Produk"
@@ -199,7 +217,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormInput
                                             type="text"
                                             defaultValue={item.DESKRIPSI_PRODUK}
-                                            onChange={e => setDeskripsiProduk(e.target.value)}
+                                            onChange={e =>  handleSetDeskripsiProduk(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                             // label="Deskripsi Produk"
@@ -219,7 +237,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormSelect
                                             type="text"
                                             defaultValue={item.FLAG_STATUS}
-                                            onChange={e => setFlagProduk(e.target.value)}
+                                            onChange={e =>  handleSetFlagProduk(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="Status"
@@ -246,7 +264,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormInput
                                             type="text"
                                             defaultValue={item.URL}
-                                            onChange={e => setURLDetail(e.target.value)}
+                                            onChange={e =>  handleSetURLDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="URL"
@@ -266,7 +284,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormInput
                                             type="text"
                                             defaultValue={item.PORT}
-                                            onChange={e => setPortDetail(e.target.value)}
+                                            onChange={e =>  handleSetPortDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="Port"
@@ -286,7 +304,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormSelect
                                             type="text"
                                             defaultValue={item.PENEMPATAN}
-                                            onChange={e => setPenempatanDetail(e.target.value)}
+                                            onChange={e =>  handleSetPenempatanDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="Penempatan"
@@ -313,7 +331,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormSelect
                                             type="text"
                                             defaultValue={item.AKSES}
-                                            onChange={e => setAksesDetail(e.target.value)}
+                                            onChange={e =>  handleSetAksesDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="Akses"
@@ -340,7 +358,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormInput
                                             type="text"
                                             defaultValue={item.WAKTU_OPERASIONAL}
-                                            onChange={e => setWaktuOperasionalDetail(e.target.value)}
+                                            onChange={e =>  handleSetWaktuOperasionalDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="Waktu Operasional"
@@ -360,7 +378,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormSelect
                                             type="text"
                                             defaultValue={item.JENIS_DB}
-                                            onChange={e => setDatabaseDetail(e.target.value)}
+                                            onChange={e =>  handleSetDatabaseDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="Database"
@@ -387,7 +405,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormInput
                                             type="text"
                                             defaultValue={item.FRAMEWORK}
-                                            onChange={e => setFrameworkDetail(e.target.value)}
+                                            onChange={e =>  handleSetFrameworkDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="Framework"
@@ -407,7 +425,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormInput
                                             type="text"
                                             defaultValue={item.VER_FRAMEWORK}
-                                            onChange={e => setVerFrameworkDetail(e.target.value)}
+                                            onChange={e =>  handleSetVerFrameworkDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="Version Framework"
@@ -427,7 +445,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormSelect
                                             type="text"
                                             defaultValue={item.DEVELOPER}
-                                            onChange={e => setDeveloperDetail(e.target.value)}
+                                            onChange={e =>  handleSetDeveloperDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="Developer"
@@ -454,7 +472,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormInput
                                             type="text"
                                             defaultValue={item.BUSINESS_OWNER}
-                                            onChange={e => setBusinessOwnerDetail(e.target.value)}
+                                            onChange={e =>  handleSetBusinessOwnerDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="Business Owner"
@@ -474,7 +492,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormSelect
                                             type="text"
                                             defaultValue={item.PIC_NIPPOS}
-                                            onChange={e => setPICNipposDetail(e.target.value)}
+                                            onChange={e =>  handleSetPICNipposDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="PIC"
@@ -501,7 +519,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormInput
                                             type="text"
                                             defaultValue={item.TELEPON}
-                                            onChange={e => setTeleponKaryawan(e.target.value)}
+                                            onChange={e =>  handleSetTeleponKaryawan(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                             // label="Kontak PIC"
@@ -522,7 +540,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormInput
                                             type="date"
                                             defaultValue={formattedTanggalLive}
-                                            onChange={e => setTanggalLiveDetail(e.target.value)}
+                                            onChange={e =>  handleSetTanggalLiveDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="Tanggal Live"
@@ -542,7 +560,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormInput
                                             type="date"
                                             defaultValue={formattedTanggalDeploy}
-                                            onChange={e => setTanggalDeployDetail(e.target.value)}
+                                            onChange={e =>  handleSetTanggalDeployDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="Tanggal Deploy"
@@ -562,7 +580,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormInput
                                             type="date"
                                             defaultValue={formattedTanggalUpdate}
-                                            onChange={e => setTanggalAkhirUpdateDetail(e.target.value)}
+                                            onChange={e =>  handleSetTanggalAkhirUpdateDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="Tanggal Update"
@@ -582,7 +600,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         <CFormInput
                                             type="date"
                                             defaultValue={formattedTanggalTutup}
-                                            onChange={e => setTanggalTutupDetail(e.target.value)}
+                                            onChange={e =>  handleSetTanggalTutupDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
                                         // label="Tanggal Tutup"
