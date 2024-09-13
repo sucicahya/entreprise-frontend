@@ -661,7 +661,7 @@ function Table() {
         cleaner
         clickableRows
         columns={[
-          { key: 'ID_PRODUK', label: 'ID Aplikasi' },
+          // { key: 'ID_PRODUK', label: 'ID Aplikasi' },
           { key: 'NAMA_PRODUK', label: 'Nama Aplikasi' },
           { key: 'show_details', label: 'Domain' },
           // { key: 'IP', label: 'IP Server' },

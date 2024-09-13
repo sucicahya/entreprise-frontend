@@ -199,7 +199,7 @@ const WidgetsDropdown = (props) => {
         <CRow className={props.className} xs={{ gutter: 4 }}> {/*  kolom 1 baris 1 */}
           <CCol>  {/*  current */}
             <CWidgetStatsA
-              color="primary"
+              style={{ backgroundColor: "#ffa69e" }}
               value={
                 <>
                   {produkMasuk.map(item => (
@@ -239,7 +239,7 @@ const WidgetsDropdown = (props) => {
                         label: 'My First dataset',
                         backgroundColor: 'transparent',
                         borderColor: 'rgba(255,255,255,.55)',
-                        pointBackgroundColor: getStyle('--cui-primary'),
+                        pointBackgroundColor: '#ffa69e',
                         data: [65, 59, 84, 84, 51, 55, 40],
                       },
                     ],
@@ -294,7 +294,7 @@ const WidgetsDropdown = (props) => {
           </CCol>
           <CCol> {/*  total */}
             <CWidgetStatsA
-              color="danger"
+              style={{ backgroundColor: "#65cbe9" }}
               value={
                 <>
                   {total.map(item => (
@@ -334,7 +334,7 @@ const WidgetsDropdown = (props) => {
                         label: 'My First dataset',
                         backgroundColor: 'transparent',
                         borderColor: 'rgba(255,255,255,.55)',
-                        pointBackgroundColor: getStyle('--cui-danger'),
+                        pointBackgroundColor: '#65cbe9',
                         data: [65, 59, 84, 84, 51, 55, 40],
                       },
                     ],
@@ -391,7 +391,7 @@ const WidgetsDropdown = (props) => {
         <CRow className={props.className} xs={{ gutter: 4 }}> {/*  kolom 1 baris 2 */}
           <CCol> {/*  on premise cloud */}
             <CWidgetStatsA
-              color="info"
+              style={{ backgroundColor: "#f6ac69" }}
               value={
                 <>
                   {/* $6.200{' '}
@@ -445,7 +445,7 @@ const WidgetsDropdown = (props) => {
                           label: 'My First dataset',
                           backgroundColor: 'transparent',
                           borderColor: 'rgba(255,255,255,.55)',
-                          pointBackgroundColor: getStyle('--cui-info'),
+                          pointBackgroundColor: '#f6ac69',
                           data: [1, 18, 9, 17, 34, 22, 11],
                         },
                       ],
@@ -500,7 +500,7 @@ const WidgetsDropdown = (props) => {
           </CCol>
           <CCol> {/*  aktif ga aktif */}
             <CWidgetStatsA
-              color="warning"
+              style={{ backgroundColor: "#f9" }}
               value={
                 <>
                   {/* 2.49%{' '}
