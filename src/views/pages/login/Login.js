@@ -17,6 +17,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import { useNavigate } from 'react-router-dom'
+import backgroundImage from 'src/assets/brand/gambar.png';
 
 const Login = () => {
   const navigate = useNavigate()
@@ -68,72 +69,93 @@ const Login = () => {
 
 
   return (
-    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
-      <CContainer>
-        <CRow className="justify-content-center">
-          <CCol md={4}>
-            <CCardGroup>
-              <CCard className="p-4">
-                <CCardBody>
-                  <CForm>
-                    <img src="src/assets/brand/logo_posindo.png" alt="Logo" className="sidebar-brand-full" height={30} style={{ float: 'right', marginTop: '-10px' }} />
-                    <h4>Login</h4>
-                    <p className="text-body-secondary">Sign In to your account</p>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon={cilUser} />
-                      </CInputGroupText>
-                      <CFormInput
-                        placeholder="Username"
-                        autoComplete="username"
-                        value={username}
-                        onChange={e => setUsername(e.target.value)}
-                      />
-                    </CInputGroup>
-                    <CInputGroup className="mb-4">
-                      <CInputGroupText>
-                        <CIcon icon={cilLockLocked} />
-                      </CInputGroupText>
-                      <CFormInput
-                        type="password"
-                        placeholder="Password"
-                        autoComplete="current-password"
-                        value={pass}
-                        onChange={e => setPass(e.target.value)}
-                      />
-                    </CInputGroup>
-                    <CRow>
-                      <CCol xs={6}>
-                        <CButton color="primary" className="px-4" onClick={() => { loginsim() }}>
-                          Login
-                        </CButton>
-                      </CCol>
-                      {/* <CCol xs={6} className="text-right">
-                        <CButton color="link" className="px-0">
-                          Forgot password?
-                        </CButton>
-                      </CCol> */}
-                    </CRow>
-                  </CForm>
-                </CCardBody>
-              </CCard>
-              {/* <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}> */}
-              {/* <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                        Register Now!
-                      </CButton>
-                    </Link>
-                  </div>
-                </CCardBody> */}
-              {/* </CCard> */}
-            </CCardGroup>
+    <div className="bg-body-tertiary min-vh-100 d-flex flex-row">
+      <CContainer fluid>
+        <CRow className="w-100 g-0">  {/* Menghapus gutter untuk menghilangkan padding antar kolom */}
+          {/* Bagian Kiri dengan Gambar Background */}
+          <CCol
+            xs={12} md={7}  // 7 dari 12 kolom pada ukuran medium ke atas
+            className="d-none d-md-block"
+            style={{
+              backgroundImage: `url(${backgroundImage})`,
+              backgroundSize: 'cover',  // Menutupi seluruh area
+              backgroundPosition: 'center',  // Posisikan gambar di tengah
+              backgroundRepeat: 'no-repeat',  // Jangan ulang gambar
+              height: '100vh',  // Mengatur tinggi kolom sesuai tinggi layar
+              minHeight: '400px'  // Mengatur tinggi minimal untuk ukuran layar kecil
+            }}
+          >
+            {/* Konten tambahan di sebelah kiri bisa ditempatkan di sini jika perlu */}
+          </CCol>
+
+          {/* Bagian Kanan */}
+          <CCol
+            xs={12} md={5}  // 5 dari 12 kolom pada ukuran medium ke atas
+            className="d-flex align-items-center justify-content-center"
+            style={{
+              backgroundColor: '#8c7bff',  // Mengatur warna latar belakang
+              height: '100vh'  // Mengatur tinggi kolom sesuai tinggi layar
+            }}
+          >
+            <CContainer>
+              <CRow className="justify-content-center">
+                <CCol xs={12} md={8}> {/* Mengatur ukuran kolom untuk memastikan elemen konten tidak terlalu lebar */}
+                  <CCardGroup>
+                    <CCard className="p-4">
+                      <CCardBody>
+                        <CForm>
+                          <h4>Login</h4>
+                          <p className="text-body-secondary">Sign In to your account</p>
+                          <CInputGroup className="mb-3">
+                            <CInputGroupText>
+                              <CIcon icon={cilUser} />
+                            </CInputGroupText>
+                            <CFormInput
+                              placeholder="Username"
+                              autoComplete="username"
+                              value={username}
+                              onChange={e => setUsername(e.target.value)}
+                            />
+                          </CInputGroup>
+                          <CInputGroup className="mb-4">
+                            <CInputGroupText>
+                              <CIcon icon={cilLockLocked} />
+                            </CInputGroupText>
+                            <CFormInput
+                              type="password"
+                              placeholder="Password"
+                              autoComplete="current-password"
+                              value={pass}
+                              onChange={e => setPass(e.target.value)}
+                            />
+                          </CInputGroup>
+                          <CRow>
+                            <CCol xs={6} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                              <CButton
+                                color="primary"
+                                className="px-4"
+                                onClick={() => { loginsim() }}
+                                style={{ marginRight: '-50px' }}
+                              >
+                                Login
+                              </CButton>
+                            </CCol>
+
+                          </CRow>
+                        </CForm>
+                      </CCardBody>
+                    </CCard>
+                  </CCardGroup>
+                </CCol>
+              </CRow>
+            </CContainer>
+            <img
+              src="src/assets/brand/logo_posindo.png"
+              alt="Logo"
+              className="sidebar-brand-full"
+              height={60}
+              style={{ position: 'absolute', top: '50px', right: '50px' }}  // Menempatkan logo di sudut kanan bawah
+            />
           </CCol>
         </CRow>
       </CContainer>
