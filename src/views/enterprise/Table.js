@@ -162,9 +162,9 @@ function Table() {
     console.log("rrxind", index)
     console.log("rrxval", value)
     const updatedServer = [...server2];
-    updatedServer[index].WEB_SERVER_ID = value;
+    updatedServer[index].JENIS_SERVER_ID = value;
     setServer2(updatedServer);
-    setWebServer(updatedServer.map(acc => acc.WEB_SERVER_ID));
+    setWebServer(updatedServer.map(acc => acc.JENIS_SERVER_ID));
   };
 
   const handleIPServer = (index, value) => {
@@ -485,7 +485,7 @@ function Table() {
         WEB_SERVER_ID: webIdSpec,
 
         ID_WEB_SERVER: idServer,
-        NAMA_WEB_SERVER: webServer,
+        NAMA_SERVER: webServer,
 
         // BA_DEPLOY: ba_deploy,
         // REQ_DEPLOY: req_deploy,

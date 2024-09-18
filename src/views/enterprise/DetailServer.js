@@ -114,13 +114,13 @@ const DetailServer = ({ item, details, handleFetchServer, server2, handleWebServ
                   </CCol>
                   <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
                     <CFormSelect
-                      defaultValue={item.WEB_SERVER_ID}
+                      defaultValue={item.JENIS_SERVER_ID}
                       onChange={(e) => handleWebServer(index, e.target.value)}
                     >
                       <option value="">-- Pilih --</option>
                       {pilihServer.map(server => (
-                        <option key={server.ID_WEB_SERVER} value={server.ID_WEB_SERVER}>
-                          {server.NAMA_WEB_SERVER}
+                        <option key={server.ID_SERVER} value={server.ID_SERVER}>
+                          {server.NAMA_SERVER}
                         </option>
                       ))}
                     </CFormSelect>

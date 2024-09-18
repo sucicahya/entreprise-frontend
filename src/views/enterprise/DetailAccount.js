@@ -75,6 +75,7 @@ const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, accou
                                             onChange={(e) => handleJenisAccount(index, e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
+                                            readOnly
                                         />
                                     </CCol>
                                     <CCol md={3} style={{ marginRight: '10px' }}>
@@ -84,6 +85,7 @@ const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, accou
                                             onChange={(e) => handleUsernameAccount(index, e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
+                                            readOnly
                                         />
                                     </CCol>
                                     <CCol md={3} style={{ marginRight: '10px' }}>
@@ -93,6 +95,7 @@ const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, accou
                                             onChange={(e) => handlePassAccount(index, e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
+                                            readOnly
                                         />
                                     </CCol>
                                     <CCol md={3}>
@@ -103,6 +106,7 @@ const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, accou
                                                 onChange={(e) => handleExpAccount(index, e.target.value)}
                                                 feedbackValid="Looks good!"
                                                 id="validationCustom01"
+                                                readOnly
                                             />
                                         )}
                                     </CCol>
@@ -112,23 +116,14 @@ const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, accou
                     </CForm>
                 </CModalBody>
                 <CModalFooter>
-                    {/* <CButton color="secondary" onClick={() => setVisible(false)}>
-            Close
-          </CButton> */}
-                    {/* {detail.map(item => {
-            return (
-              <React.Fragment> */}
-                    <CButton
+                    {/* <CButton
                         color="primary"
                         onClick={() => {
                             handleUpdateAccount();
                         }}
                     >
                         Save changes
-                    </CButton>
-                    {/* </React.Fragment>
-            );
-          })} */}
+                    </CButton> */}
                 </CModalFooter>
             </CModal>
         </>

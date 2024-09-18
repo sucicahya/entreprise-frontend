@@ -95,6 +95,8 @@ function AddServer() {
     const [webIdSpec, setWebIdSpec] = useState([]);
     const [idServer, setIdServer] = useState([]);
     const [webServer, setWebServer] = useState([]);
+    const [pilihWebServer, setPilihWebServer] = useState([])
+    const [pilihDatabase, setPilihDatabase] = useState([])
     const [pilihServer, setPilihServer] = useState([])
     const [pilihProduk, setPilihProduk] = useState([])
     const [NEW_NAMA_WEB_SERVER, setNew_Nama_Web_Server] = useState([]);
@@ -113,7 +115,7 @@ function AddServer() {
                 // { description: '', progress: '' },
                 // { description: '', progress: '' },
                 // { description: '', progress: '' }
-                { ip_server: '', web_server: '', cpu: '', ram: '', storage: '', produk_server: '' }
+                { ip_server: '', jenis_server: '', cpu: '', ram: '', storage: '', produk_server: '' }
             ]);
         }
     }, [servers]);
@@ -154,10 +156,10 @@ function AddServer() {
     const handleClick = (index, id) => {
         console.log("idclick", id)
         const updatedServer = [...servers];
-        updatedServer[index].web_server = id;
+        updatedServer[index].jenis_server = id;
         console.log("Clicked Servers Array:", updatedServer);
         setServers(updatedServer);
-        setServerDetail(updatedServer.map(acc => (acc.web_server)));
+        setServerDetail(updatedServer.map(acc => (acc.jenis_server)));
         // setClickedServers(servers => {
         //     const updatedServer = [...servers];
         //     updatedServer[index].web_server = id;
@@ -225,6 +227,40 @@ function AddServer() {
                 // console.log('Data received:', response.data); // Cek data yang diterima
                 if (Array.isArray(response.data)) {
                     setPilihServer(response.data);
+                } else {
+                    console.error('Data format is not an array:', response.data);
+                }
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setLoading(false);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/detail/pilih-web-server')
+            .then(response => {
+                // console.log('Data received:', response.data); // Cek data yang diterima
+                if (Array.isArray(response.data)) {
+                    setPilihWebServer(response.data);
+                } else {
+                    console.error('Data format is not an array:', response.data);
+                }
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setLoading(false);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/detail/pilih-database')
+            .then(response => {
+                // console.log('Data received:', response.data); // Cek data yang diterima
+                if (Array.isArray(response.data)) {
+                    setPilihDatabase(response.data);
                 } else {
                     console.error('Data format is not an array:', response.data);
                 }
@@ -337,7 +373,7 @@ function AddServer() {
                 PIC_NIPPOS: picNipposDetail,
                 AKSES: aksesDetail,
                 DEVELOPER: developerDetail,
-                SERVER: serverDetail,
+                JENIS_SERVER: serverDetail,
                 PRODUK: produkServer,
                 BUSINESS_OWNER: businessOwnerDetail,
                 WAKTU_OPERASIONAL: waktuOperasionalDetail,
@@ -431,26 +467,48 @@ function AddServer() {
                         </CCol>
                         <CRow>
                             <CCol md={2}>
+                                <span>Produk</span>
+                            </CCol>
+                            <CCol md={2}>
                                 <span>IP Server</span>
                             </CCol>
                             <CCol md={2}>
-                                <span>Web Server</span>
+                                <span>Jenis Server</span>
                             </CCol>
                             <CCol md={2}>
+                                <span>Detail</span>
+                            </CCol>
+                            <CCol md={1}>
                                 <span>CPU</span>
                             </CCol>
-                            <CCol md={2}>
+                            <CCol md={1}>
                                 <span>RAM</span>
                             </CCol>
                             <CCol md={2}>
                                 <span>Storage</span>
                             </CCol>
-                            <CCol md={2}>
-                                <span>Produk</span>
-                            </CCol>
                         </CRow>
                         {servers.map((acc, index) => (
                             <div style={{ display: 'flex', marginBottom: '10px' }}>
+                                <CCol md={2}>
+                                    <CDropdown className="w-100">
+                                        <OutlineDropdownToggle>
+                                            -- Pilih --
+                                            {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
+                                        </OutlineDropdownToggle>
+
+                                        <CDropdownMenu>
+                                            {pilihProduk.map(item => (
+                                                <CDropdownItem
+                                                    key={item.ID_PRODUK}
+                                                    onClick={e => handleClick2(index, item.ID_PRODUK)}
+                                                >
+                                                    {item.NAMA_PRODUK}
+                                                </CDropdownItem>
+                                            ))}
+                                        </CDropdownMenu>
+                                    </CDropdown>
+                                </CCol>
                                 <CCol md={2}>
                                     <CFormInput
                                         type="text"
@@ -473,6 +531,25 @@ function AddServer() {
                                         <CDropdownMenu>
                                             {pilihServer.map(item => (
                                                 <CDropdownItem
+                                                    key={item.ID_SERVER}
+                                                    onClick={e => handleClick(index, item.ID_SERVER)}
+                                                >
+                                                    {item.NAMA_SERVER}
+                                                </CDropdownItem>
+                                            ))}
+                                        </CDropdownMenu>
+                                    </CDropdown>
+                                </CCol>
+
+                                <CCol md={2}>
+                                    <CDropdown className="w-100">
+                                        <OutlineDropdownToggle>
+                                            -- Pilih --
+                                        </OutlineDropdownToggle>
+
+                                        <CDropdownMenu>
+                                            {pilihWebServer.map(item => (
+                                                <CDropdownItem
                                                     key={item.ID_WEB_SERVER}
                                                     onClick={e => handleClick(index, item.ID_WEB_SERVER)}
                                                 >
@@ -482,7 +559,28 @@ function AddServer() {
                                         </CDropdownMenu>
                                     </CDropdown>
                                 </CCol>
-                                <CCol md={2}>
+
+                                {/* <CCol md={2}>
+                                    <CDropdown className="w-100">
+                                        <OutlineDropdownToggle>
+                                            -- Pilih --
+                                        </OutlineDropdownToggle>
+
+                                        <CDropdownMenu>
+                                            {pilihDatabase.map(item => (
+                                                <CDropdownItem
+                                                    key={item.ID_DATABASE}
+                                                    onClick={e => handleClick(index, item.ID_DATABASE)}
+                                                >
+                                                    {item.NAMA_DATABASE}
+                                                </CDropdownItem>
+                                            ))}
+                                        </CDropdownMenu>
+                                    </CDropdown>
+                                </CCol> */}
+
+
+                                <CCol md={1}>
                                     <CFormInput
                                         type="text"
                                         value={acc.cpuSpec}
@@ -493,7 +591,7 @@ function AddServer() {
                                     // required
                                     />
                                 </CCol>
-                                <CCol md={2}>
+                                <CCol md={1}>
                                     <CFormInput
                                         type="text"
                                         value={acc.ramSpec}
@@ -514,25 +612,6 @@ function AddServer() {
                                     // label="Storage"
                                     // required
                                     />
-                                </CCol>
-                                <CCol md={2}>
-                                    <CDropdown className="w-100">
-                                        <OutlineDropdownToggle>
-                                            -- Pilih --
-                                            {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
-                                        </OutlineDropdownToggle>
-
-                                        <CDropdownMenu>
-                                            {pilihProduk.map(item => (
-                                                <CDropdownItem
-                                                    key={item.ID_PRODUK}
-                                                    onClick={e => handleClick2(index, item.ID_PRODUK)}
-                                                >
-                                                    {item.NAMA_PRODUK}
-                                                </CDropdownItem>
-                                            ))}
-                                        </CDropdownMenu>
-                                    </CDropdown>
                                 </CCol>
                             </div>
                         ))}
@@ -597,7 +676,7 @@ function AddServer() {
                         }}
                         disabled={isDisabled}
                     >
-                        Save changes and Go to next page
+                        Save changes
                     </CButton>
 
 

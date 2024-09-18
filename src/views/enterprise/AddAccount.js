@@ -177,7 +177,7 @@ function AddAccount() {
         setAccounts(updatedAccount);
         setExpAccount(updatedAccount.map(acc => (acc.EXP_DATE_PASSWORD)));
     };
-    
+
     const handleClick = (index, id) => {
         console.log("idclick", id)
         const updatedAccount = [...accounts];
@@ -387,6 +387,9 @@ function AddAccount() {
                         onSubmit={handleSubmit}
                     >
                         <CCol style={{ flexBasis: '20%' }}>
+                            <span>Server - Produk</span>
+                        </CCol>
+                        <CCol style={{ flexBasis: '20%' }}>
                             <span>Jenis Akun</span>
                         </CCol>
                         <CCol style={{ flexBasis: '20%' }}>
@@ -398,12 +401,28 @@ function AddAccount() {
                         <CCol style={{ flexBasis: '20%' }}>
                             <span>Exp Date Pass</span>
                         </CCol>
-                        <CCol style={{ flexBasis: '20%' }}>
-                            <span>Server - Produk</span>
-                        </CCol>
                         <CRow className="mb-3">
                             {accounts.map((acc, index) => (
                                 <div style={{ display: 'flex', marginBottom: '10px' }}>
+                                    <CCol style={{ flexBasis: '20%' }}>
+                                        <CDropdown className="w-100">
+                                            <OutlineDropdownToggle>
+                                                -- Pilih --
+                                                {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
+                                            </OutlineDropdownToggle>
+
+                                            <CDropdownMenu>
+                                                {pilihIPProduk.map(item => (
+                                                    <CDropdownItem
+                                                        key={item.ID_SPEC_SERVER}
+                                                        onClick={e => handleClick(index, item.ID_SPEC_SERVER)}
+                                                    >
+                                                        {item.IP_SERVER}-{item.NAMA_PRODUK}
+                                                    </CDropdownItem>
+                                                ))}
+                                            </CDropdownMenu>
+                                        </CDropdown>
+                                    </CCol>
                                     <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
                                         <CFormInput
                                             type="text"
@@ -431,7 +450,7 @@ function AddAccount() {
                                             id="validationCustom01"
                                         />
                                     </CCol>
-                                    <CCol style={{  marginRight: '5px', flexBasis: '20%' }}>
+                                    <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
                                         {/* {NewExpAccount[index] && ( */}
                                         <CFormInput
                                             type="date"
@@ -442,25 +461,6 @@ function AddAccount() {
                                         />
                                         {/* )} */}
                                     </CCol>
-                                    <CCol style={{ flexBasis: '20%' }}>
-                                    <CDropdown className="w-100">
-                                        <OutlineDropdownToggle>
-                                            -- Pilih --
-                                            {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
-                                        </OutlineDropdownToggle>
-
-                                        <CDropdownMenu>
-                                            {pilihIPProduk.map(item => (
-                                                <CDropdownItem
-                                                    key={item.ID_SPEC_SERVER}
-                                                    onClick={e => handleClick(index, item.ID_SPEC_SERVER)}
-                                                >
-                                                    {item.IP_SERVER}-{item.NAMA_PRODUK}
-                                                </CDropdownItem>
-                                            ))}
-                                        </CDropdownMenu>
-                                    </CDropdown>
-                                </CCol>
                                 </div>
                             ))}
                             <div>

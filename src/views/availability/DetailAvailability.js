@@ -57,7 +57,7 @@ const DetailAvailability = ({ item, detail, handleFetchDetails, handleUpdateDeta
                 {detail.map(item => (
                     <React.Fragment>
                         <CModalHeader>
-                            <CModalTitle id="ScrollingLongContentExampleLabel2">Details Produk {item.NAMA_PRODUK}</CModalTitle>
+                            <CModalTitle id="ScrollingLongContentExampleLabel2">Details Incident of {item.NAMA_PRODUK}</CModalTitle>
                         </CModalHeader>
                     </React.Fragment>
                 ))}

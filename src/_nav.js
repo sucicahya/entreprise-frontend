@@ -22,7 +22,7 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Daftar Aplikasi',
+    name: 'Dashboard',
     to: '/enterprise',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },

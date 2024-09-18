@@ -235,7 +235,7 @@ function AddDownTime() {
                 aria-labelledby="OptionalSizesExample2"
             >
                 <CModalHeader>
-                    <CModalTitle id="ScrollingLongContentExampleLabel2">Add Produk</CModalTitle>
+                    <CModalTitle id="ScrollingLongContentExampleLabel2">Add Incident</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
                     <CForm

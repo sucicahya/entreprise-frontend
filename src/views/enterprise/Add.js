@@ -448,7 +448,7 @@ function Add() {
                 aria-labelledby="OptionalSizesExample2"
             >
                 <CModalHeader>
-                    <CModalTitle id="ScrollingLongContentExampleLabel2">Add Produk</CModalTitle>
+                    <CModalTitle id="ScrollingLongContentExampleLabel2">Add System</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
                     <CForm
@@ -1226,7 +1226,7 @@ function Add() {
                         }}
                         disabled={isDisabled}
                     >
-                        Save changes and Go to next page
+                        Save changes
                     </CButton>
 
                     {/* <AddServer
