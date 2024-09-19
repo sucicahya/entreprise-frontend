@@ -76,7 +76,10 @@ function Table() {
   const [idSpec, setIdSpec] = useState([]);
   const [webIdSpec, setWebIdSpec] = useState([]);
   const [idServer, setIdServer] = useState([]);
+  const [jenisServer, setJenisServer] = useState([]);
   const [webServer, setWebServer] = useState([]);
+  const [databaseServer, setDatabaseServer] = useState([]);
+  const [macamServer, setMacamServer] = useState([]);
 
   const formatDate = (isoDate) => {
     if (!isoDate) return '';
@@ -158,13 +161,13 @@ function Table() {
     setExpAccount(updatedAccount.map(acc => (acc.EXP_DATE_PASSWORD)));
   };
 
-  const handleWebServer = (index, value) => {
+  const handleJenisServer = (index, value) => {
     console.log("rrxind", index)
     console.log("rrxval", value)
     const updatedServer = [...server2];
     updatedServer[index].JENIS_SERVER_ID = value;
     setServer2(updatedServer);
-    setWebServer(updatedServer.map(acc => acc.JENIS_SERVER_ID));
+    setJenisServer(updatedServer.map(acc => acc.JENIS_SERVER_ID));
   };
 
   const handleIPServer = (index, value) => {
@@ -202,6 +205,42 @@ function Table() {
     setServer2(updatedServer);
     setStorageSpec(updatedServer.map(acc => (acc.STORAGE)));
   };
+
+  const handleWebServer = (index, value) => {
+    console.log("rrxind", index)
+    console.log("rrxval", value)
+    const updatedServer = [...server2];
+    updatedServer[index].ID_WEB_SERVER = value;
+    setServer2(updatedServer);
+    setWebServer(updatedServer.map(acc => (acc.ID_WEB_SERVER)));
+    // setMacamServer(updatedServer.map(acc => (acc.ID_WEB_SERVER)));
+    // setMacamServer(prevState => {
+    //   const updatedMacamServer = [...prevState];  // Salin array lama
+    //   updatedMacamServer[index] = value;          // Update hanya elemen pada index
+    //   return updatedMacamServer;                  // Kembalikan array baru
+    // });
+    setMacamServer(updatedServer.map(acc => acc.ID_WEB_SERVER || acc.ID_DATABASE));
+  };
+
+  const handleDatabaseServer = (index, value) => {
+    console.log("rrxind", index)
+    console.log("rrxval", value)
+    const updatedServer = [...server2];
+    updatedServer[index].ID_DATABASE = value;
+    setServer2(updatedServer);
+    setDatabaseServer(updatedServer.map(acc => (acc.ID_DATABASE)));
+    // setMacamServer(updatedServer.map(acc => (acc.ID_DATABASE)));
+    // setMacamServer(prevState => {
+    //   const updatedMacamServer = [...prevState];  // Salin array lama
+    //   updatedMacamServer[index] = value;          // Update hanya elemen pada index
+    //   return updatedMacamServer;                  // Kembalikan array baru
+    // });
+    setMacamServer(updatedServer.map(acc => acc.ID_WEB_SERVER || acc.ID_DATABASE));
+
+  };
+
+  console.log("MACAM SERVER", macamServer)
+  console.log("JENIS SERVER", jenisServer)
 
   console.log("DETAIL", detail)
   console.log("ACCOUNT", account)
@@ -483,9 +522,10 @@ function Table() {
         STORAGE: storageSpec,
         ID_SPEC_SERVER: idSpec,
         WEB_SERVER_ID: webIdSpec,
+        MACAM_SERVER: macamServer,
 
         ID_WEB_SERVER: idServer,
-        NAMA_SERVER: webServer,
+        NAMA_SERVER: jenisServer,
 
         // BA_DEPLOY: ba_deploy,
         // REQ_DEPLOY: req_deploy,
@@ -508,7 +548,7 @@ function Table() {
       setUpdateServer(response.data);
       // setAccount2(response.data);
       console.log("update full:", response.data);
-      window.location.reload();
+      // window.location.reload();
 
       // setIdAccount(response.data.map(item => item.ID_ACCOUNT));
       // setJenisAccount(response.data.map(item => item.JENIS_AKUN));
@@ -827,7 +867,9 @@ function Table() {
                 server2={server2}
                 // pilihServer={pilihServer}
                 handleFetchServer={handleFetchServer}
+                handleJenisServer={handleJenisServer}
                 handleWebServer={handleWebServer}
+                handleDatabaseServer={handleDatabaseServer}
                 handleIPServer={handleIPServer}
                 handleCPUServer={handleCPUServer}
                 handleRAMServer={handleRAMServer}

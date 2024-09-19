@@ -95,8 +95,6 @@ function AddServer() {
     const [webIdSpec, setWebIdSpec] = useState([]);
     const [idServer, setIdServer] = useState([]);
     const [webServer, setWebServer] = useState([]);
-    const [pilihWebServer, setPilihWebServer] = useState([])
-    const [pilihDatabase, setPilihDatabase] = useState([])
     const [pilihServer, setPilihServer] = useState([])
     const [pilihProduk, setPilihProduk] = useState([])
     const [NEW_NAMA_WEB_SERVER, setNew_Nama_Web_Server] = useState([]);
@@ -227,40 +225,6 @@ function AddServer() {
                 // console.log('Data received:', response.data); // Cek data yang diterima
                 if (Array.isArray(response.data)) {
                     setPilihServer(response.data);
-                } else {
-                    console.error('Data format is not an array:', response.data);
-                }
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-            });
-    }, []);
-
-    useEffect(() => {
-        axios.get('http://localhost:5000/detail/pilih-web-server')
-            .then(response => {
-                // console.log('Data received:', response.data); // Cek data yang diterima
-                if (Array.isArray(response.data)) {
-                    setPilihWebServer(response.data);
-                } else {
-                    console.error('Data format is not an array:', response.data);
-                }
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-            });
-    }, []);
-
-    useEffect(() => {
-        axios.get('http://localhost:5000/detail/pilih-database')
-            .then(response => {
-                // console.log('Data received:', response.data); // Cek data yang diterima
-                if (Array.isArray(response.data)) {
-                    setPilihDatabase(response.data);
                 } else {
                     console.error('Data format is not an array:', response.data);
                 }
@@ -476,12 +440,9 @@ function AddServer() {
                                 <span>Jenis Server</span>
                             </CCol>
                             <CCol md={2}>
-                                <span>Detail</span>
-                            </CCol>
-                            <CCol md={1}>
                                 <span>CPU</span>
                             </CCol>
-                            <CCol md={1}>
+                            <CCol md={2}>
                                 <span>RAM</span>
                             </CCol>
                             <CCol md={2}>
@@ -540,47 +501,7 @@ function AddServer() {
                                         </CDropdownMenu>
                                     </CDropdown>
                                 </CCol>
-
                                 <CCol md={2}>
-                                    <CDropdown className="w-100">
-                                        <OutlineDropdownToggle>
-                                            -- Pilih --
-                                        </OutlineDropdownToggle>
-
-                                        <CDropdownMenu>
-                                            {pilihWebServer.map(item => (
-                                                <CDropdownItem
-                                                    key={item.ID_WEB_SERVER}
-                                                    onClick={e => handleClick(index, item.ID_WEB_SERVER)}
-                                                >
-                                                    {item.NAMA_WEB_SERVER}
-                                                </CDropdownItem>
-                                            ))}
-                                        </CDropdownMenu>
-                                    </CDropdown>
-                                </CCol>
-
-                                {/* <CCol md={2}>
-                                    <CDropdown className="w-100">
-                                        <OutlineDropdownToggle>
-                                            -- Pilih --
-                                        </OutlineDropdownToggle>
-
-                                        <CDropdownMenu>
-                                            {pilihDatabase.map(item => (
-                                                <CDropdownItem
-                                                    key={item.ID_DATABASE}
-                                                    onClick={e => handleClick(index, item.ID_DATABASE)}
-                                                >
-                                                    {item.NAMA_DATABASE}
-                                                </CDropdownItem>
-                                            ))}
-                                        </CDropdownMenu>
-                                    </CDropdown>
-                                </CCol> */}
-
-
-                                <CCol md={1}>
                                     <CFormInput
                                         type="text"
                                         value={acc.cpuSpec}
@@ -591,7 +512,7 @@ function AddServer() {
                                     // required
                                     />
                                 </CCol>
-                                <CCol md={1}>
+                                <CCol md={2}>
                                     <CFormInput
                                         type="text"
                                         value={acc.ramSpec}
