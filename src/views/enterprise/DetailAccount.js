@@ -44,7 +44,7 @@ const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, accou
                 aria-labelledby="OptionalSizesExample2"
             >
                 <CModalHeader>
-                    <CModalTitle id="ScrollingLongContentExampleLabel2">Details Account</CModalTitle>
+                    <CModalTitle id="ScrollingLongContentExampleLabel2">Details Account {item.NAMA_PRODUK}</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
                     <CForm className="row g-3 needs-validation" noValidate onSubmit={handleUpdateAccount}>
@@ -52,7 +52,7 @@ const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, accou
               <span>Jenis Akun</span>
             </CCol> */}
                         <CCol md={3}>
-                            <span>Jenis Akun</span>
+                            <span>Type of Account</span>
                         </CCol>
                         <CCol md={3}>
                             <span>Username</span>

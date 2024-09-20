@@ -366,7 +366,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                         />
                                     </div>
                                 </CCol>
-                                <CCol md={3}>
+                                {/* <CCol md={3}>
                                     <div className="d-flex align-items-center">
                                         <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
                                             Jenis Database
@@ -381,10 +381,8 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                             onChange={e =>  handleSetDatabaseDetail(e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
-                                        // label="Database"
-                                        // required
                                         >
-                                            <option value="">-- Pilih --</option> {/* Opsi default -- Pilih -- */}
+                                            <option value="">-- Pilih --</option> 
                                             {pilihDatabase.map(item => (
                                                 <option key={item.ID_DATABASE} value={item.ID_DATABASE}>
                                                     {item.NAMA_DATABASE}
@@ -392,7 +390,7 @@ const DetailMain = ({ item, details, detail, formattedTanggalLive, formattedTang
                                             ))}
                                         </CFormSelect>
                                     </div>
-                                </CCol>
+                                </CCol> */}
                                 <CCol md={3}>
                                     <div className="d-flex align-items-center">
                                         <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>

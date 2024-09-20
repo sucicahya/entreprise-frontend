@@ -81,22 +81,40 @@ function AddDownTime() {
         if (downTime && solvedTime) {
             const startTime = new Date(downTime);
             const endTime = new Date(solvedTime);
-
-            // Calculate the difference in milliseconds
+    
+            // Hitung selisih dalam milidetik
             const duration = endTime - startTime;
-
+    
             if (duration >= 0) {
-                // Convert milliseconds to hours and minutes
+                // Mengonversi milidetik ke jam, menit, dan detik
                 const hours = Math.floor(duration / (1000 * 60 * 60));
                 const minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
-
-                // Format the duration as a readable string
-                setDurasiDownTime(`${hours} hours ${minutes} minutes`);
+                const seconds = Math.floor((duration % (1000 * 60)) / 1000);
+    
+                // Format durasi downtime sebagai HH:mm:ss
+                const formattedDowntime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                setDurasiDownTime(formattedDowntime); // Simpan durasi downtime
+    
+                // Hitung uptime
+                const totalSecondsIn24Hours = 24 * 60 * 60; // Total detik dalam 24 jam
+                const totalSecondsDowntime = hours * 3600 + minutes * 60 + seconds;
+                const totalSecondsUptime = totalSecondsIn24Hours - totalSecondsDowntime;
+    
+                // Mengonversi total detik uptime kembali ke jam, menit, dan detik
+                const uptimeHours = Math.floor(totalSecondsUptime / 3600);
+                const uptimeMinutes = Math.floor((totalSecondsUptime % 3600) / 60);
+                const uptimeSeconds = totalSecondsUptime % 60;
+    
+                // Format uptime sebagai HH:mm:ss
+                setDurasiUpTime(`${String(uptimeHours).padStart(2, '0')}:${String(uptimeMinutes).padStart(2, '0')}:${String(uptimeSeconds).padStart(2, '0')}`);
             } else {
-                setDurasiDownTime('');
+                setDurasiDownTime(''); // Jika durasi negatif
+                setDurasiUpTime('');   // Atur uptime juga ke string kosong jika ada masalah
             }
         }
     }, [downTime, solvedTime]);
+    
+    
 
     const handleTimeChange = (e, type) => {
         if (type === 'downTime') {
@@ -290,6 +308,7 @@ function AddDownTime() {
                                     id="validationCustom01"
                                 // label="Up Time"
                                 // required
+                                readOnly
                                 />
                             </div>
                         </CCol>

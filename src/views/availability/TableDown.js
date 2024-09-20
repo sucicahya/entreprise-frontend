@@ -124,7 +124,7 @@ function TableDown() {
         clickableRows
         columns={[
           // { key: 'ID_PRODUK', label: 'ID Produk' },
-          { key: 'NAMA_PRODUK', label: 'Nama Aplikasi' },
+          { key: 'NAMA_PRODUK', label: 'Application Name' },
           // { key: 'IP_SERVER', label: 'Domain' },
           { key: 'UP_TIME', label: 'Up Time' },
           { key: 'show_details', label: 'Down Time' },

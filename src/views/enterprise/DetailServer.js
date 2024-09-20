@@ -135,7 +135,7 @@ const DetailServer = ({ item, details, handleFetchServer, server2, handleWebServ
         aria-labelledby="OptionalSizesExample2"
       >
         <CModalHeader>
-          <CModalTitle id="ScrollingLongContentExampleLabel2">Details Server</CModalTitle>
+          <CModalTitle id="ScrollingLongContentExampleLabel2">Details Server {item.NAMA_PRODUK}</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CForm className="row g-3 needs-validation" noValidate onSubmit={handleUpdateServer}>
@@ -152,10 +152,10 @@ const DetailServer = ({ item, details, handleFetchServer, server2, handleWebServ
               <span>Storage</span>
             </CCol>
             <CCol md={2}>
-              <span>Jenis Server</span>
+              <span>Type of Server</span>
             </CCol>
             <CCol md={2}>
-              <span>Macam Server</span>
+              <span>Web/Database</span>
             </CCol>
             <CRow className="mb-3">
               {server2.map((item, index) => (

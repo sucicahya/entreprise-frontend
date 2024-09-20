@@ -444,7 +444,7 @@ const WidgetsDropdown = (props) => {
                       <CCol style={{ paddingLeft: '40px' }}>
                         {statusAktif.map(item => (
                           <React.Fragment>
-                            <div>Aktif</div>
+                            <div>Active</div>
                             <div>{item.total}</div>
                           </React.Fragment>
                         ))}
@@ -452,7 +452,7 @@ const WidgetsDropdown = (props) => {
                       <CCol>
                         {statusNonAktif.map(item => (
                           <React.Fragment>
-                            <div>Non-Aktif</div>
+                            <div>Non-Active</div>
                             <div>{item.total}</div>
                           </React.Fragment>
                         ))}

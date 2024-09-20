@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { CSmartTable, CBadge, CCollapse } from '@coreui/react-pro';
+// import DownloadIcon from '@mui/icons-material/Download'
 import {
   CAvatar,
   CButton,
   CCardBody,
 } from '@coreui/react'
+import CIcon from '@coreui/icons-react'
+import { cilArrowThickToBottom } from '@coreui/icons';
 import DetailServer from './DetailServer';
 import DetailAccount from './DetailAccount';
 import DetailMain from './DetailMain';
 import auth from '../../helpers/auth';
+import { CSVLink } from 'react-csv'
 
 function Table() {
   const [produk, setProduk] = useState([]);
@@ -80,6 +84,10 @@ function Table() {
   const [webServer, setWebServer] = useState([]);
   const [databaseServer, setDatabaseServer] = useState([]);
   const [macamServer, setMacamServer] = useState([]);
+  const date = new Date()
+  const dateString = `${date.getFullYear()}-${date.getMonth() + 1
+    }-${date.getDate()}`
+  const filename = `enterprise-${dateString}.csv`
 
   const formatDate = (isoDate) => {
     if (!isoDate) return '';
@@ -121,7 +129,7 @@ function Table() {
   )
 
   const [server2, setServer2] = React.useState(
-    searchResults.account || []
+    searchResults.spec_server || []
   )
 
 
@@ -422,7 +430,7 @@ function Table() {
         PORT: portDetail,
         FRAMEWORK: frameworkDetail,
         VER_FRAMEWORK: verFrameworkDetail,
-        JENIS_DATABASE: databaseDetail,
+        // JENIS_DATABASE: databaseDetail,
         TANGGAL_LIVE: tanggalLiveDetail,
         TANGGAL_AKHIR_UPDATE: tanggalAkhirUpdateDetail,
         TANGGAL_TUTUP: tanggalTutupDetail,
@@ -548,7 +556,7 @@ function Table() {
       setUpdateServer(response.data);
       // setAccount2(response.data);
       console.log("update full:", response.data);
-      // window.location.reload();
+      window.location.reload();
 
       // setIdAccount(response.data.map(item => item.ID_ACCOUNT));
       // setJenisAccount(response.data.map(item => item.JENIS_AKUN));
@@ -745,15 +753,29 @@ function Table() {
   return (
     <>
 
-
-
+      {/* <CButton size="sm" color="danger" className="ml-1"> */}
+        <CSVLink
+          data={produk}
+          filename={filename}
+          style={{
+            marginLeft: 'auto',
+            float: 'right',
+            marginTop: '-3%',
+            marginRight: '5%',
+          }}
+        >
+          {/* <DownloadIcon style={{ marginBottom: '-5px', color: '#022954' }} /> */}
+          <CIcon icon={cilArrowThickToBottom} size="lg" />
+          <span style={{ color: '#022954', marginLeft: '8px' }}>Download</span>
+        </CSVLink>
+      {/* </CButton> */}
       <CSmartTable
         activePage={2}
         cleaner
         clickableRows
         columns={[
           // { key: 'ID_PRODUK', label: 'ID Aplikasi' },
-          { key: 'NAMA_PRODUK', label: 'Nama Aplikasi' },
+          { key: 'NAMA_PRODUK', label: 'Application Name' },
           { key: 'show_details', label: 'Domain' },
           // { key: 'IP', label: 'IP Server' },
           // { key: 'PIC', label: 'PIC' },

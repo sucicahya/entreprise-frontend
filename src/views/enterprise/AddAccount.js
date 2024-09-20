@@ -404,7 +404,7 @@ function AddAccount() {
                         <CRow className="mb-3">
                             {accounts.map((acc, index) => (
                                 <div style={{ display: 'flex', marginBottom: '10px' }}>
-                                    <CCol style={{ flexBasis: '20%' }}>
+                                    <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
                                         <CDropdown className="w-100">
                                             <OutlineDropdownToggle>
                                                 -- Pilih --
