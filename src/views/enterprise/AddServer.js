@@ -397,6 +397,11 @@ function AddServer() {
 
     const addGridServer = () => {
         setServers([...servers, { ip_server: '', web_server: '', cpu: '', ram: '', storage: '', produk_server: '' }])
+    }    
+
+    const handleClose = async () => {
+        setVisibleLg2(false);
+        window.location.reload();
     }
 
     return (
@@ -408,7 +413,7 @@ function AddServer() {
                 scrollable
                 size="lg"
                 visible={visibleLg2}
-                onClose={() => setVisibleLg2(false)}
+                onClose={() => handleClose()}
                 aria-labelledby="OptionalSizesExample2"
             >
                 <CModalHeader>
@@ -431,13 +436,13 @@ function AddServer() {
                         </CCol>
                         <CRow>
                             <CCol md={2}>
-                                <span>Produk</span>
+                                <span>Produk</span> <span style={{ color: 'red' }}>*</span>
                             </CCol>
                             <CCol md={2}>
-                                <span>IP Server</span>
+                                <span>IP Server</span> <span style={{ color: 'red' }}>*</span>
                             </CCol>
                             <CCol md={2}>
-                                <span>Jenis Server</span>
+                                <span>Jenis Server</span> <span style={{ color: 'red' }}>*</span>
                             </CCol>
                             <CCol md={2}>
                                 <span>CPU</span>
@@ -477,8 +482,8 @@ function AddServer() {
                                         onChange={e => handleIpServer(index, e.target.value)}
                                         feedbackValid="Looks good!"
                                         id="validationCustom01"
-                                    // label="IP SERVER"
-                                    // required
+                                        // label="IP SERVER"
+                                        required
                                     />
                                 </CCol>
 

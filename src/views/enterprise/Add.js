@@ -434,6 +434,11 @@ function Add() {
         window.location.reload();
     };
 
+    const handleClose = async () => {
+        setVisibleLg(false);
+        window.location.reload();
+    }
+
     return (
         <>
 
@@ -444,7 +449,7 @@ function Add() {
                 scrollable
                 size="lg"
                 visible={visibleLg}
-                onClose={() => setVisibleLg(false)}
+                onClose={() => handleClose()}
                 aria-labelledby="OptionalSizesExample2"
             >
                 <CModalHeader>
@@ -463,7 +468,7 @@ function Add() {
                         <CCol md={3}>
                             <div className="d-flex align-items-center">
                                 <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
-                                    Nama Produk
+                                    Nama Produk <span style={{ color: 'red' }}>*</span>
                                 </label>
                             </div>
                         </CCol>
@@ -483,7 +488,7 @@ function Add() {
                         <CCol md={3}>
                             <div className="d-flex align-items-center">
                                 <label htmlFor="validationCustom01" className="form-label me-4" style={{ whiteSpace: 'nowrap' }}>
-                                    Deskripsi Produk
+                                    Deskripsi Produk <span style={{ color: 'red' }}>*</span>
                                 </label>
                             </div>
                         </CCol>
@@ -515,7 +520,7 @@ function Add() {
                                     onChange={e => setURLDetail(e.target.value)}
                                     feedbackValid="Looks good!"
                                     id="validationCustom01"
-                                    // label="URL"
+                                // label="URL"
                                 // required
                                 />
                             </div>
@@ -535,7 +540,7 @@ function Add() {
                                     onChange={e => setPortDetail(e.target.value)}
                                     feedbackValid="Looks good!"
                                     id="validationCustom01"
-                                    // label="Port"
+                                // label="Port"
                                 // required
                                 />
                             </div>
@@ -551,8 +556,9 @@ function Add() {
                             <div className="d-flex align-items-center">
                                 <CDropdown className="w-100">
                                     <OutlineDropdownToggle style={{ marginTop: '7px' }}>
-                                        -- Pilih --
-                                        {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
+                                        {Array.isArray(penempatanDetail) && penempatanDetail.length === 0
+                                            ? '-- Pilih --'
+                                            : pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN || '-- Pilih --'}
                                     </OutlineDropdownToggle>
 
                                     <CDropdownMenu>
@@ -587,8 +593,9 @@ function Add() {
                             <div className="d-flex align-items-center">
                                 <CDropdown className="w-100">
                                     <OutlineDropdownToggle style={{ marginTop: '7px' }}>
-                                        -- Pilih --
-                                        {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
+                                        {Array.isArray(aksesDetail) && aksesDetail.length === 0
+                                            ? '-- Pilih --'
+                                            : pilihAkses.find(item => item.ID_AKSES === aksesDetail)?.NAMA_AKSES || '-- Pilih --'}
                                     </OutlineDropdownToggle>
 
                                     <CDropdownMenu>
@@ -627,7 +634,7 @@ function Add() {
                                     onChange={e => setWaktuOperasionalDetail(e.target.value)}
                                     feedbackValid="Looks good!"
                                     id="validationCustom01"
-                                    // label="Waktu Operasional"
+                                // label="Waktu Operasional"
                                 // required
                                 />
                             </div>
@@ -643,8 +650,9 @@ function Add() {
                             <div className="d-flex align-items-center">
                                 <CDropdown className="w-100">
                                     <OutlineDropdownToggle style={{ marginTop: '7px' }}>
-                                        -- Pilih --
-                                        {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
+                                        {Array.isArray(databaseDetail) && databaseDetail.length === 0
+                                            ? '-- Pilih --'
+                                            : pilihDatabase.find(item => item.ID_DATABASE === databaseDetail)?.NAMA_DATABASE || '-- Pilih --'}
                                     </OutlineDropdownToggle>
 
                                     <CDropdownMenu>
@@ -683,7 +691,7 @@ function Add() {
                                     onChange={e => setFrameworkDetail(e.target.value)}
                                     feedbackValid="Looks good!"
                                     id="validationCustom01"
-                                    // label="Framework"
+                                // label="Framework"
                                 // required
                                 />
                             </div>
@@ -703,7 +711,7 @@ function Add() {
                                     onChange={e => setVerFrameworkDetail(e.target.value)}
                                     feedbackValid="Looks good!"
                                     id="validationCustom01"
-                                    // label="Version Framework"
+                                // label="Version Framework"
                                 // required
                                 />
                             </div>
@@ -719,8 +727,9 @@ function Add() {
                             <div className="d-flex align-items-center">
                                 <CDropdown className="w-100">
                                     <OutlineDropdownToggle style={{ marginTop: '7px' }}>
-                                        -- Pilih --
-                                        {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
+                                        {Array.isArray(developerDetail) && developerDetail.length === 0
+                                            ? '-- Pilih --'
+                                            : pilihDeveloper.find(item => item.ID_DEVELOPER === developerDetail)?.NAMA_DEVELOPER || '-- Pilih --'}
                                     </OutlineDropdownToggle>
 
                                     <CDropdownMenu>
@@ -759,7 +768,7 @@ function Add() {
                                     onChange={e => setBusinessOwnerDetail(e.target.value)}
                                     feedbackValid="Looks good!"
                                     id="validationCustom01"
-                                    // label="Business Owner"
+                                // label="Business Owner"
                                 // required
                                 />
                             </div>
@@ -775,8 +784,10 @@ function Add() {
                             <div className="d-flex align-items-center">
                                 <CDropdown className="w-100">
                                     <OutlineDropdownToggle style={{ marginTop: '7px' }}>
-                                        -- Pilih --
-                                        {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
+                                        {Array.isArray(picNipposDetail) && picNipposDetail.length === 0
+                                            ? '-- Pilih --'
+                                            : pilihKaryawan.find(item => item.NIPPOS === picNipposDetail)?.NAMA || '-- Pilih --'}
+
                                     </OutlineDropdownToggle>
 
                                     <CDropdownMenu>
@@ -815,7 +826,7 @@ function Add() {
                                     onChange={e => setTanggalLiveDetail(e.target.value)}
                                     feedbackValid="Looks good!"
                                     id="validationCustom01"
-                                    // label="Tanggal Live"
+                                // label="Tanggal Live"
                                 // required
                                 />
                             </div>
@@ -835,7 +846,7 @@ function Add() {
                                     onChange={e => setTanggalDeployDetail(e.target.value)}
                                     feedbackValid="Looks good!"
                                     id="validationCustom01"
-                                    // label="Tanggal Deploy"
+                                // label="Tanggal Deploy"
                                 // required
                                 />
                             </div>
@@ -855,7 +866,7 @@ function Add() {
                                     onChange={e => setTanggalAkhirUpdateDetail(e.target.value)}
                                     feedbackValid="Looks good!"
                                     id="validationCustom01"
-                                    // label="Tanggal Update"
+                                // label="Tanggal Update"
                                 // required
                                 />
                             </div>
@@ -875,7 +886,7 @@ function Add() {
                                     onChange={e => setTanggalTutupDetail(e.target.value)}
                                     feedbackValid="Looks good!"
                                     id="validationCustom01"
-                                    // label="Tanggal Tutup"
+                                // label="Tanggal Tutup"
                                 // required
                                 />
                             </div>

@@ -88,6 +88,20 @@ function Table() {
   const dateString = `${date.getFullYear()}-${date.getMonth() + 1
     }-${date.getDate()}`
   const filename = `enterprise-${dateString}.csv`
+  const filename2 = 'produk.json';
+
+  const downloadJSON = (data, filename2) => {
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const href = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = href;
+    link.download = filename2; // Nama file, pastikan menggunakan ekstensi .json
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const formatDate = (isoDate) => {
     if (!isoDate) return '';
@@ -312,7 +326,7 @@ function Table() {
       setPenempatanDetail(response.data.map(item => item.PENEMPATAN));
       setPICNipposDetail(response.data.map(item => item.PIC_NIPPOS));
       setAksesDetail(response.data.map(item => item.AKSES));
-      setDatabaseDetail(response.data.map(item => item.JENIS_DB));
+      // setDatabaseDetail(response.data.map(item => item.JENIS_DB));
       setDeveloperDetail(response.data.map(item => item.DEVELOPER));
       setServerDetail(response.data.map(item => item.SERVER));
       setBusinessOwnerDetail(response.data.map(item => item.BUSINESS_OWNER));
@@ -754,20 +768,37 @@ function Table() {
     <>
 
       {/* <CButton size="sm" color="danger" className="ml-1"> */}
-        <CSVLink
-          data={produk}
-          filename={filename}
-          style={{
-            marginLeft: 'auto',
-            float: 'right',
-            marginTop: '-3%',
-            marginRight: '5%',
-          }}
+      <CSVLink
+        data={produk}
+        filename={filename}
+        style={{
+          marginLeft: 'auto',
+          float: 'right',
+          marginTop: '-3%',
+          marginRight: '5%',
+        }}
+      >
+        {/* <DownloadIcon style={{ marginBottom: '-5px', color: '#022954' }} /> */}
+        <CIcon icon={cilArrowThickToBottom} size="lg" />
+        <span style={{ color: '#022954', marginLeft: '8px' }}>Download CSV</span>
+      </CSVLink>
+
+      <div
+        style={{
+          marginLeft: 'auto',
+          float: 'right',
+          marginTop: '-3%',
+          marginRight: '20%',
+        }}
+      >
+        <CIcon icon={cilArrowThickToBottom} size="lg" />
+        <span
+          style={{ color: '#022954', marginLeft: '8px', cursor: 'pointer' }}
+          onClick={() => downloadJSON(produk, filename2)} // Trigger download JSON dengan filename .json
         >
-          {/* <DownloadIcon style={{ marginBottom: '-5px', color: '#022954' }} /> */}
-          <CIcon icon={cilArrowThickToBottom} size="lg" />
-          <span style={{ color: '#022954', marginLeft: '8px' }}>Download</span>
-        </CSVLink>
+          Download JSON
+        </span>
+      </div>
       {/* </CButton> */}
       <CSmartTable
         activePage={2}

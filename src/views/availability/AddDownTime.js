@@ -81,30 +81,30 @@ function AddDownTime() {
         if (downTime && solvedTime) {
             const startTime = new Date(downTime);
             const endTime = new Date(solvedTime);
-    
+
             // Hitung selisih dalam milidetik
             const duration = endTime - startTime;
-    
+
             if (duration >= 0) {
                 // Mengonversi milidetik ke jam, menit, dan detik
                 const hours = Math.floor(duration / (1000 * 60 * 60));
                 const minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((duration % (1000 * 60)) / 1000);
-    
+
                 // Format durasi downtime sebagai HH:mm:ss
                 const formattedDowntime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
                 setDurasiDownTime(formattedDowntime); // Simpan durasi downtime
-    
+
                 // Hitung uptime
                 const totalSecondsIn24Hours = 24 * 60 * 60; // Total detik dalam 24 jam
                 const totalSecondsDowntime = hours * 3600 + minutes * 60 + seconds;
                 const totalSecondsUptime = totalSecondsIn24Hours - totalSecondsDowntime;
-    
+
                 // Mengonversi total detik uptime kembali ke jam, menit, dan detik
                 const uptimeHours = Math.floor(totalSecondsUptime / 3600);
                 const uptimeMinutes = Math.floor((totalSecondsUptime % 3600) / 60);
                 const uptimeSeconds = totalSecondsUptime % 60;
-    
+
                 // Format uptime sebagai HH:mm:ss
                 setDurasiUpTime(`${String(uptimeHours).padStart(2, '0')}:${String(uptimeMinutes).padStart(2, '0')}:${String(uptimeSeconds).padStart(2, '0')}`);
             } else {
@@ -113,8 +113,8 @@ function AddDownTime() {
             }
         }
     }, [downTime, solvedTime]);
-    
-    
+
+
 
     const handleTimeChange = (e, type) => {
         if (type === 'downTime') {
@@ -239,6 +239,11 @@ function AddDownTime() {
         window.location.reload();
     };
 
+    const handleClose = async () => {
+        setVisibleLg(false);
+        window.location.reload();
+    }
+
     return (
         <>
 
@@ -249,7 +254,7 @@ function AddDownTime() {
                 scrollable
                 size="lg"
                 visible={visibleLg}
-                onClose={() => setVisibleLg(false)}
+                onClose={() => handleClose()}
                 aria-labelledby="OptionalSizesExample2"
             >
                 <CModalHeader>
@@ -273,8 +278,9 @@ function AddDownTime() {
                             <div className="d-flex align-items-center">
                                 <CDropdown className="w-100">
                                     <OutlineDropdownToggle>
-                                        -- Pilih --
-                                        {/* {penempatanDetail ? pilihPenempatan.find(item => item.ID_PENEMPATAN === penempatanDetail)?.NAMA_PENEMPATAN : '-- Pilih --'} */}
+                                        {Array.isArray(produkTime) && produkTime.length === 0
+                                            ? '-- Pilih --'
+                                            : pilihProduk.find(item => item.ID_PRODUK === produkTime)?.NAMA_PRODUK || '-- Pilih --'}
                                     </OutlineDropdownToggle>
 
                                     <CDropdownMenu>
@@ -306,9 +312,9 @@ function AddDownTime() {
                                     onChange={e => setDurasiUpTime(e.target.value)}
                                     feedbackValid="Looks good!"
                                     id="validationCustom01"
-                                // label="Up Time"
-                                // required
-                                readOnly
+                                    // label="Up Time"
+                                    // required
+                                    readOnly
                                 />
                             </div>
                         </CCol>
@@ -440,7 +446,7 @@ function AddDownTime() {
                         }}
                     // disabled={isDisabled}
                     >
-                        Save changes and Go to next page
+                        Save changes
                     </CButton>
                 </CModalFooter>
             </CModal>

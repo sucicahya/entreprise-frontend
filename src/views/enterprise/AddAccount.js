@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import auth from '../../helpers/auth';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 
 
@@ -104,6 +105,11 @@ function AddAccount() {
     const [NEW_TELEPON_PIC, setNew_Telepon_PIC] = useState([]);
     const [accounts, setAccounts] = useState([])
     const [servers, setServers] = useState([])
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setIsPasswordVisible(prevState => !prevState);
+    };
 
     useEffect(() => {
         // Initialize with three default milestones
@@ -364,6 +370,11 @@ function AddAccount() {
         setAccounts([...accounts, { jenis_akun: '', uname: '', pass_akun: '', exp_akun: '', spec_server: '' }])
     }
 
+    const handleClose = async () => {
+        setVisibleLg3(false);
+        window.location.reload();
+    }
+
     return (
         <>
             <div className="mb-3">
@@ -373,7 +384,7 @@ function AddAccount() {
                 scrollable
                 size="lg"
                 visible={visibleLg3}
-                onClose={() => setVisibleLg3(false)}
+                onClose={() => handleClose()}
                 aria-labelledby="OptionalSizesExample2"
             >
                 <CModalHeader>
@@ -387,10 +398,10 @@ function AddAccount() {
                         onSubmit={handleSubmit}
                     >
                         <CCol style={{ flexBasis: '20%' }}>
-                            <span>Server - Produk</span>
+                            <span>Server - Produk</span> <span style={{ color: 'red' }}>*</span>
                         </CCol>
                         <CCol style={{ flexBasis: '20%' }}>
-                            <span>Jenis Akun</span>
+                            <span>Jenis Akun</span> <span style={{ color: 'red' }}>*</span>
                         </CCol>
                         <CCol style={{ flexBasis: '20%' }}>
                             <span>Username</span>
@@ -430,6 +441,7 @@ function AddAccount() {
                                             onChange={(e) => handleJenisAccount(index, e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
+                                            required
                                         />
                                     </CCol>
                                     <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
@@ -442,14 +454,20 @@ function AddAccount() {
                                         />
                                     </CCol>
                                     <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
-                                        <CFormInput
-                                            type="text"
-                                            value={acc.passAccount}
-                                            onChange={(e) => handlePassAccount(index, e.target.value)}
-                                            feedbackValid="Looks good!"
-                                            id="validationCustom01"
-                                        />
-                                    </CCol>
+      <CInputGroup>
+        <CFormInput
+          type={isPasswordVisible ? 'text' : 'password'}
+          value={acc.passAccount}
+          onChange={(e) => handlePassAccount(index, e.target.value)}
+          feedbackValid="Looks good!"
+          id="validationCustom01"
+        />
+        {/* Tombol untuk mengubah visibilitas password */}
+        <CInputGroupText onClick={togglePasswordVisibility} style={{ cursor: 'pointer' }}>
+          {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+        </CInputGroupText>
+      </CInputGroup>
+    </CCol>
                                     <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
                                         {/* {NewExpAccount[index] && ( */}
                                         <CFormInput
