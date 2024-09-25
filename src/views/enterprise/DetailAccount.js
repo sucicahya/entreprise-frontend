@@ -10,14 +10,22 @@ import {
     CRow,
     CFormSelect,
     CFormInput,
+    CInputGroup,
+    CInputGroupText,
     CModalFooter,
     CButton,
 } from '@coreui/react';
 import auth from '../../helpers/auth';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, account2, handleJenisAccount, handleUsernameAccount, handlePassAccount, handleExpAccount, handleUpdateAccount }) => {
+const DetailAccount = ({ NewExpAccount, role, item, details, handleFetchAccount, account2, handleJenisAccount, handleUsernameAccount, handlePassAccount, handleExpAccount, handleUpdateAccount }) => {
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setIsPasswordVisible(prevState => !prevState);
+    };
 
     return (
         <>
@@ -75,7 +83,7 @@ const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, accou
                                             onChange={(e) => handleJenisAccount(index, e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
-                                            readOnly
+                                            readOnly={role === 2}
                                         />
                                     </CCol>
                                     <CCol md={3} style={{ marginRight: '10px' }}>
@@ -85,18 +93,23 @@ const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, accou
                                             onChange={(e) => handleUsernameAccount(index, e.target.value)}
                                             feedbackValid="Looks good!"
                                             id="validationCustom01"
-                                            readOnly
+                                            readOnly={role === 2}
                                         />
                                     </CCol>
                                     <CCol md={3} style={{ marginRight: '10px' }}>
-                                        <CFormInput
-                                            type="password"
-                                            defaultValue={item.PASS}
-                                            onChange={(e) => handlePassAccount(index, e.target.value)}
-                                            feedbackValid="Looks good!"
-                                            id="validationCustom01"
-                                            readOnly
-                                        />
+                                        <CInputGroup>
+                                            <CFormInput
+                                                type={isPasswordVisible ? 'text' : 'password'}
+                                                defaultValue={item.PASS}
+                                                onChange={(e) => handlePassAccount(index, e.target.value)}
+                                                feedbackValid="Looks good!"
+                                                id="validationCustom01"
+                                                readOnly={role === 2}
+                                            />
+                                            <CInputGroupText onClick={togglePasswordVisibility} style={{ cursor: 'pointer' }}>
+                                                {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                                            </CInputGroupText>
+                                        </CInputGroup>
                                     </CCol>
                                     <CCol md={3}>
                                         {NewExpAccount[index] && (
@@ -106,7 +119,7 @@ const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, accou
                                                 onChange={(e) => handleExpAccount(index, e.target.value)}
                                                 feedbackValid="Looks good!"
                                                 id="validationCustom01"
-                                                readOnly
+                                                readOnly={role === 2}
                                             />
                                         )}
                                     </CCol>
@@ -116,14 +129,16 @@ const DetailAccount = ({ NewExpAccount, item, details, handleFetchAccount, accou
                     </CForm>
                 </CModalBody>
                 <CModalFooter>
-                    {/* <CButton
-                        color="primary"
-                        onClick={() => {
-                            handleUpdateAccount();
-                        }}
-                    >
-                        Save changes
-                    </CButton> */}
+                    {role !== 2 && (
+                        <CButton
+                            color="primary"
+                            onClick={() => {
+                                handleUpdateAccount();
+                            }}
+                        >
+                            Save changes
+                        </CButton>
+                    )}
                 </CModalFooter>
             </CModal>
         </>

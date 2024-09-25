@@ -454,20 +454,20 @@ function AddAccount() {
                                         />
                                     </CCol>
                                     <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
-      <CInputGroup>
-        <CFormInput
-          type={isPasswordVisible ? 'text' : 'password'}
-          value={acc.passAccount}
-          onChange={(e) => handlePassAccount(index, e.target.value)}
-          feedbackValid="Looks good!"
-          id="validationCustom01"
-        />
-        {/* Tombol untuk mengubah visibilitas password */}
-        <CInputGroupText onClick={togglePasswordVisibility} style={{ cursor: 'pointer' }}>
-          {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-        </CInputGroupText>
-      </CInputGroup>
-    </CCol>
+                                        <CInputGroup>
+                                            <CFormInput
+                                                type={isPasswordVisible ? 'text' : 'password'}
+                                                value={acc.passAccount}
+                                                onChange={(e) => handlePassAccount(index, e.target.value)}
+                                                feedbackValid="Looks good!"
+                                                id="validationCustom01"
+                                            />
+                                            {/* Tombol untuk mengubah visibilitas password */}
+                                            <CInputGroupText onClick={togglePasswordVisibility} style={{ cursor: 'pointer' }}>
+                                                {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                                            </CInputGroupText>
+                                        </CInputGroup>
+                                    </CCol>
                                     <CCol style={{ marginRight: '5px', flexBasis: '20%' }}>
                                         {/* {NewExpAccount[index] && ( */}
                                         <CFormInput

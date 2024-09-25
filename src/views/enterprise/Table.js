@@ -14,6 +14,7 @@ import DetailAccount from './DetailAccount';
 import DetailMain from './DetailMain';
 import auth from '../../helpers/auth';
 import { CSVLink } from 'react-csv'
+import { useLocation } from 'react-router-dom';
 
 function Table() {
   const [produk, setProduk] = useState([]);
@@ -84,6 +85,20 @@ function Table() {
   const [webServer, setWebServer] = useState([]);
   const [databaseServer, setDatabaseServer] = useState([]);
   const [macamServer, setMacamServer] = useState([]);
+  const [role, setRole] = useState([]);
+
+  const location = useLocation();
+  const loginData = location.state?.loginData; // Mengakses data yang dikirim melalui state
+
+  // Gunakan useEffect untuk melakukan console log saat halaman di-render
+  useEffect(() => {
+      if (loginData) {
+          const role = loginData.results[0]?.role; // Mengakses 'role' dari data
+          console.log('Role yang diterima di halaman enterprise:', role);
+          setRole(role);
+      }
+  }, [loginData]);
+
   const date = new Date()
   const dateString = `${date.getFullYear()}-${date.getMonth() + 1
     }-${date.getDate()}`
@@ -937,6 +952,7 @@ function Table() {
                 item={item}
                 details={details}
                 account2={account2}
+                role={role}
                 // pilihServer={pilihServer}
                 handleFetchAccount={handleFetchAccount}
                 handleJenisAccount={handleJenisAccount}
