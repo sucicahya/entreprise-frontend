@@ -106,9 +106,11 @@ const DetailAccount = ({ NewExpAccount, role, item, details, handleFetchAccount,
                                                 id="validationCustom01"
                                                 readOnly={role === 2}
                                             />
-                                            <CInputGroupText onClick={togglePasswordVisibility} style={{ cursor: 'pointer' }}>
-                                                {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-                                            </CInputGroupText>
+                                            {role !== 2 && (
+                                                <CInputGroupText onClick={togglePasswordVisibility} style={{ cursor: 'pointer' }}>
+                                                    {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                                                </CInputGroupText>
+                                            )}
                                         </CInputGroup>
                                     </CCol>
                                     <CCol md={3}>
