@@ -9,6 +9,7 @@ import {
   CSidebarFooter,
   CSidebarHeader,
   CSidebarToggler,
+  CTooltip
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 
@@ -66,10 +67,12 @@ const AppSidebar = () => {
       </CSidebarHeader>
       <AppSidebarNav items={navigation} />
       <CSidebarFooter className="border-top d-none d-lg-flex">
-        <CSidebarToggler
-          // onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
-          onClick={handleSidebarToggle}
-        />
+        <CTooltip content="Log Out">
+          <CSidebarToggler
+            // onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
+            onClick={handleSidebarToggle}
+          />
+        </CTooltip>
       </CSidebarFooter>
     </CSidebar>
   )
