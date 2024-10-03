@@ -791,6 +791,7 @@ function Table() {
           float: 'right',
           marginTop: '-3%',
           marginRight: '5%',
+          color: '#022954'
         }}
       >
         {/* <DownloadIcon style={{ marginBottom: '-5px', color: '#022954' }} /> */}
@@ -811,7 +812,7 @@ function Table() {
           style={{ color: '#022954', marginLeft: '8px', cursor: 'pointer' }}
           onClick={() => downloadJSON(produk, filename2)} // Trigger download JSON dengan filename .json
         >
-          Download JSON
+          <u>Download JSON</u>
         </span>
       </div>
       {/* </CButton> */}
